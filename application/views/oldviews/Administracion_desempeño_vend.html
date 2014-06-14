@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="description" content="">
+   <meta name="author" content="">
+   <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+
+   <title>Dashboard Template for Bootstrap</title>
+
+   <!-- Bootstrap core CSS -->
+   <link href="./css/bootstrap.min.css" rel="stylesheet">
+
+   <!-- Custom styles for this template -->
+   <link href="./css/custom.css" rel="stylesheet">
+
+   <!-- Just for debugging purposes. Don't actually copy this line! -->
+   <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+   <!--[if lt IE 9]>
+     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+   <![endif]-->
+ </head>
+
+ <body>
+
+   <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+     <div class="container-fluid">
+       <div class="navbar-header">
+         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+           <span class="sr-only">Toggle navigation</span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+         </button>
+         <a class="navbar-brand" href="#">AutoGuayana</a>
+       </div>
+       <div class="navbar-collapse collapse">
+         <ul class="nav navbar-nav navbar-right">
+           <li><a href="#">Clientes</a></li>
+           <li><a href="#">Stock</a></li>
+           <li><a href="#">Facturar</a></li>
+           <li><a href="#">*Administración*</a></li>
+         </ul>
+       </div>
+     </div>
+   </div>
+
+   <div class="container-fluid">
+     <div class="row">
+       <div class="col-sm-3 col-md-2 sidebar">
+         <ul class="nav nav-sidebar">
+             <li class="dropdown-submenu">
+               <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Artículos
+                    <span class="caret"></span>
+               </a>
+               <ul class="dropdown-menu">
+                    <li ><a href="#">Registrar artículos</a></li>
+                    <li ><a href="#">Gestionar artículos</a></li>
+               </ul>
+           </li>
+             <li class="dropdown-submenu">
+               <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Vehículos
+                    <span class="caret"></span>
+               </a>
+               <ul class="dropdown-menu">
+                    <li ><a href="#">Registrar vehículos</a></li>
+                    <li ><a href="#">Gestionar vehículos</a></li>
+               </ul>
+           </li>              
+           <li class="dropdown-submenu">
+               <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Empleados
+                    <span class="caret"></span>
+               </a>
+               <ul class="dropdown-menu">
+                    <li ><a href="#">Gestionar empleados</a></li>
+                    <li ><a href="#">Gestionar fichas</a></li>
+               </ul>
+           </li>             
+             <li class="active dropdown-submenu">
+               <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Reportes
+                    <span class="caret"></span>
+               </a>
+               <ul class="dropdown-menu">
+                    <li class="active"><a href="#">Ventas</a></li>
+                    <li ><a href="#">Top 5 vendedores</a></li>
+                    <li ><a href="#">Desempeño general</a></li>
+               </ul>
+           </li>
+         </ul>
+       </div>
+       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+
+         <h2 class="sub-header">Desempeño General</h2>
+         <div class="row">
+             <div class="col-xs-12 col-sm-3 col-md-3">
+                <div class="control-group">
+                    <label class="control-label" for="searchinput">Ingresar Vendedor</label>
+                    <div class="controls">
+                        <input id="searchinput" name="searchinput" type="text" placeholder="Ci o ID" class="input-xlarge search-query">
+                      
+                    </div>
+                </div>
+
+                 <!-- Button -->
+                 <div class="control-group">
+                    <div class="controls">
+                        <button id="singlebutton" name="singlebutton" class="btn btn-primary">Generar</button>
+                    </div>
+                </div>
+             </div>                
+             <div class="col-xs-12 col-sm-3 col-md-3">
+                   <h4>Desde:</h4>
+                   <input type="date">
+             </div>
+             <div class="col-xs-12 col-sm-3 col-md-3">
+                   <h4>Hasta:</h4>
+                   <input type="date">
+             </div>  
+             
+             <div class="col-xs-12 col-sm-3 col-md-3">
+                <div class="control-group">
+                    <label class="control-label" for="button1id">Generar Reporte Para Todos Los Vendedores</label>
+                    <div class="controls">
+                        <button id="button1id" name="button1id" class="btn btn-success">Generar Todos</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <br>
+         <br>
+        <legend>Info Vendedor:</legend>   
+        <div class="row">
+               <div class="col-xs-12 col-sm-3 col-md-4">
+                   <h4>Cedula:</h4>
+                   <textarea id="textarea" name="textarea">10759175</textarea>
+               </div>
+               <div class="col-xs-12 col-sm-3 col-md-4">
+                   <h4>Nombre:</h4>
+                   <textarea id="textarea" name="textarea">Pedro Perez</textarea>
+               </div>
+               <div class="col-xs-12 col-sm- col-md-4">
+                   <h4>Direccion:</h4>
+                   <textarea id="textarea" name="textarea">Puerto Ordaz</textarea>
+               </div>
+            
+        </div>
+           <br>
+        <legend>Vehiculos</legend>
+         <div class="table-responsive">
+           <table class="table table-striped">
+             <thead>
+               <tr>
+                 <th>Nro Factura</th>
+                 <th>Modelo</th>
+                 <th>Serial</th>
+                 <th>Precio de Venta</th>    
+               </tr>
+             </thead>
+             <tbody>
+               <tr>
+                 <td>123</td>
+                 <td>Hilux</td>
+                 <td>123456789</td>
+                 <td>2 Millones $$</td>
+               </tr>
+               <tr>
+                 <td>124</td>
+                 <td>Corolla</td>
+                 <td>314236789</td>
+                 <td>1 Millon $$</td>
+                              
+               </tr>
+           
+             </tbody>
+           </table>
+         </div>
+           <legend>Subtotal</legend><br>
+           <div class="table-responsive">
+           <table class="table table-striped">
+             <thead>
+               <tr>
+                 <th>2009</th>
+                 <th>2010</th>
+                 <th>2011</th>
+                 <th>2012</th>
+                 <th>2013</th>
+                 <th>Total</th>    
+               </tr>
+             </thead>
+             <tbody>
+               <tr>
+                 <td>10</td>
+                 <td>100</td>
+                 <td>1000</td>
+                 <td>10000</td>
+                 <td>100000</td>
+                 <td>111110</td>   
+               </tr>    
+             </tbody>
+           </table>
+         </div>
+       </div>
+     </div>
+   </div>
+
+   <!-- Bootstrap core JavaScript
+   ================================================== -->
+   <!-- Placed at the end of the document so the pages load faster -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+   <script src="./js/bootstrap.min.js"></script>
+   <script src="../../assets/js/docs.min.js"></script>
+ </body>
+</html>
