@@ -11,7 +11,7 @@ class Stock extends CI_Controller{
         $this->load->view('layouts/header');
         $this->load->view('layouts/footer');
     }*/
-    public function traerArticulos()
+    public function articulos()
     {
         $query = $this->Stock_model->getArticulos();
         $data['articulos'] = $query;
@@ -21,7 +21,7 @@ class Stock extends CI_Controller{
         $this->load->view('layouts/footer');
     }
 
-    public function traerVehiculos()
+    public function vehiculos()
     {
         $query = $this->Stock_model->getVehiculos();
         $data['vehiculos'] = $query;

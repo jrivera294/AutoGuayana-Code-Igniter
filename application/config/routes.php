@@ -40,7 +40,7 @@
 
 $route['default_controller'] = "home";
 $route['clientes'] = "clientes";
-$route['stock'] = "stock/traerArticulos";
+$route['stock'] = "stock/articulos";
 //$route['stock'] = "stock/traerVehiculo";
 $route['404_override'] = '';
 
