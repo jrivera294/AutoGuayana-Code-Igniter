@@ -40,5 +40,14 @@ class Clientes extends CI_Controller{
         
         echo "registrado correctamente";
     }
+
+    public function cliente($cedula=0){
+        $query = $this->Client_model->getClientByCedula($cedula);
+        $data['clientes'] = $query;
+
+        $this->load->view('layouts/header');
+        $this->load->view('clientes/clientes_view',$data);
+        $this->load->view('layouts/footer');
+    }
 }
 ?>

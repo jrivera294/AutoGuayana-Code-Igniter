@@ -9,6 +9,11 @@
             return $query->result();
         }
 
+       function getClientByCedula($cedula){
+            $query = $this->db->query("SELECT * FROM cliente WHERE cedula=?", array($cedula));
+            return $query->result();
+       }
+
         function addClient($client){
             foreach ($client as $cell=>$value){
                 if($value==''){
