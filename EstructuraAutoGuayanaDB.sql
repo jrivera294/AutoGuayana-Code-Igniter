@@ -1,6 +1,6 @@
 --Creacion de dominios:
 CREATE DOMAIN Nombre AS varchar(20) NOT NULL
-    CONSTRAINT dom_nombre_check CHECK(value ~* '^[A-ZÁ-ÚÑ][a-zA-ZÁ-ÚÑá-úñ]+$');
+    CONSTRAINT dom_nombre_check CHECK(SUBSTRING(value,0,1) ~* '^[A-ZÁ-ÚÑ]');
 
 CREATE DOMAIN dom_sexo as char(1) NOT NULL
     CONSTRAINT dom_sexo_check CHECK ((VALUE='M' OR VAlUE='F'));
