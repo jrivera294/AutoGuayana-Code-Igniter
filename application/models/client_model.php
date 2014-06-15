@@ -10,6 +10,11 @@
         }
 
         function addClient($client){
+            foreach ($client as $cell=>$value){
+                if($value==''){
+                    $client[$cell]=null;
+                }
+            }
             $query = $this->db->query("INSERT INTO cliente VALUES (?,?,?,?,?,?,?,?,?)",$client);
             return $query;
         }    

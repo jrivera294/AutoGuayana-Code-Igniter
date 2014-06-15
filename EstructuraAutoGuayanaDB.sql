@@ -21,7 +21,7 @@ CREATE TABLE cliente(
 	fecha_nac dom_fecha_nac,
 	dir varchar(40),
 	empresa varchar(20),
-	ingresos real CHECK(ingresos>0),
+	ingresos real CHECK(ingresos>=0),
 
     PRIMARY KEY(cedula)
 );
