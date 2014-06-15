@@ -10,17 +10,16 @@ class Clientes extends CI_Controller{
     public function index()
     {
         $query = $this->Client_model->getClient();
-        if($query){
-            $data['clientes'] = $query;
-        }
+        $data['clientes'] = $query;
+
         $this->load->view('layouts/header');
-        $this->load->view('clientes/clientes',$data);
+        $this->load->view('clientes/clientes_view',$data);
         $this->load->view('layouts/footer');   
     }
     
     public function register(){
         $this->load->view('layouts/header');
-        $this->load->view('clientes/registrocliente');
+        $this->load->view('clientes/registrocliente_view');
         $this->load->view('layouts/footer');           
     }
     
@@ -39,10 +38,7 @@ class Clientes extends CI_Controller{
         
         $result = $this->Client_model->addClient($cliente);
         
-        
-        $this->load->view('layouts/header');
-        $this->load->view('clientes/clientes');
-        $this->load->view('layouts/footer');
+        echo "registrado correctamente";
     }
 }
 ?>

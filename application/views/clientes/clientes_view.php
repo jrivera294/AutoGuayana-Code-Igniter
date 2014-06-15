@@ -39,7 +39,7 @@
             </fieldset>
           </form>
 
-          </div>    
+          </div>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
@@ -67,7 +67,7 @@
                       <button type="button" class="btn btn-xs btn-primary">Ver</button>
                   </td>
                   <td>
-                      <button type="button" class="btn btn-xs btn-primary">Ver</button>                  
+                      <button type="button" class="btn btn-xs btn-primary">Ver</button>
                   </td>
                   <td><?=$loop->fecha_nac;?></td>
                   <td>31/05/2014</td>
@@ -77,8 +77,8 @@
                 </tr>
                 <?php
                         }
-                    } 
-                ?>                                     
+                    }
+                ?>
               </tbody>
             </table>
           </div>
