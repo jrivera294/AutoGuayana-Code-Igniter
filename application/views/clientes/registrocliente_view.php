@@ -92,7 +92,7 @@
 				<div class="col-xs-12 col-sm-6 col-md-6">
                     <h3>Aproximado de ingresos:</h3>
 					<div class="form-group">
-                        <input type="number" name="ingresos" step="any" id="ingresos" class="form-control input-lg" placeholder="0 Bsf" tabindex="9">
+                        <input type="number" name="ingresos" step="any" id="ingresos" class="form-control input-lg" tabindex="9" value="0">
 					</div>
 				</div>
 
