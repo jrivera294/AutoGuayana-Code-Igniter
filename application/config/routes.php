@@ -41,11 +41,8 @@
 $route['default_controller'] = "home";
 $route['clientes'] = "clientes";
 $route['stock'] = "stock/articulos";
-<<<<<<< HEAD
 $route['facturar'] = "facturar";
-=======
 $route['administracion'] = "admin/gestionVehiculos";
->>>>>>> origin/master
 //$route['stock'] = "stock/traerVehiculo";
 $route['404_override'] = '';
 
