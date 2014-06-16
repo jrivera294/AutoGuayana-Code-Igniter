@@ -51,7 +51,7 @@ CREATE TABLE vehiculo(
 	nro_puertas integer NOT NULL CHECK(nro_puertas>=0),
 	peso integer NOT NULL CHECK(precio>0),
 	capacidad integer NOT NULL CHECK(capacidad>=0),
-	fecha_entrega date NOT NULL,
+	fecha_entrega date ,
 	kilometraje integer NOT NULL CHECK(kilometraje>=0),
 	monto_garantia_ext integer NOT NULL CHECK(precio>=0),
 
