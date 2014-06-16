@@ -52,6 +52,9 @@ class Admin extends CI_Controller{
        // $result = $this->Admin_model->addVehiculo($vehiculo);
 
         echo "registrado correctamente";
+        $this->load->view('layouts/header',$data);
+        $this->load->view('admin/registroVehiculos_view');
+        $this->load->view('layouts/footer');
     }
 
     public function gestionVehiculos(){
