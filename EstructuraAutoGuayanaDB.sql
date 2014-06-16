@@ -41,7 +41,7 @@ CREATE TABLE correos_cliente(
 );
 
 CREATE TABLE vehiculo(
-	id serial NOT NULL,
+	id integer NOT NULL,
 	precio real CHECK(precio>=0) NOT NULL ,
 	modelo varchar(20) NOT NULL,
 	fecha_fab date NOT NULL,
