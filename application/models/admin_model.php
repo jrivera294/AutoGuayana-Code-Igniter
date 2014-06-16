@@ -25,7 +25,16 @@
             $query = $this->db->query("INSERT INTO opciones_vehiculo VALUES (?,?)",$info);
             return $query;
         }
-
+       
+        function getColoresVehiculo($serial_vehiculo){
+            $query = $this->db->query("SELECT color FROM color_vehiculo WHERE id_vehiculo = (?)",$serial_vehiculo);
+            return $query;
+        }
+        function getOpcionesVehiculo($serial_vehiculo){
+            $query = $this->db->query("SELECT color FROM color_vehiculo WHERE id_vehiculo = (?)",$serial_vehiculo);
+            return $query;
+        }
+       
         function gestionarVehiculos(){
             //not ready for implementation
         }

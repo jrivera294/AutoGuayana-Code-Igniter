@@ -59,7 +59,11 @@ class Admin extends CI_Controller{
 
     public function gestionVehiculos(){
         $query = $this->Stock_model->getVehiculos();
+        $colores = array();
+        $colores[0] = array();
         $data['vehiculos'] = $query;
+        
+        $colo
 
         $this->load->view('layouts/header');
         $this->load->view('admin/gestionVehiculos_view',$data);
