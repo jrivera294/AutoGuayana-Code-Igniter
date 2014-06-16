@@ -69,7 +69,12 @@
                   <td>
                       <button type="button" class="btn btn-xs btn-primary">Ver</button>
                   </td>
-                  <td><?=$loop->fecha_nac;?></td>
+                  <td>
+                    <?php
+                        if($loop->fecha_nac){
+                            echo date("d/m/Y",strtotime($loop->fecha_nac));
+                    }
+                  ?></td>
                   <td>31/05/2014</td>
                   <td>
                       <button type="button" class="btn btn-xs btn-primary">Ver</button>

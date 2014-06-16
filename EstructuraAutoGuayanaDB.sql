@@ -1,6 +1,6 @@
 --Creacion de dominios:
 CREATE DOMAIN Nombre AS varchar(20) NOT NULL
-    CONSTRAINT dom_nombre_check CHECK(value ~* '^[A-ZÁ-ÚÑ][a-zA-ZÁ-ÚÑá-úñ]+$');
+    CONSTRAINT dom_nombre_check CHECK(VALUE ~ '[A-ZÁ-ÚÑ][A-Za-zÁ-Úá-úñÑ]');
 
 CREATE DOMAIN dom_sexo as char(1) NOT NULL
     CONSTRAINT dom_sexo_check CHECK ((VALUE='M' OR VAlUE='F'));
@@ -21,7 +21,7 @@ CREATE TABLE cliente(
 	fecha_nac dom_fecha_nac,
 	dir varchar(40),
 	empresa varchar(20),
-	ingresos real CHECK(ingresos>0),
+	ingresos real CHECK(ingresos>=0),
 
     PRIMARY KEY(cedula)
 );
@@ -41,7 +41,7 @@ CREATE TABLE correos_cliente(
 );
 
 CREATE TABLE vehiculo(
-	id serial NOT NULL,
+	id integer NOT NULL,
 	precio real CHECK(precio>=0) NOT NULL ,
 	modelo varchar(20) NOT NULL,
 	fecha_fab date NOT NULL,

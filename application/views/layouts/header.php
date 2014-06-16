@@ -46,4 +46,20 @@
             </div>
           </div>
         </div>
-        
+        <br>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-10">
+        <?php if(isset($message)){
+            switch($message_type){
+                case 1:
+                ?>
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <?php echo $message; ?>
+                    </div>
+                <?php
+                break;
+            }
+        }
+        ?>
+        </div>

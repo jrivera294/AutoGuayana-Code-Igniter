@@ -65,7 +65,7 @@
 				<div class="col-xs-12 col-sm-6 col-md-6">
                     <h3>Fecha de nacimiento:</h3>
 					<div class="form-group">
-                        <input type="date" name="fecha_nac" required>
+                        <input type="date" name="fecha_nac" >
 					</div>
 				</div>
 
