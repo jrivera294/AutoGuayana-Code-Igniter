@@ -1,38 +1,34 @@
-http://bootsnipp.com/snippets/featured/content-in-bootstrap-tabs
 <section >
         <div class="container">
             <div class="row">
                 <div class="board">
-                    <!-- <h2>Welcome to IGHALO!<sup>™</sup></h2>-->
                     <div class="board-inner">
                     <ul class="nav nav-tabs" id="myTab">
                     <div class="liner"></div>
                      <li class="active">
-                     <a href="#home" data-toggle="tab" title="welcome">
+                     <a href="#Cliente" data-toggle="tab" title="Cliente">
                       <span class="round-tabs one">
-                              <i class="glyphicon glyphicon-home"></i>
+                              <i class="glyphicon glyphicon-user"></i>
                       </span> 
                   </a></li>
-
-                  <li><a href="#profile" data-toggle="tab" title="profile">
-                     <span class="round-tabs two">
-                         <i class="glyphicon glyphicon-user"></i>
-                     </span> 
-           </a>
-                 </li>
-                 <li><a href="#messages" data-toggle="tab" title="bootsnipp goodies">
+                  <li><a href="#Vehiculo" data-toggle="tab" title="Vehiculo">
                      <span class="round-tabs three">
-                          <i class="glyphicon glyphicon-gift"></i>
+                          <i class="glyphicon glyphicon-road"></i>
+                     </span> </a>
+                     </li>
+                 <li><a href="#Articulos" data-toggle="tab" title="Articulos">
+                     <span class="round-tabs three">
+                          <i class="glyphicon glyphicon-shopping-cart"></i>
                      </span> </a>
                      </li>
 
-                     <li><a href="#settings" data-toggle="tab" title="blah blah">
+                     <li><a href="#Financiamiento" data-toggle="tab" title="Financiamiento">
                          <span class="round-tabs four">
-                              <i class="glyphicon glyphicon-comment"></i>
+                              <i class="glyphicon glyphicon-usd"></i>
                          </span> 
                      </a></li>
 
-                     <li><a href="#doner" data-toggle="tab" title="completed">
+                     <li><a href="#check" data-toggle="tab" title="Facturar">
                          <span class="round-tabs five">
                               <i class="glyphicon glyphicon-ok"></i>
                          </span> </a>
@@ -41,57 +37,157 @@ http://bootsnipp.com/snippets/featured/content-in-bootstrap-tabs
                      </ul></div>
 
                      <div class="tab-content">
-                      <div class="tab-pane active" id="home">
+                      <div class="tab-pane active" id="Cliente">
+                          <h3 class="head text-center">Información del cliente</h3>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <h4>Cédula:</h4>
+					            <div class="form-group">
+                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="Ejemplo: 12345678" tabindex="1" required>
+					            </div>
+				            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <h4>Nombre:</h4>
+					            <div class="form-group">
+                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" readonly placeholder="">
+					            </div>
+				            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <h4>Primer apellido:</h4>
+					            <div class="form-group">
+                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" readonly placeholder="">
+					            </div>
+				            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <h4>Segundo Apellido:</h4>
+					            <div class="form-group">
+                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" readonly placeholder="">
+					            </div>
+				            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <h4>Teléfono fijo:</h4>
+					            <div class="form-group">
+                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" readonly placeholder="">
+					            </div>
+				            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <h4>Teléfono celular:</h4>
+					            <div class="form-group">
+                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" readonly placeholder="">
+					            </div>
+				            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <h4>Dirección</h4>
+					            <div class="form-group">
+                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" readonly placeholder="">
+					            </div>
+				            </div>
 
-                          <h3 class="head text-center">Welcome to Bootsnipp<sup>™</sup> <span style="color:#f48260;">♥</span></h3>
-                          <p class="narrow text-center">
-                              Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.
-                          </p>
-                          
-                          <p class="text-center">
-                    <a href="" class="btn btn-success btn-outline-rounded green"> start using bootsnipp <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
-                </p>
+<div class="col-xs-6 col-md-6"><a href="<?= base_url("index.php/clientes/edit");?>" class="btn btn-warning btn-block btn-lg" tabindex="2">Editar cliente</a></div>
+
+
                       </div>
-                      <div class="tab-pane" id="profile">
-                          <h3 class="head text-center">Create a Bootsnipp<sup>™</sup> Profile</h3>
-                          <p class="narrow text-center">
-                              Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.
-                          </p>
-                          
-                          <p class="text-center">
-                    <a href="" class="btn btn-success btn-outline-rounded green"> create your profile <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
-                </p>
-                          
+                      <div class="tab-pane" id="Vehiculo">
+                          <h3 class="head text-center">Añadir vehículo</h3>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <h4>Serial vehículo:</h4>
+                                <div class="form-group">
+                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="Ejemplo: 12345678" tabindex="1">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <h4>Modelo:</h4>
+					            <div class="form-group">
+                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" readonly placeholder="">
+					            </div>
+				            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <h4>Monto garantía extendida:</h4>
+					            <div class="form-group">
+                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" readonly placeholder="">
+					            </div>
+				            </div>
+
+                             <div class="col-xs-12 col-sm-6 col-md-6">
+                                <h4>Precio</h4>
+					            <div class="form-group">
+                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" readonly placeholder="">
+					            </div>
+				            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <h4>Descuento:</h4>
+					            <div class="form-group">
+                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="Ejemplo: 12345678" tabindex="1" required>
+					            </div>
+				            </div>
+                             <div class="col-xs-12 col-sm-6 col-md-6">
+                                     <br><br>
+                                  <button type="button" class="btn btn-md btn-primary" onclick="addColor()">Buscar</button>
+                                  <button type="button" class="btn btn-md btn-success" onclick="addColor()">Añadir</button>
+                             </div>
                       </div>
-                      <div class="tab-pane" id="messages">
-                          <h3 class="head text-center">Bootsnipp goodies</h3>
-                          <p class="narrow text-center">
-                              Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.
-                          </p>
-                          
-                          <p class="text-center">
-                    <a href="" class="btn btn-success btn-outline-rounded green"> start using bootsnipp <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
-                </p>
+                      <div class="tab-pane" id="Articulos">
+                          <h3 class="head text-center">Añadir artículos</h3>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <h4>Serial artículo:</h4>
+                                <div class="form-group">
+                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="Ejemplo: 12345678" tabindex="1">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <h4>Fabricante:</h4>
+					            <div class="form-group">
+                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" readonly placeholder="">
+					            </div>
+				            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <h4>Modelo:</h4>
+					            <div class="form-group">
+                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" readonly placeholder="">
+					            </div>
+				            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <h4>Stock disponible:</h4>
+					            <div class="form-group">
+                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" readonly placeholder="">
+					            </div>
+				            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <h4>Descripción</h4>
+					            <div class="form-group">
+                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" value="" readonly placeholder="">
+					            </div>
+				            </div>
+                             <div class="col-xs-12 col-sm-6 col-md-6">
+                                <h4>Precio</h4>
+					            <div class="form-group">
+                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" readonly placeholder="">
+					            </div>
+				            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <h4>Descuento:</h4>
+					            <div class="form-group">
+                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="Ejemplo: 12345678" tabindex="1" required>
+					            </div>
+				            </div>
+                             <div class="col-xs-12 col-sm-6 col-md-6">
+                                  <button type="button" class="btn btn-md btn-primary" onclick="addColor()">Buscar</button>
+                                  <button type="button" class="btn btn-md btn-success" onclick="addColor()">Añadir</button>
+                             </div>
                       </div>
-                      <div class="tab-pane" id="settings">
-                          <h3 class="head text-center">Drop comments!</h3>
-                          <p class="narrow text-center">
-                              Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.
-                          </p>
-                          
-                          <p class="text-center">
-                    <a href="" class="btn btn-success btn-outline-rounded green"> start using bootsnipp <span style="margin-left:10px;" class="glyphicon glyphicon-send"></span></a>
-                </p>
+                      <div class="tab-pane" id="Financiamiento">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <h3 class="head text-center">Información del seguro</h3>
+
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <h3 class="head text-center">Tipo de pago</h3>
+
+                            </div>
                       </div>
-                      <div class="tab-pane" id="doner">
-  <div class="text-center">
-    <i class="img-intro icon-checkmark-circle"></i>
-</div>
-<h3 class="head text-center">thanks for staying tuned! <span style="color:#f48260;">♥</span> Bootstrap</h3>
-<p class="narrow text-center">
-  Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.
-</p>
-</div>
+                      <div class="tab-pane" id="check">
+                          <h3 class="head text-center">Confirmar e imprimir</h3>
+
+                      </div>
 <div class="clearfix"></div>
 </div>
 
