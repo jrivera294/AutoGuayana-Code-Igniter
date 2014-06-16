@@ -41,6 +41,7 @@
 $route['default_controller'] = "home";
 $route['clientes'] = "clientes";
 $route['stock'] = "stock/articulos";
+$route['administracion'] = "admin/gestionVehiculos";
 //$route['stock'] = "stock/traerVehiculo";
 $route['404_override'] = '';
 

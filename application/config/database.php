@@ -50,7 +50,7 @@ $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'postgres';
-$db['default']['password'] = '1993';
+$db['default']['password'] = 'root';
 $db['default']['database'] = 'autoguayanadb';
 $db['default']['dbdriver'] = 'postgre';
 $db['default']['dbprefix'] = '';
