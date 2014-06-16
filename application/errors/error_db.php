@@ -45,6 +45,8 @@
                 echo "Error en fecha de nacimiento. No puedes registrar a alguien que no ha nacido!";
             }else if(strpos($message,"estatustrab_check")){
                 echo "Error en el estatus del trabajador, solo puede ser Activo,Permiso,Retirado,Vacaciones";
+            }else if(strpos($message,"cliente_pkey")){
+                echo "Error: ya existe un cliente con ésta cédula";
             }else{
                 echo $message;
             }

@@ -38,7 +38,12 @@ class Clientes extends CI_Controller{
         
         $result = $this->Client_model->addClient($cliente);
         
-        echo "registrado correctamente";
+        $data['message_type']=1;
+        $data['message']="Cliente registrado satisfactoriamente";
+
+        $this->load->view('layouts/header',$data);
+        $this->load->view('clientes/registrocliente_view');
+        $this->load->view('layouts/footer');
     }
 
     public function cliente($cedula=0){
