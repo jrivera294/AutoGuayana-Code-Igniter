@@ -41,8 +41,10 @@
 $route['default_controller'] = "home";
 $route['clientes'] = "clientes";
 $route['stock'] = "stock/articulos";
+$route['facturar'] = "facturar";
 //$route['stock'] = "stock/traerVehiculo";
 $route['404_override'] = '';
+
 
 
 /* End of file routes.php */
