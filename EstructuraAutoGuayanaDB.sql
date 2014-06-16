@@ -107,7 +107,7 @@ CREATE TABLE departamento(
 
 CREATE TABLE empleado (
 	id serial NOT NULL,
-    pass varchar(20) NOT NULL,
+    password varchar(20) NOT NULL,
 	cedula integer UNIQUE NOT NULL,
 	nombre Nombre,
 	apellido1 varchar(20) NOT NULL,
