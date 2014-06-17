@@ -258,7 +258,75 @@ window.onload = function(){
                       <div class="tab-pane" id="check">
                           <h3 class="head text-center">Confirmar e imprimir</h3>
                           
+                           <div class="table-responsive">
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th>ID - Descripción</th>
+                                  <th>Cantidad</th>
+                                  <th>Precio unit.</th>
+                                  <th>Descuento</th>
+                                  <th>Total</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>512354545 - Toyota corolla<br>
+                                  Placa: asdasfa<br>
+                                  Color: Rojo, Verde, Azul<br>
+                                  Peso: 5000kg<br>
+                                  Otras características:<br>
+                                  -<br>
+                                  -<br>
+                                  -<br>
+
+                                  </td> 
+                                  <td>1</td>
+                                  <td>5000000</td>
+                                  <td>0</td>
+                                  <td>5000000</td>
+                                </tr>
+                                <tr>
+                                    <td>412421412 - Pioneer superbass<br>
+                                    Subwoofer 10000w paj paja...
+                                    </td>
+                                    <td>2</td>
+                                    <td>5000</td>
+                                    <td>200</td>
+                                    <td>9800</td>
+                                </tr>
+                                <tr>
+                                    <td</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Sub-Total:</td>
+                                    <td>5900</td>
+                                </tr>
+                                <tr>
+                                    <td</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Iva(12%):</td>
+                                    <td>600</td>
+                                </tr>
+                                <tr>
+                                    <td</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Total:</td>
+                                    <td>6500</td>
+                                </tr>                                                                                              
+                              </tbody>
+                            </table>
+                          </div>
+                          <div class="col-xs-6 col-md-6"> </div>                   
+<div class="col-xs-6 col-md-6"><a href="<?= base_url("index.php/clientes/edit");?>" class="btn btn-success btn-block btn-lg" tabindex="2">Confirmar factura</a></div>
                       </div>
+
+                          
 <div class="clearfix"></div>
 </div>
 
