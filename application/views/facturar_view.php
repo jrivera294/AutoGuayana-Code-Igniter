@@ -1,5 +1,5 @@
 <script language="JavaScript"> 
- 
+/* ------------ Ocultar y mostrar campos -------------------- */
 function oculta(id){
 	 var elDiv = document.getElementById(id);
 	 elDiv.style.display='none';	 
@@ -15,6 +15,10 @@ window.onload = function(){
     oculta('inputs_financiamiento');
     oculta('inputs_banco');
 }
+
+/* ------------ Buscar cliente -------------------- */
+
+
 </script>
 
        
@@ -56,50 +60,54 @@ window.onload = function(){
                      </li>
                      
                      </ul></div>
-
+                     
+                     
+<form role="form" action='<?= base_url();?>index.php/facturar/save' method="post">
+                     
+                     
                      <div class="tab-content">
                       <div class="tab-pane active" id="Cliente">
                           <h3 class="head text-center">Información del cliente</h3>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <h4>Cédula:</h4>
 					            <div class="form-group">
-                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="Ejemplo: 12345678" tabindex="1" required>
+                                    <input type="text" name="cedula_cliente" id="cedula_cliente" class="form-control input-sm" placeholder="Ejemplo: 12345678" tabindex="1" required>
 					            </div>
 				            </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <h4>Nombre:</h4>
 					            <div class="form-group">
-                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" readonly placeholder="">
+                                    <input type="text" name="nombre_cliente" id="nombre_cliente" value=""  class="form-control input-sm" readonly>
 					            </div>
 				            </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <h4>Primer apellido:</h4>
 					            <div class="form-group">
-                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" readonly placeholder="">
+                                    <input type="text" name="apellido1_cliente" id="apellido1_cliente" value="" class="form-control input-sm" readonly>
 					            </div>
 				            </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <h4>Segundo Apellido:</h4>
 					            <div class="form-group">
-                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" readonly placeholder="">
+                                    <input type="text" name="apellido2_cliente" id="apellido2_cliente" value="" class="form-control input-sm" readonly>
 					            </div>
 				            </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <h4>Teléfono fijo:</h4>
 					            <div class="form-group">
-                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" readonly placeholder="">
+                                    <input type="text" name="tlf_fijo_cliente" id="tlf_fijo_cliente" value="" class="form-control input-sm" readonly >
 					            </div>
 				            </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <h4>Teléfono celular:</h4>
 					            <div class="form-group">
-                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" readonly placeholder="">
+                                    <input type="text" name="tlf_cel_cliente" id="tlf_cel_cliente" value="" class="form-control input-sm" readonly>
 					            </div>
 				            </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <h4>Dirección</h4>
 					            <div class="form-group">
-                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" readonly placeholder="">
+                                    <input type="text" name="dir_cliente" id="dir_cliente" value="" class="form-control input-sm" readonly>
 					            </div>
 				            </div>
 
@@ -112,32 +120,32 @@ window.onload = function(){
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <h4>Serial vehículo:</h4>
                                 <div class="form-group">
-                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="Ejemplo: 12345678" tabindex="1">
+                                    <input type="text" name="id_vehiculo" id="id_vehiculo" class="form-control input-sm" placeholder="Ejemplo: 12345678" tabindex="1">                <input type="hidden" name="id_valido" id="id_valido" class="form-control input-sm"> 
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <h4>Modelo:</h4>
 					            <div class="form-group">
-                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" readonly placeholder="">
+                                    <input type="text" name="modelo_vehiculo" id="modelo_vehiculo" value="" class="form-control input-sm" readonly>
 					            </div>
 				            </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <h4>Monto garantía extendida:</h4>
 					            <div class="form-group">
-                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" readonly placeholder="">
+                                    <input type="text" name="garantia_vehiculo" id="garantia_vehiculo" value="" class="form-control input-sm" readonly>
 					            </div>
 				            </div>
 
                              <div class="col-xs-12 col-sm-6 col-md-6">
                                 <h4>Precio</h4>
 					            <div class="form-group">
-                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" readonly placeholder="">
+                                    <input type="text" name="precio_vehiculo" id="precio_vehiculo" value="" class="form-control input-sm" readonly>
 					            </div>
 				            </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <h4>Descuento:</h4>
 					            <div class="form-group">
-                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="Ejemplo: 12345678" tabindex="1" required>
+                                    <input type="text" name="descuento_vehiculo" id="descuento_vehiculo" class="form-control input-sm" placeholder="Ejemplo: 12345678" tabindex="1" required>
 					            </div>
 				            </div>
                              <div class="col-xs-12 col-sm-6 col-md-6">
@@ -151,43 +159,43 @@ window.onload = function(){
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <h4>Serial artículo:</h4>
                                 <div class="form-group">
-                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="Ejemplo: 12345678" tabindex="1">
+                                    <input type="text" name="id_articulo" id="id_articulo" class="form-control input-sm" placeholder="Ejemplo: 12345678" tabindex="1">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <h4>Fabricante:</h4>
 					            <div class="form-group">
-                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" readonly placeholder="">
+                                    <input type="text" name="fabricante_articulo" id="fabricante_articulo" value="" class="form-control input-sm" readonly>
 					            </div>
 				            </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <h4>Modelo:</h4>
 					            <div class="form-group">
-                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" readonly placeholder="">
+                                    <input type="text" name="modelo_articulo" id="modelo_articulo" value="" class="form-control input-sm" readonly>
 					            </div>
 				            </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <h4>Stock disponible:</h4>
 					            <div class="form-group">
-                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" readonly placeholder="">
+                                    <input type="text" name="stock_articulo" id="stock_articulo" value="" class="form-control input-sm" readonly>
 					            </div>
 				            </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <h4>Descripción</h4>
 					            <div class="form-group">
-                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" value="" readonly placeholder="">
+                                    <input type="text" name="descripcion_articulo" id="descripcion_articulo" value="" class="form-control input-sm" readonly>
 					            </div>
 				            </div>
                              <div class="col-xs-12 col-sm-6 col-md-6">
                                 <h4>Precio</h4>
 					            <div class="form-group">
-                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" readonly placeholder="">
+                                    <input type="text" name="precio_articulo" id="precio_articulo" value="" class="form-control input-sm" readonly>
 					            </div>
 				            </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <h4>Descuento:</h4>
 					            <div class="form-group">
-                                    <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="Ejemplo: 12345678" tabindex="1" required>
+                                    <input type="text" name="descuento_articulo" id="descuento_articulo" class="form-control input-sm" placeholder="Ejemplo: 12345678" tabindex="1" required>
 					            </div>
 				            </div>
                              <div class="col-xs-12 col-sm-6 col-md-6">
@@ -201,25 +209,25 @@ window.onload = function(){
                                    <div class="col-xs-12 col-sm-3 col-md-3">
                                         <h4>RIF Seguro</h4>
                                         <div class="form-group">
-                                        <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="" tabindex="1">
+                                        <input type="text" name="rif_seguro" id="rif_seguro" class="form-control input-sm" placeholder="" tabindex="1">
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-3 col-md-3">
                                         <h4>Nombre seguro</h4>
                                         <div class="form-group">
-                                        <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="" tabindex="1" disabled>
+                                        <input type="text" name="nombre_seguro" id="nombre_seguro" value="" class="form-control input-sm" placeholder="" tabindex="1" disabled>
                                         </div>
                                     </div> 
                                     <div class="col-xs-12 col-sm-3 col-md-3">
                                         <h4>Monto asegurado</h4>
                                         <div class="form-group">
-                                        <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="" tabindex="1">
+                                        <input type="text" name="monto_seguro" id="monto_seguro" class="form-control input-sm" placeholder="" tabindex="1">
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-3 col-md-3">
                                         <h4>Precio</h4>
                                         <div class="form-group">
-                                        <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="" tabindex="1">
+                                        <input type="text" name="precio_seguro" id="precio_seguro" class="form-control input-sm" placeholder="" tabindex="1">
                                         </div>
                                     </div>                                                                                                     
          
@@ -255,32 +263,32 @@ window.onload = function(){
                                     <div class="col-xs-12 col-sm-3 col-md-3">
                                         <h4>Nro de cuotas</h4>
                                         <div class="form-group">
-                                        <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="" tabindex="1">
+                                        <input type="text" name="nro_cuotas_financ" id="nro_cuotas_financ" class="form-control input-sm" placeholder="" tabindex="1">
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-3 col-md-3">
                                         <h4>Interés (%)</h4>
                                         <div class="form-group">
-                                        <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="" tabindex="1">
+                                        <input type="text" name="interes_financ" id="interes_financ" class="form-control input-sm" placeholder="" tabindex="1">
                                         </div>
                                     </div>                                    
                                     <div class="col-xs-12 col-sm-3 col-md-3">
                                         <h4>Monto por cuota</h4>
                                         <div class="form-group">
-                                        <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="" tabindex="1">
+                                        <input type="text" name="monto_cuotas_financ" id="monto_cuotas_financ" class="form-control input-sm" placeholder="" tabindex="1">
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12" id="inputs_banco">                                    
                                     <div class="col-xs-12 col-sm-3 col-md-3">
                                         <h4>RIF Banco</h4>
                                         <div class="form-group">
-                                        <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="" tabindex="1">
+                                        <input type="text" name="rif_banco" id="rif_banco" class="form-control input-sm" placeholder="" tabindex="1">
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-6 col-md-6">
                                         <h4>Nombre banco</h4>
                                         <div class="form-group">
-                                        <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="" tabindex="1" disabled>
+                                        <input type="text" name="nombre_banco" id="nombre_banco" class="form-control input-sm" placeholder="" tabindex="1" disabled>
                                         </div>
                                     </div>
                                     </div>                                                                            
@@ -356,13 +364,13 @@ window.onload = function(){
                             </table>
                           </div>
                           <div class="col-xs-6 col-md-6"> </div>                   
-<div class="col-xs-6 col-md-6"><a href="<?= base_url("index.php/facturar/save");?>" class="btn btn-success btn-block btn-lg" tabindex="2">Confirmar factura</a></div>
+<div class="col-xs-12 col-md-6"><input type="submit" value="Facturar" class="btn btn-success btn-block btn-lg" tabindex="12"></div>
                       </div>
 
                           
-<div class="clearfix"></div>
-</div>
 
+</div>
+</form>
 </div>
 </div>
 </div>
