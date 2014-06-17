@@ -1,3 +1,24 @@
+<script language="JavaScript"> 
+ 
+function oculta(id){
+	 var elDiv = document.getElementById(id);
+	 elDiv.style.display='none';	 
+	}
+ 
+function muestra(id){
+	 var elDiv = document.getElementById(id);
+	 elDiv.style.display='block';	 
+	}
+ 
+ 
+window.onload = function(){
+    oculta('inputs_financiamiento');
+    oculta('inputs_banco');
+}
+</script>
+
+       
+
 <section >
         <div class="container">
             <div class="row">
@@ -177,16 +198,66 @@
                       <div class="tab-pane" id="Financiamiento">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <h3 class="head text-center">Información del seguro</h3>
-
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <h3 class="head text-center">Tipo de pago</h3>
-
+                                <div class="col-xs-12 col-sm-6 col-md-6">
+                                    <h4>Tipo de pago</h4>
+                                   <div class="form-group">
+                                        <label class="radio" for="radios-0">
+                                            <input type="radio" name="tpago" id="contado" value="Contado" checked="checked" tabindex="5" onClick="oculta('inputs_financiamiento');">
+                                            De contado
+                                        </label>
+                                        <label class="radio" for="radios-1">
+                                            <input type="radio" name="tpago" id="financiado" value="Financiado" tabindex="6" onClick="muestra('inputs_financiamiento');">
+                                            Financiado
+                                        </label>
+                                    </div>   
+                                </div>
+                                
+                                <div class="col-xs-12 col-sm-12 col-md-12" id="inputs_financiamiento">
+                                    <h4>Tipo de financiamiento</h4>
+                                       <div class="form-group">
+                                        <label class="radio" for="radios-0">
+                                            <input type="radio" name="tfinanc" id="contado" value="Contado" checked="checked" tabindex="5" onClick="oculta('inputs_banco');">
+                                            Concesionario
+                                        </label>
+                                        <label class="radio" for="radios-1">
+                                            <input type="radio" name="tfinanc" id="financiado" value="Financiado" tabindex="6" onClick="muestra('inputs_banco');">
+                                            Banco
+                                        </label>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-3 col-md-3">
+                                        <h4>Nro de cuotas</h4>
+                                        <div class="form-group">
+                                        <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="" tabindex="1">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-3 col-md-3">
+                                        <h4>Monto por cuota</h4>
+                                        <div class="form-group">
+                                        <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="" tabindex="1">
+                                        </div>
+                                    </div>                                    
+                                    <div class="col-xs-12 col-sm-3 col-md-3">
+                                        <h4>Interés (%)</h4>
+                                        <div class="form-group">
+                                        <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="" tabindex="1">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-3 col-md-3" id="inputs_banco">
+                                        <h4>RIF Banco</h4>
+                                        <div class="form-group">
+                                        <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="" tabindex="1">
+                                        </div>
+                                    </div>                                                                        
+                                </div>
+                                                                
                             </div>
                       </div>
                       <div class="tab-pane" id="check">
                           <h3 class="head text-center">Confirmar e imprimir</h3>
-
+                          
                       </div>
 <div class="clearfix"></div>
 </div>
