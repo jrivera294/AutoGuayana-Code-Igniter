@@ -82,30 +82,40 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>ID</th>
+                  <th>Serial</th>
                   <th>Modelo</th>
                   <th>Color</th>
                   <th>Fecha de fabricación</th>
                   <th>Precio (Bsf)</th>
-                  <th>Ver más</th>
                   <th>Editar</th>
                   <th>Generar calcomania</th>
                 </tr>
               </thead>
               <tbody>
                 <?php
-                    if(is_array($vehiculos) && count($vehiculos) ) {
+                    $vehiculoActual=0; //variables auxiliares para imprimir el color
+                    $indiceVehiculo=0;
+                    if(is_array($vehiculos) &&  is_array($colores) && count($vehiculos) ) {
                         foreach($vehiculos as $loop){
                 ?>
                 <tr>
                   <td><?= $loop->id ?></td>
                   <td><?= $loop->modelo ?></td>
-                  <td>como color</td>
+                  <?php
+                    $indiceVehiculo=0;
+                    foreach ($colores  as $row){
+                        if ($indiceVehiculo==$vehiculoActual){
+                            echo"<td>";
+                            foreach($row as $r)
+                                echo $r->color."<br>";
+                            echo"</td>";
+                        }
+                        $indiceVehiculo++;
+                    }
+                   ?>
+
                   <td><?= $loop->fecha_fab ?></td>
                   <td><?= $loop->precio ?></td>
-                  <td>
-                      <button type="button" class="btn btn-xs btn-primary">Ver</button>
-                  </td>
                   <td>
                       <button type="button" class="btn-warning btn-xs btn-primary">Editar</button>
                   </td>
@@ -114,6 +124,7 @@
                   </td>
                 </tr>
                 <?php
+                        $vehiculoActual++;
                         }
                     }
                 ?>

@@ -10,9 +10,6 @@ class Admin extends CI_Controller{
     }
 
     public function registroVehiculos(){
-        $query = $this->Stock_model->getVehiculos();
-        $data['vehiculos'] = $query;
-
         $this->load->view('layouts/header');
         $this->load->view('admin/registroVehiculos_view');
         $this->load->view('layouts/footer');
@@ -51,7 +48,8 @@ class Admin extends CI_Controller{
         }
        // $result = $this->Admin_model->addVehiculo($vehiculo);
 
-        echo "registrado correctamente";
+        $data['message_type']=1;
+        $data['message']="Vehiculo registrado satisfactoriamente";
         $this->load->view('layouts/header',$data);
         $this->load->view('admin/registroVehiculos_view');
         $this->load->view('layouts/footer');
@@ -60,10 +58,23 @@ class Admin extends CI_Controller{
     public function gestionVehiculos(){
         $query = $this->Stock_model->getVehiculos();
         $colores = array();
-        $colores[0] = array();
+        $i=0;
+        //$colores[0] = array();
         $data['vehiculos'] = $query;
         
-        $colo
+        //$colo
+        foreach($data['vehiculos'] as $row ){
+            $colores[$i] = array();
+          /*  foreach ($this->Admin_model->getColoresVehiculo($row->id) as $row)
+                echo $row->color;*/
+            $colores[$i] = $this->Admin_model->getColoresVehiculo($row->id);
+
+            //$row['colores'] =$this->Admin_model->getColoresVehiculo($row->id);
+            $i++;
+        }
+        $data['colores'] = $colores;
+
+
 
         $this->load->view('layouts/header');
         $this->load->view('admin/gestionVehiculos_view',$data);

@@ -28,11 +28,11 @@
        
         function getColoresVehiculo($serial_vehiculo){
             $query = $this->db->query("SELECT color FROM color_vehiculo WHERE id_vehiculo = (?)",$serial_vehiculo);
-            return $query;
+            return $query->result();
         }
         function getOpcionesVehiculo($serial_vehiculo){
-            $query = $this->db->query("SELECT color FROM color_vehiculo WHERE id_vehiculo = (?)",$serial_vehiculo);
-            return $query;
+            $query = $this->db->query("SELECT color FROM opciones_vehiculo WHERE id_vehiculo = (?)",$serial_vehiculo);
+            return $query->result();
         }
        
         function gestionarVehiculos(){
