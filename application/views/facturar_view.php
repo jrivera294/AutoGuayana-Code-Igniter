@@ -323,7 +323,7 @@ window.onload = function(){
                             </table>
                           </div>
                           <div class="col-xs-6 col-md-6"> </div>                   
-<div class="col-xs-6 col-md-6"><a href="<?= base_url("index.php/clientes/edit");?>" class="btn btn-success btn-block btn-lg" tabindex="2">Confirmar factura</a></div>
+<div class="col-xs-6 col-md-6"><a href="<?= base_url("index.php/facturar/save");?>" class="btn btn-success btn-block btn-lg" tabindex="2">Confirmar factura</a></div>
                       </div>
 
                           
