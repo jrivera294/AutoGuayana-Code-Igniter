@@ -198,6 +198,31 @@ window.onload = function(){
                       <div class="tab-pane" id="Financiamiento">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <h3 class="head text-center">Información del seguro</h3>
+                                   <div class="col-xs-12 col-sm-3 col-md-3">
+                                        <h4>RIF Seguro</h4>
+                                        <div class="form-group">
+                                        <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="" tabindex="1">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-3 col-md-3">
+                                        <h4>Nombre seguro</h4>
+                                        <div class="form-group">
+                                        <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="" tabindex="1" disabled>
+                                        </div>
+                                    </div> 
+                                    <div class="col-xs-12 col-sm-3 col-md-3">
+                                        <h4>Monto asegurado</h4>
+                                        <div class="form-group">
+                                        <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="" tabindex="1">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-3 col-md-3">
+                                        <h4>Precio</h4>
+                                        <div class="form-group">
+                                        <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="" tabindex="1">
+                                        </div>
+                                    </div>                                                                                                     
+         
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <h3 class="head text-center">Tipo de pago</h3>
@@ -217,7 +242,7 @@ window.onload = function(){
                                 
                                 <div class="col-xs-12 col-sm-12 col-md-12" id="inputs_financiamiento">
                                     <h4>Tipo de financiamiento</h4>
-                                       <div class="form-group">
+                                   <div class="form-group">
                                         <label class="radio" for="radios-0">
                                             <input type="radio" name="tfinanc" id="contado" value="Contado" checked="checked" tabindex="5" onClick="oculta('inputs_banco');">
                                             Concesionario
@@ -234,23 +259,31 @@ window.onload = function(){
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-3 col-md-3">
-                                        <h4>Monto por cuota</h4>
+                                        <h4>Interés (%)</h4>
                                         <div class="form-group">
                                         <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="" tabindex="1">
                                         </div>
                                     </div>                                    
                                     <div class="col-xs-12 col-sm-3 col-md-3">
-                                        <h4>Interés (%)</h4>
+                                        <h4>Monto por cuota</h4>
                                         <div class="form-group">
                                         <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="" tabindex="1">
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 col-sm-3 col-md-3" id="inputs_banco">
+                                    <div class="col-xs-12 col-sm-12 col-md-12" id="inputs_banco">                                    
+                                    <div class="col-xs-12 col-sm-3 col-md-3">
                                         <h4>RIF Banco</h4>
                                         <div class="form-group">
                                         <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="" tabindex="1">
                                         </div>
-                                    </div>                                                                        
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-6">
+                                        <h4>Nombre banco</h4>
+                                        <div class="form-group">
+                                        <input type="text" name="cedula" id="cedula" class="form-control input-sm" placeholder="" tabindex="1" disabled>
+                                        </div>
+                                    </div>
+                                    </div>                                                                            
                                 </div>
                                                                 
                             </div>
