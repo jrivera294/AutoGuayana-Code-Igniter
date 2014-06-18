@@ -17,7 +17,9 @@ window.onload = function(){
 }
 
 /* ------------ Buscar cliente -------------------- */
-
+function addClient(){
+   
+}
 
 </script>
 
@@ -112,7 +114,7 @@ window.onload = function(){
 				            </div>
 
 <div class="col-xs-6 col-md-6"><a href="<?= base_url("index.php/clientes/edit");?>" class="btn btn-warning btn-block btn-lg" tabindex="2">Editar cliente</a></div>
-
+<div class="col-xs-6 col-md-6"><button type="button" class="btn btn-block btn-lg btn-primary" onclick="addClient()">Verificar cliente</button></div>
 
                       </div>
                       <div class="tab-pane" id="Vehiculo">
