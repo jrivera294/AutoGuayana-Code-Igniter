@@ -56,13 +56,10 @@ class Clientes extends CI_Controller{
     }
     
      public function getClienteFactura(){
-        $cedula = 24964467;
+        $cedula = $this->input->post('cedula');
          
         $query = $this->Client_model->getClientByCedula($cedula);
-        $data['cliente'] = $query;
-         
-        echo $query->nombre; 
-        //$this->load->view('facturar',$data);
+        echo json_encode($query); 
     }   
 }
 ?>

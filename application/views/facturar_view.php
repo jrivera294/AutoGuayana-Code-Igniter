@@ -17,25 +17,108 @@ window.onload = function(){
 }
 
 /* ------------ Buscar cliente -------------------- */
-function addClient(){
-    $('#nombre_cliente').val("asdasd");
-    $.ajax({
-        url: "<?php echo base_url().'index.php/clientes/getClienteFactura'?>",
-        type : "POST", 
-        data : {cedula : $('#cedula_cliente').val();},
-        success : function(data){
-            //var container = $('#test');
-            if(data){
-                //container.html(data.nombre);
-                alert(data);
-            }
-        }
-    });
+function getClient(){
+    if($('#cedula_cliente').val()){
+        $.ajax({
+            type : "post",
+            url: "<?php echo base_url().'index.php/clientes/getClienteFactura'?>",
+            cache: false,
+            data : {cedula :  $('#cedula_cliente').val()},
+            success : function(json){
+                var obj=jQuery.parseJSON(json);
+                if(obj[0]){
+                    $('#nombre_cliente').val(obj[0].nombre);
+                    $('#apellido1_cliente').val(obj[0].apellido1);
+                    $('#apellido2_cliente').val(obj[0].apellido2);
+                    //$('#tlf_cel_cliente').val(obj[0].asd);
+                    //$('#tlf_fijo_cliente').val(obj[0].nombre);
+                    $('#dir_cliente').val(obj[0].dir);
+                }else{
+                    alert("Usuario no encontrado");
+                }
+
+            },
+        });
+    }else{
+        alert("Debe ingresar una cédula de usuario");
+    }
 }
+/*function getVehiculo(){
+    if($('#cedula_cliente').val()){
+        $.ajax({
+            type : "post",
+            url: "<?php echo base_url().'index.php/admin/getClienteFactura'?>",
+            cache: false,
+            data : {cedula :  $('#cedula_cliente').val()},
+            success : function(json){
+                var obj=jQuery.parseJSON(json);
+                if(obj[0]){
+                    $('#nombre_cliente').val(obj[0].nombre);
+                    $('#apellido1_cliente').val(obj[0].apellido1);
+                    $('#apellido2_cliente').val(obj[0].apellido2);
+                    //$('#tlf_cel_cliente').val(obj[0].asd);
+                    //$('#tlf_fijo_cliente').val(obj[0].nombre);
+                    $('#dir_cliente').val(obj[0].dir);
+                }else{
+                    alert("Usuario no encontrado");
+                }
 
-</script>
+            },
+        });
+    }else{
+        alert("Debe ingresar una cédula de usuario");
+    }
+}*/
+/*function getArticulo(){
+    if($('#cedula_cliente').val()){
+        $.ajax({
+            type : "post",
+            url: "<?php echo base_url().'index.php/admin/getClienteFactura'?>",
+            cache: false,
+            data : {cedula :  $('#cedula_cliente').val()},
+            success : function(json){
+                var obj=jQuery.parseJSON(json);
+                if(obj[0]){
+                    $('#nombre_cliente').val(obj[0].nombre);
+                    $('#apellido1_cliente').val(obj[0].apellido1);
+                    $('#apellido2_cliente').val(obj[0].apellido2);
+                    //$('#tlf_cel_cliente').val(obj[0].asd);
+                    //$('#tlf_fijo_cliente').val(obj[0].nombre);
+                    $('#dir_cliente').val(obj[0].dir);
+                }else{
+                    alert("Usuario no encontrado");
+                }
 
- <div id="test"></div>      
+            },
+        });
+    }else{
+        alert("Debe ingresar una cédula de usuario");
+    }
+}*/ 
+function getSeguro(){
+    if($('#rif_seguro').val()){
+        $.ajax({
+            type : "post",
+            url: "<?php echo base_url().'index.php/admin/getSeguroFactura'?>",
+            cache: false,
+            data : {rif_seguro :  $('#rif_seguro').val()},
+            success : function(json){
+                var obj=jQuery.parseJSON(json);
+                if(obj[0]){
+                    $('#nombre_seguro').val(obj[0].nombre);
+                }else{
+                    alert("Seguro no encontrado");
+                }
+
+            },
+        });
+    }else{
+        alert("Debe ingresar un RIF de seguro");
+    }
+}
+    
+    
+</script> 
 
 <section >
         <div class="container">
@@ -126,7 +209,7 @@ function addClient(){
 				            </div>
 
 <div class="col-xs-6 col-md-6"><a href="<?= base_url("index.php/clientes/edit");?>" class="btn btn-warning btn-block btn-lg" tabindex="2">Editar cliente</a></div>
-<div class="col-xs-6 col-md-6"><button type="button" class="btn btn-block btn-lg btn-primary" onclick="addClient()">Verificar cliente</button></div>
+<div class="col-xs-6 col-md-6"><button type="button" class="btn btn-block btn-lg btn-primary" onclick="getClient()">Verificar cliente</button></div>
 
                       </div>
                       <div class="tab-pane" id="Vehiculo">
@@ -164,7 +247,7 @@ function addClient(){
 				            </div>
                              <div class="col-xs-12 col-sm-6 col-md-6">
                                      <br><br>
-                                  <button type="button" class="btn btn-md btn-primary" onclick="addColor()">Buscar</button>
+                                  <button type="button" class="btn btn-md btn-primary" onclick="getVehiculo()">Buscar</button>
                                   <button type="button" class="btn btn-md btn-success" onclick="addColor()">Añadir</button>
                              </div>
                       </div>
@@ -231,7 +314,7 @@ function addClient(){
                                         <div class="form-group">
                                         <input type="text" name="nombre_seguro" id="nombre_seguro" value="" class="form-control input-sm" placeholder="" tabindex="1" disabled>
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="col-xs-12 col-sm-3 col-md-3">
                                         <h4>Monto asegurado</h4>
                                         <div class="form-group">
@@ -244,7 +327,7 @@ function addClient(){
                                         <input type="text" name="precio_seguro" id="precio_seguro" class="form-control input-sm" placeholder="" tabindex="1">
                                         </div>
                                     </div>                                                                                                     
-         
+<div class="col-xs-3 col-md-3"><button type="button" class="btn btn-block btn-md btn-primary" onclick="getSeguro()">Verificar seguro</button></div> 
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <h3 class="head text-center">Tipo de pago</h3>
