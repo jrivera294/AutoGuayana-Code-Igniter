@@ -18,12 +18,24 @@ window.onload = function(){
 
 /* ------------ Buscar cliente -------------------- */
 function addClient(){
-   
+    $('#nombre_cliente').val("asdasd");
+    $.ajax({
+        url: "<?php echo base_url().'index.php/clientes/getClienteFactura'?>",
+        type : "POST", 
+        data : {cedula : $('#cedula_cliente').val();},
+        success : function(data){
+            //var container = $('#test');
+            if(data){
+                //container.html(data.nombre);
+                alert(data);
+            }
+        }
+    });
 }
 
 </script>
 
-       
+ <div id="test"></div>      
 
 <section >
         <div class="container">
