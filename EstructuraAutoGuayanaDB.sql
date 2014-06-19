@@ -58,13 +58,6 @@ CREATE TABLE vehiculo(
 	PRIMARY KEY(id)
 );
 
-CREATE TABLE aseguradoras(
-	rif varchar(20) NOT NULL,
-	nombre varchar(30) NOT NULL,
-
-	PRIMARY KEY(rif)
-);
-
 CREATE TABLE opciones_vehiculo(
 	id_vehiculo serial NOT NULL REFERENCES vehiculo(id) ON UPDATE CASCADE ON DELETE RESTRICT,
 	opcion varchar(20) NOT NULL,
@@ -152,9 +145,16 @@ CREATE TABLE dependientes(
 
 CREATE TABLE banco (
 	rif_banco integer NOT NULL,
-	Nombre varchar(30) NOT NULL,
+	nombre_banco varchar(30) NOT NULL,
 
 	PRIMARY KEY (rif_banco)
+);
+
+CREATE TABLE aseguradora(
+	rif_aseguradora varchar(20) NOT NULL,
+	nombre_aseguradora varchar(30) NOT NULL,
+
+	PRIMARY KEY(rif_aseguradora)
 );
 
 CREATE TABLE factura(
@@ -165,12 +165,12 @@ CREATE TABLE factura(
 	pago_cuota real,
 	interes real,
 	tipo_garantia char(10) check (tipo_garantia in('Estandar','Extendida')),
-	id_vehiculo serial NOT NULL REFERENCES vehiculo(id) ON UPDATE CASCADE ON DELETE RESTRICT, --FORANEAAAAAA
+	id_vehiculo serial NOT NULL REFERENCES vehiculo(id) ON UPDATE CASCADE ON DELETE RESTRICT, 
 	precio_venta_ve real NOT NULL,
-	rif_aseguradora varchar(20) NOT NULL REFERENCES aseguradoras(rif) ON UPDATE CASCADE ON DELETE RESTRICT, --FORANEAAAAAA
-	ci_cliente integer NOT NULL REFERENCES cliente(cedula) ON UPDATE CASCADE ON DELETE RESTRICT, --FORANEAAAAAA
-	id_empleado serial NOT NULL REFERENCES empleado(id) ON UPDATE CASCADE ON DELETE RESTRICT, --FORANEAAAAAA
-	rif_banco integer NOT NULL REFERENCES banco(rif_banco) ON UPDATE CASCADE ON DELETE RESTRICT, --FORANEAAAAAA
+	rif_aseguradora varchar(20) NOT NULL REFERENCES aseguradora(rif_aseguradora) ON UPDATE CASCADE ON DELETE RESTRICT, 
+	ci_cliente integer NOT NULL REFERENCES cliente(cedula) ON UPDATE CASCADE ON DELETE RESTRICT, 
+	id_empleado serial NOT NULL REFERENCES empleado(id) ON UPDATE CASCADE ON DELETE RESTRICT, 
+	rif_banco integer NOT NULL REFERENCES banco(rif_banco) ON UPDATE CASCADE ON DELETE RESTRICT, 
 	comisión real NOT NULL,
 
 	PRIMARY KEY (nro_factura)

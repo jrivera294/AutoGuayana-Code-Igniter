@@ -95,25 +95,46 @@ function getClient(){
         alert("Debe ingresar una cédula de usuario");
     }
 }*/ 
-function getSeguro(){
-    if($('#rif_seguro').val()){
+function getAseguradora(){
+    if($('#rif_aseguradora').val()){
         $.ajax({
             type : "post",
-            url: "<?php echo base_url().'index.php/admin/getSeguroFactura'?>",
+            url: "<?php echo base_url().'index.php/seguro/getAseguradoraFactura'?>",
             cache: false,
-            data : {rif_seguro :  $('#rif_seguro').val()},
+            data : {rif_aseguradora :  $('#rif_aseguradora').val()},
             success : function(json){
                 var obj=jQuery.parseJSON(json);
                 if(obj[0]){
-                    $('#nombre_seguro').val(obj[0].nombre);
+                    $('#nombre_aseguradora').val(obj[0].nombre_aseguradora);
                 }else{
-                    alert("Seguro no encontrado");
+                    alert("Aseguradora no encontrada");
                 }
 
             },
         });
     }else{
-        alert("Debe ingresar un RIF de seguro");
+        alert("Debe ingresar un RIF de la aseguradora");
+    }
+}
+function getBanco(){
+    if($('#rif_banco').val()){
+        $.ajax({
+            type : "post",
+            url: "<?php echo base_url().'index.php/banco/getBancoFactura'?>",
+            cache: false,
+            data : {rif_banco :  $('#rif_banco').val()},
+            success : function(json){
+                var obj=jQuery.parseJSON(json);
+                if(obj[0]){
+                    $('#nombre_banco').val(obj[0].nombre_banco);
+                }else{
+                    alert("Banco no encontrado");
+                }
+
+            },
+        });
+    }else{
+        alert("Debe ingresar un RIF de banco");
     }
 }
     
@@ -304,15 +325,15 @@ function getSeguro(){
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <h3 class="head text-center">Información del seguro</h3>
                                    <div class="col-xs-12 col-sm-3 col-md-3">
-                                        <h4>RIF Seguro</h4>
+                                        <h4>RIF Aseguradora</h4>
                                         <div class="form-group">
-                                        <input type="text" name="rif_seguro" id="rif_seguro" class="form-control input-sm" placeholder="" tabindex="1">
+                                        <input type="text" name="rif_aseguradora" id="rif_aseguradora" class="form-control input-sm" placeholder="" tabindex="1">
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-3 col-md-3">
-                                        <h4>Nombre seguro</h4>
+                                        <h4>Nombre aseguradora</h4>
                                         <div class="form-group">
-                                        <input type="text" name="nombre_seguro" id="nombre_seguro" value="" class="form-control input-sm" placeholder="" tabindex="1" disabled>
+                                        <input type="text" name="nombre_aseguradora" id="nombre_aseguradora" value="" class="form-control input-sm" placeholder="" tabindex="1" disabled>
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-3 col-md-3">
@@ -327,7 +348,7 @@ function getSeguro(){
                                         <input type="text" name="precio_seguro" id="precio_seguro" class="form-control input-sm" placeholder="" tabindex="1">
                                         </div>
                                     </div>                                                                                                     
-<div class="col-xs-3 col-md-3"><button type="button" class="btn btn-block btn-md btn-primary" onclick="getSeguro()">Verificar seguro</button></div> 
+<div class="col-xs-3 col-md-3"><button type="button" class="btn btn-block btn-md btn-primary" onclick="getAseguradora()">Verificar aseguradora</button></div> 
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <h3 class="head text-center">Tipo de pago</h3>
@@ -386,8 +407,11 @@ function getSeguro(){
                                         <h4>Nombre banco</h4>
                                         <div class="form-group">
                                         <input type="text" name="nombre_banco" id="nombre_banco" class="form-control input-sm" placeholder="" tabindex="1" disabled>
+                                 
                                         </div>
                                     </div>
+<br>                                     
+<div class="col-sm-e col-md-3"><button type="button" class="btn btn-block btn-md btn-primary" onclick="getBanco()">Verificar banco</button></div>        
                                     </div>                                                                            
                                 </div>
                                                                 
