@@ -40,11 +40,11 @@
 
 $route['default_controller'] = "home";
 $route['clientes'] = "clientes";
-$route['stock'] = "stock/articulos";
+$route['stock'] = "articulos";
 $route['facturar'] = "facturar";
 $route['banco'] = "banco";
 $route['seguro'] = "seguro";
-$route['administracion'] = "admin/gestionVehiculos";
+$route['administracion'] = "vehiculos/cargarGestionVehiculos";
 //$route['stock'] = "stock/traerVehiculo";
 $route['404_override'] = '';
 

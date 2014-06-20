@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php /*if ( ! defined('BASEPATH')) exit('No direct script access allowed');
    class Stock_model extends CI_Model{
         function __construct(){
             parent::__construct();
@@ -19,7 +19,7 @@
             return $query;
         }
 
-    /*public function record_count() {
+    public function record_count() {
         return $this->db->count_all("vehiculo");
     }
 
@@ -34,6 +34,6 @@
             return $data;
         }
         return false;
-   }*/
    }
+   }*/
 ?>

@@ -1,4 +1,7 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+
+
+/*if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Admin extends CI_Controller{
 
@@ -35,13 +38,13 @@ class Admin extends CI_Controller{
         $this->load->view('layouts/footer');
     }
 
-    public function gestionArticulos(/*$actualizacion*/){
-        $query = $this->Stock_model->getArticulos();
-        $data['articulos'] = $query;
+    public function gestionArticulos(/*$actualizacion){*/
+       // $query = $this->Stock_model->getArticulos();
+       // $data['articulos'] = $query;
         /*if ($actualizacion==1){
             $data['message_type']=1;
             $data['message']="Articulo actualizado satisfactoriamente";
-        }*/
+        }
         $this->load->view('layouts/header',$data);
         $this->load->view('admin/gestionArticulos_view');
         $this->load->view('layouts/footer');
@@ -62,10 +65,10 @@ class Admin extends CI_Controller{
          echo "articulo".  $articulo[   'stock' ];
          echo "articulo".  $articulo[   'descripcion'];
          echo "articulo".  $articulo[   'modelo' ];
-         echo "articulo".  $articulo[   'fabricante'];*/
+         echo "articulo".  $articulo[   'fabricante'];
        /* $result = $this->Admin_model->updateArticulo($articulo,$this->input->post('id'));
         $data['message_type']=1;
-        $data['message']="Articulo Actualizado satisfactoriamente";*/
+        $data['message']="Articulo Actualizado satisfactoriamente";
         $this->load->view('layouts/header');
         $this->load->view('admin/edicionArticulos_view',$data);
         $this->load->view('layouts/footer');
@@ -85,7 +88,7 @@ class Admin extends CI_Controller{
          echo "articulo".  $articulo[   'stock' ];
          echo "articulo".  $articulo[   'descripcion'];
          echo "articulo".  $articulo[   'modelo' ];
-         echo "articulo".  $articulo[   'fabricante'];*/
+         echo "articulo".  $articulo[   'fabricante'];
         $result = $this->Admin_model->updateArticulo($articulo);
 
         $data['message_type']=1;
@@ -153,7 +156,7 @@ class Admin extends CI_Controller{
         foreach($data['vehiculos'] as $row ){
             $colores[$i] = array();
           /*  foreach ($this->Admin_model->getColoresVehiculo($row->id) as $row)
-                echo $row->color;*/
+                echo $row->color;
             $colores[$i] = $this->Admin_model->getColoresVehiculo($row->id);
 
             //$row['colores'] =$this->Admin_model->getColoresVehiculo($row->id);
@@ -187,19 +190,27 @@ class Admin extends CI_Controller{
             'monto_garantia' => $this->input->post('monto_garantia')
         );
         $data['vehiculo']=$vehiculo;
+        $data['colores'] = $this->Admin_model->getColoresVehiculo($vehiculo['serial']);
+        $data['opciones'] = $this->Admin_model->getOpcionesVehiculo($vehiculo['serial']);
+
+       /* foreach($data['colores'] as $array){
+            foreach($array as $color)
+                echo "color: ".$color;
+        }*/
         /* echo "articulo".  $articulo['precio' ];
          echo "articulo".  $articulo[   'stock' ];
          echo "articulo".  $articulo[   'descripcion'];
          echo "articulo".  $articulo[   'modelo' ];
          echo "articulo".  $articulo[   'fabricante'];*/
        /* $result = $this->Admin_model->updateArticulo($articulo,$this->input->post('id'));
+
         $data['message_type']=1;
-        $data['message']="Articulo Actualizado satisfactoriamente";*/
+        $data['message']="Articulo Actualizado satisfactoriamente";
         $this->load->view('layouts/header');
         $this->load->view('admin/edicionVehiculos_view',$data);
         $this->load->view('layouts/footer');
     }
 
 
-}
+}*/
 ?>
