@@ -50,7 +50,7 @@ function getVehiculo(){
     if($('#id_vehiculo').val()){
         $.ajax({
             type : "post",
-            url: "<?php echo base_url().'index.php/admin/getVehiculoFactura'?>",
+            url: "<?php echo base_url().'index.php/vehiculo/getVehiculoFactura'?>",
             cache: false,
             data : {id :  $('#id_vehiculo').val()},
             success : function(json){
