@@ -1,4 +1,8 @@
 <script language="JavaScript"> 
+    var queryArticulo=null;
+    var queryVehiculo=null;
+    var queryCliente=null;
+    
 /* ------------ Ocultar y mostrar campos -------------------- */
 function oculta(id){
 	 var elDiv = document.getElementById(id);
@@ -13,6 +17,7 @@ function muestra(id){
  
 window.onload = function(){
     oculta('inputs_financiamiento');
+    oculta('inputs_financiamiento2');
     oculta('inputs_banco');
 }
 
@@ -27,6 +32,7 @@ function getClient(){
             success : function(json){
                 var obj=jQuery.parseJSON(json);
                 if(obj[0]){
+                    queryCliente=obj[0];
                     $('#nombre_cliente').val(obj[0].nombre);
                     $('#apellido1_cliente').val(obj[0].apellido1);
                     $('#apellido2_cliente').val(obj[0].apellido2);
@@ -137,7 +143,31 @@ function getBanco(){
         alert("Debe ingresar un RIF de banco");
     }
 }
-    
+ 
+function addArticulo(){
+
+    newRow = "<tr>" +
+        "<td >E333</td>" +
+        "<td >Fujita</td>" +
+        "<td >Makoto</td>" +
+        "<td >fujita@devcurry.com</td>" +
+        "<td >52</td>" +
+    "</tr>";
+    $('#tabla_factura > tbody > tr').eq(1).before(newRow);
+    alert("Artículo añadido correctamente");
+}
+function addVehiculo(){
+
+    newRow = "<tr>" +
+        "<td >512354545 - Toyota corolla<br>Placa: asdasfa<br>Color: Rojo, Verde, Azul<br>Peso: 5000kg<br>Otras características:</td>" +
+        "<td >Cantidad</td>" +
+        "<td >Precio</td>" +
+        "<td >Descuento</td>" +
+        "<td >Precio-Descuento</td>" +
+    "</tr>";
+    $('#tabla_factura > tbody > tr').eq(0).before(newRow);
+    alert("Vehiculo añadido correctamente");
+}    
     
 </script> 
 
@@ -263,13 +293,13 @@ function getBanco(){
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <h4>Descuento:</h4>
 					            <div class="form-group">
-                                    <input type="text" name="descuento_vehiculo" id="descuento_vehiculo" class="form-control input-sm" placeholder="Ejemplo: 12345678" tabindex="1" required>
+                                    <input type="text" name="descuento_vehiculo" id="descuento_vehiculo" class="form-control input-sm" placeholder="" tabindex="1" required>
 					            </div>
 				            </div>
                              <div class="col-xs-12 col-sm-6 col-md-6">
                                      <br><br>
                                   <button type="button" class="btn btn-md btn-primary" onclick="getVehiculo()">Buscar</button>
-                                  <button type="button" class="btn btn-md btn-success" onclick="addColor()">Añadir</button>
+                                  <button type="button" class="btn btn-md btn-success" onclick="addVehiculo()">Añadir</button>
                              </div>
                       </div>
                       <div class="tab-pane" id="Articulos">
@@ -313,12 +343,12 @@ function getBanco(){
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <h4>Descuento:</h4>
 					            <div class="form-group">
-                                    <input type="text" name="descuento_articulo" id="descuento_articulo" class="form-control input-sm" placeholder="Ejemplo: 12345678" tabindex="1" required>
+                                    <input type="text" name="descuento_articulo" id="descuento_articulo" class="form-control input-sm" placeholder="" tabindex="1" required>
 					            </div>
 				            </div>
                              <div class="col-xs-12 col-sm-6 col-md-6">
-                                  <button type="button" class="btn btn-md btn-primary" onclick="addColor()">Buscar</button>
-                                  <button type="button" class="btn btn-md btn-success" onclick="addColor()">Añadir</button>
+                                  <button type="button" class="btn btn-md btn-primary" onclick="getArticulo()">Buscar</button>
+                                  <button type="button" class="btn btn-md btn-success" onclick="addArticulo()">Añadir</button>
                              </div>
                       </div>
                       <div class="tab-pane" id="Financiamiento">
@@ -331,7 +361,7 @@ function getBanco(){
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-3 col-md-3">
-                                        <h4>Nombre aseguradora</h4>
+                                        <h4>Aseguradora</h4>
                                         <div class="form-group">
                                         <input type="text" name="nombre_aseguradora" id="nombre_aseguradora" value="" class="form-control input-sm" placeholder="" tabindex="1" disabled>
                                         </div>
@@ -356,17 +386,16 @@ function getBanco(){
                                     <h4>Tipo de pago</h4>
                                    <div class="form-group">
                                         <label class="radio" for="radios-0">
-                                            <input type="radio" name="tpago" id="contado" value="Contado" checked="checked" tabindex="5" onClick="oculta('inputs_financiamiento');">
+                                            <input type="radio" name="tpago" id="contado" value="Contado" checked="checked" tabindex="5" onClick="oculta('inputs_financiamiento'); muestra('inputs_financiamiento2');">
                                             De contado
                                         </label>
                                         <label class="radio" for="radios-1">
-                                            <input type="radio" name="tpago" id="financiado" value="Financiado" tabindex="6" onClick="muestra('inputs_financiamiento');">
+                                            <input type="radio" name="tpago" id="financiado" value="Financiado" tabindex="6" onClick="muestra('inputs_financiamiento'); muestra('inputs_financiamiento2');">
                                             Financiado
                                         </label>
                                     </div>   
                                 </div>
-                                
-                                <div class="col-xs-12 col-sm-12 col-md-12" id="inputs_financiamiento">
+                                <div class="col-xs-12 col-sm-6 col-md-6" id="inputs_financiamiento">
                                     <h4>Tipo de financiamiento</h4>
                                    <div class="form-group">
                                         <label class="radio" for="radios-0">
@@ -377,8 +406,10 @@ function getBanco(){
                                             <input type="radio" name="tfinanc" id="financiado" value="Financiado" tabindex="6" onClick="muestra('inputs_banco');">
                                             Banco
                                         </label>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-3 col-md-3">
+                                    </div>                                  
+                                </div>
+                                    <div id="inputs_financiamiento2">
+                                     <div class="col-xs-12 col-sm-3 col-md-3">
                                         <h4>Nro de cuotas</h4>
                                         <div class="form-group">
                                         <input type="text" name="nro_cuotas_financ" id="nro_cuotas_financ" class="form-control input-sm" placeholder="" tabindex="1">
@@ -403,25 +434,24 @@ function getBanco(){
                                         <input type="text" name="rif_banco" id="rif_banco" class="form-control input-sm" placeholder="" tabindex="1">
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 col-sm-6 col-md-6">
+                                    <div class="col-xs-12 col-sm-3 col-md-3">
                                         <h4>Nombre banco</h4>
                                         <div class="form-group">
                                         <input type="text" name="nombre_banco" id="nombre_banco" class="form-control input-sm" placeholder="" tabindex="1" disabled>
                                  
                                         </div>
                                     </div>
-<br>                                     
-<div class="col-sm-e col-md-3"><button type="button" class="btn btn-block btn-md btn-primary" onclick="getBanco()">Verificar banco</button></div>        
-                                    </div>                                                                            
-                                </div>
-                                                                
+<br> <br>                                    
+<div class="col-xs-3 col-md-3"><button type="button" class="btn btn-block btn-md btn-primary" onclick="getBanco()">Verificar banco</button></div>        
+                                    </div>
+                                    </div>                                                                
                             </div>
                       </div>
                       <div class="tab-pane" id="check">
                           <h3 class="head text-center">Confirmar e imprimir</h3>
                           
                            <div class="table-responsive">
-                            <table class="table table-striped">
+                            <table class="table table-striped" id="tabla_factura">
                               <thead>
                                 <tr>
                                   <th>ID - Descripción</th>
@@ -486,7 +516,7 @@ function getBanco(){
                           </div>
                           <div class="col-xs-6 col-md-6"> </div>                   
 <div class="col-xs-12 col-md-6"><input type="submit" value="Facturar" class="btn btn-success btn-block btn-lg" tabindex="12"></div>
-                      </div>
+                                                    
 
                           
 
