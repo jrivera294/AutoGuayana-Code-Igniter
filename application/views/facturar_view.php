@@ -1,7 +1,5 @@
 <script language="JavaScript"> 
-    var queryArticulo=null;
-    var queryVehiculo=null;
-    var queryCliente=null;
+    var nro_articulos=0;
     
 /* ------------ Ocultar y mostrar campos -------------------- */
 function oculta(id){
@@ -32,7 +30,6 @@ function getClient(){
             success : function(json){
                 var obj=jQuery.parseJSON(json);
                 if(obj[0]){
-                    queryCliente=obj[0];
                     $('#nombre_cliente').val(obj[0].nombre);
                     $('#apellido1_cliente').val(obj[0].apellido1);
                     $('#apellido2_cliente').val(obj[0].apellido2);
@@ -49,58 +46,53 @@ function getClient(){
         alert("Debe ingresar una cédula de usuario");
     }
 }
-/*function getVehiculo(){
-    if($('#cedula_cliente').val()){
+function getVehiculo(){
+    if($('#id_vehiculo').val()){
         $.ajax({
             type : "post",
-            url: "<?php echo base_url().'index.php/admin/getClienteFactura'?>",
+            url: "<?php echo base_url().'index.php/admin/getVehiculoFactura'?>",
             cache: false,
-            data : {cedula :  $('#cedula_cliente').val()},
+            data : {id :  $('#id_vehiculo').val()},
             success : function(json){
                 var obj=jQuery.parseJSON(json);
                 if(obj[0]){
-                    $('#nombre_cliente').val(obj[0].nombre);
-                    $('#apellido1_cliente').val(obj[0].apellido1);
-                    $('#apellido2_cliente').val(obj[0].apellido2);
-                    //$('#tlf_cel_cliente').val(obj[0].asd);
-                    //$('#tlf_fijo_cliente').val(obj[0].nombre);
-                    $('#dir_cliente').val(obj[0].dir);
+                    $('#modelo_vehiculo').val(obj[0].nombre);
+                    $('#garantia_vehiculo').val(obj[0].apellido1);
+                    $('#precio_vehiculo').val(obj[0].apellido2);
                 }else{
-                    alert("Usuario no encontrado");
+                    alert("Vehiculo no encontrado");
+                }
+            },
+        });
+    }else{
+        alert("Debe ingresar un serial de vehiculo");
+    }
+}
+function getArticulo(){
+    if($('#id_articulo').val()){
+        $.ajax({
+            type : "post",
+            url: "<?php echo base_url().'index.php/articulo/getArticuloFactura'?>",
+            cache: false,
+            data : {id :  $('#id_articulo').val()},
+            success : function(json){
+                var obj=jQuery.parseJSON(json);
+                if(obj[0]){
+                    $('#fabricante_articulo').val(obj[0].fabricante);
+                    $('#modelo_articulo').val(obj[0].modelo);
+                    $('#stock_articulo').val(obj[0].stock);
+                    $('#descripcion_articulo').val(obj[0].descripcion);
+                    $('#precio_articulo').val(obj[0].precio);
+                }else{
+                    alert("Articulo no encontrado");
                 }
 
             },
         });
     }else{
-        alert("Debe ingresar una cédula de usuario");
+        alert("Debe ingresar un id de articulo");
     }
-}*/
-/*function getArticulo(){
-    if($('#cedula_cliente').val()){
-        $.ajax({
-            type : "post",
-            url: "<?php echo base_url().'index.php/admin/getClienteFactura'?>",
-            cache: false,
-            data : {cedula :  $('#cedula_cliente').val()},
-            success : function(json){
-                var obj=jQuery.parseJSON(json);
-                if(obj[0]){
-                    $('#nombre_cliente').val(obj[0].nombre);
-                    $('#apellido1_cliente').val(obj[0].apellido1);
-                    $('#apellido2_cliente').val(obj[0].apellido2);
-                    //$('#tlf_cel_cliente').val(obj[0].asd);
-                    //$('#tlf_fijo_cliente').val(obj[0].nombre);
-                    $('#dir_cliente').val(obj[0].dir);
-                }else{
-                    alert("Usuario no encontrado");
-                }
-
-            },
-        });
-    }else{
-        alert("Debe ingresar una cédula de usuario");
-    }
-}*/ 
+} 
 function getAseguradora(){
     if($('#rif_aseguradora').val()){
         $.ajax({
@@ -145,17 +137,23 @@ function getBanco(){
 }
  
 function addArticulo(){
-
     newRow = "<tr>" +
-        "<td >412421412 - Pioneer superbass<br>Subwoofer 10000w paj paja...</td>" +
+        "<td style=display:none><input type=hidden name=id_articulo"+nro_articulos+" id=id_articulo"+nro_articulos+" class=form-control></td>" +
+        "<td style=display:none><input type=hidden name=cantidad_articulo"+nro_articulos+" id=cantidad_articulo"+nro_articulos+" class=form-control></td>" +
+        "<td style=display:none><input type=hidden name=descuento_articulo"+nro_articulos+" id=descuento_articulo"+nro_articulos+" class=form-control></td>" +
+        "<td style=display:none><input type=hidden name=precio_articulo"+nro_articulos+" id=precio_articulo"+nro_articulos+" class=form-control></td>" +
+        "<td >412421412 - Pioneer superbass<br>Subwoofer 10000w</td>" +
         "<td >Cantidad</td>" +
         "<td >Precio</td>" +
         "<td >Descuento</td>" +
         "<td >Precio-Descuento</td>" +
-        "<td ><button type=button onclick=deleteRow(this)>X</button></td>" +
+        "<td ><button type=button onclick=deleteRow(this);>X</button></td>" +
     "</tr>";
-    $('#tabla_factura > tbody > tr').eq(1).before(newRow);
+    $('#tabla_factura > tbody:last').append(newRow);
+   nro_articulos++;
+    $('#nro_articulos').val(nro_articulos);
     alert("Artículo añadido correctamente");
+    
 }
 function addVehiculo(){
 
@@ -167,13 +165,15 @@ function addVehiculo(){
         "<td >Precio-Descuento</td>" +
         "<td ><button type=button onclick=deleteRow(this)>X</button></td>" +
     "</tr>";
-    $('#tabla_factura > tbody > tr').eq(0).before(newRow);
+    $('#tabla_factura > tbody:first').append(newRow);
     alert("Vehiculo añadido correctamente");
 }
     
 function deleteRow(td){
     document.getElementById("tabla_factura").deleteRow(td.parentNode.parentNode.rowIndex);
 }
+    
+
     
 </script> 
 
@@ -302,6 +302,19 @@ function deleteRow(td){
                                     <input type="text" name="descuento_vehiculo" id="descuento_vehiculo" class="form-control input-sm" placeholder="" tabindex="1" required>
 					            </div>
 				            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <h4>Garantia</h4>
+                               <div class="form-group">
+                                    <label class="radio" for="radios-0">
+                                        <input type="radio" name="tipo_garantia" id="estandar" value="Estandar" checked="checked" tabindex="5">
+                                        Estandar
+                                    </label>
+                                    <label class="radio" for="radios-1">
+                                        <input type="radio" name="tipo_garantia" id="extendida" value="Extendida" tabindex="6">
+                                        Extendida
+                                    </label>
+                                </div>
+                            </div>                         
                              <div class="col-xs-12 col-sm-6 col-md-6">
                                      <br><br>
                                   <button type="button" class="btn btn-md btn-primary" onclick="getVehiculo()">Buscar</button>
@@ -352,7 +365,15 @@ function deleteRow(td){
                                     <input type="text" name="descuento_articulo" id="descuento_articulo" class="form-control input-sm" placeholder="" tabindex="1" required>
 					            </div>
 				            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <h4>Cantidad:</h4>
+					            <div class="form-group">
+                                    <input type="text" name="cantidad_articulo" id="cantidad_articulo" class="form-control input-sm" placeholder="" tabindex="1" required>
+					            </div>
+				            </div>
+                                                      
                              <div class="col-xs-12 col-sm-6 col-md-6">
+                                 <br><br>  
                                   <button type="button" class="btn btn-md btn-primary" onclick="getArticulo()">Buscar</button>
                                   <button type="button" class="btn btn-md btn-success" onclick="addArticulo()">Añadir</button>
                              </div>
@@ -469,6 +490,9 @@ function deleteRow(td){
                                 </tr>
                               </thead>
                               <tbody>
+                                                                                       
+                              </tbody>
+                              <tfoot>
                                 <tr>
                                     <td</td>
                                     <td></td>
@@ -492,14 +516,15 @@ function deleteRow(td){
                                     <td></td>
                                     <td>Total:</td>
                                     <td id="total">0</td>
-                                </tr>                                                                                              
-                              </tbody>
+                                </tr>                                     
+                                  
+                              </tfoot>
                             </table>
                           </div>
                           <div class="col-xs-6 col-md-6"> </div>                   
 <div class="col-xs-12 col-md-6"><input type="submit" value="Facturar" class="btn btn-success btn-block btn-lg" tabindex="12"></div>
                                                     
-
+<input type="hidden" name="nro_articulos" id="nro_articulos" class="form-control">
                           
 
 </div>
