@@ -147,11 +147,12 @@ function getBanco(){
 function addArticulo(){
 
     newRow = "<tr>" +
-        "<td >E333</td>" +
-        "<td >Fujita</td>" +
-        "<td >Makoto</td>" +
-        "<td >fujita@devcurry.com</td>" +
-        "<td >52</td>" +
+        "<td >412421412 - Pioneer superbass<br>Subwoofer 10000w paj paja...</td>" +
+        "<td >Cantidad</td>" +
+        "<td >Precio</td>" +
+        "<td >Descuento</td>" +
+        "<td >Precio-Descuento</td>" +
+        "<td ><button type=button onclick=deleteRow(this)>X</button></td>" +
     "</tr>";
     $('#tabla_factura > tbody > tr').eq(1).before(newRow);
     alert("Artículo añadido correctamente");
@@ -164,10 +165,15 @@ function addVehiculo(){
         "<td >Precio</td>" +
         "<td >Descuento</td>" +
         "<td >Precio-Descuento</td>" +
+        "<td ><button type=button onclick=deleteRow(this)>X</button></td>" +
     "</tr>";
     $('#tabla_factura > tbody > tr').eq(0).before(newRow);
     alert("Vehiculo añadido correctamente");
-}    
+}
+    
+function deleteRow(td){
+    document.getElementById("tabla_factura").deleteRow(td.parentNode.parentNode.rowIndex);
+}
     
 </script> 
 
@@ -459,49 +465,25 @@ function addVehiculo(){
                                   <th>Precio unit.</th>
                                   <th>Descuento</th>
                                   <th>Total</th>
+                                  <th></th>
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr>
-                                  <td>512354545 - Toyota corolla<br>
-                                  Placa: asdasfa<br>
-                                  Color: Rojo, Verde, Azul<br>
-                                  Peso: 5000kg<br>
-                                  Otras características:<br>
-                                  -<br>
-                                  -<br>
-                                  -<br>
-
-                                  </td> 
-                                  <td>1</td>
-                                  <td>5000000</td>
-                                  <td>0</td>
-                                  <td>5000000</td>
-                                </tr>
-                                <tr>
-                                    <td>412421412 - Pioneer superbass<br>
-                                    Subwoofer 10000w paj paja...
-                                    </td>
-                                    <td>2</td>
-                                    <td>5000</td>
-                                    <td>200</td>
-                                    <td>9800</td>
-                                </tr>
                                 <tr>
                                     <td</td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td>Sub-Total:</td>
-                                    <td>5900</td>
+                                    <td id="sub_total">0</td>
                                 </tr>
                                 <tr>
                                     <td</td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td>Iva(12%):</td>
-                                    <td>600</td>
+                                    <td >Iva(12%):</td>
+                                    <td id="iva">0</td>
                                 </tr>
                                 <tr>
                                     <td</td>
@@ -509,7 +491,7 @@ function addVehiculo(){
                                     <td></td>
                                     <td></td>
                                     <td>Total:</td>
-                                    <td>6500</td>
+                                    <td id="total">0</td>
                                 </tr>                                                                                              
                               </tbody>
                             </table>
