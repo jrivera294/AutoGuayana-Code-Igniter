@@ -127,7 +127,7 @@ class Articulos extends CI_Controller{
 
      public function getArticuloFactura(){
         $id= $this->input->post('id_articulo');
-        $query = $this->Articulos_model->getArticulosById($id);
+        $query = $this->Articulos_model->getArticuloById($id);
         echo json_encode($query);
     }
 }
