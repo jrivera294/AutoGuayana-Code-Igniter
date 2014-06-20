@@ -1,5 +1,9 @@
 <script language="JavaScript"> 
     var nro_articulos=0;
+    var queryVehiculo=null;
+    var queryColoresVehiculo=null;
+    var queryOpcionesVehiculos=null;
+    var flagVehiculo=0;
     
 /* ------------ Ocultar y mostrar campos -------------------- */
 function oculta(id){
@@ -55,10 +59,13 @@ function getVehiculo(){
             data : {id_vehiculo :  $('#id_vehiculo').val()},
             success : function(json){
                 var obj=jQuery.parseJSON(json);
-                if(obj[0]){
-                    $('#modelo_vehiculo').val(obj[0].modelo);
-                    $('#garantia_vehiculo').val(obj[0].monto_garantia_ext);
-                    $('#precio_vehiculo').val(obj[0].precio);
+                queryVehiculo=obj['vehiculo'][0];
+                queryColoresVehiculo=obj['colores'];
+                queryOpcionesVehiculo=obj['opciones'];
+                if(queryVehiculo=obj['vehiculo'][0]){
+                    $('#modelo_vehiculo').val(queryVehiculo.modelo);
+                    $('#garantia_vehiculo').val(queryVehiculo.monto_garantia_ext);
+                    $('#precio_vehiculo').val(queryVehiculo.precio);
                 }else{
                     alert("Vehiculo no encontrado");
                 }
@@ -135,6 +142,25 @@ function getBanco(){
         alert("Debe ingresar un RIF de banco");
     }
 }
+    
+/* ------------ Funciones de modificación de la tabla -------------------- */
+    
+function recalcular(){
+    var tds = document.getElementById('tabla_factura').getElementsByTagName('td');
+    var sub_total = 0;
+    var iva=0;
+    var total=0;
+    for(var i = 0; i < tds.length; i ++) {
+        if(tds[i].className == 'contar') {
+            sub_total += parseInt(tds[i].innerHTML);
+        }
+    }
+    iva=sub_total*0.12;
+    total=sub_total+iva;
+    document.getElementById('sub_total').innerHTML=sub_total;
+    document.getElementById('iva').innerHTML=iva;
+    document.getElementById('total').innerHTML=total;
+}    
  
 function addArticulo(){
     newRow = "<tr>" +
@@ -146,32 +172,56 @@ function addArticulo(){
         "<td >Cantidad</td>" +
         "<td >Precio</td>" +
         "<td >Descuento</td>" +
-        "<td >Precio-Descuento</td>" +
+        "<td class=contar>Precio-Descuento</td>" +
         "<td ><button type=button onclick=deleteRow(this);>X</button></td>" +
     "</tr>";
     $('#tabla_factura > tbody:last').append(newRow);
    nro_articulos++;
     $('#nro_articulos').val(nro_articulos);
     alert("Artículo añadido correctamente");
-    
+    recalcular();
 }
+    
 function addVehiculo(){
-
-    newRow = "<tr>" +
-        "<td >512354545 - Toyota corolla<br>Placa: asdasfa<br>Color: Rojo, Verde, Azul<br>Peso: 5000kg<br>Otras características:</td>" +
-        "<td >Cantidad</td>" +
-        "<td >Precio</td>" +
-        "<td >Descuento</td>" +
-        "<td >Precio-Descuento</td>" +
-        "<td ><button type=button onclick=deleteRow(this)>X</button></td>" +
-    "</tr>";
-    $('#tabla_factura > tbody:first').append(newRow);
-    alert("Vehiculo añadido correctamente");
+    if(flagVehiculo==1){
+        alert("No puede añadir dos vehiculos en una misma factura");
+    }else{
+        var key;
+        var colores="";
+        var opciones="";
+        for(key in queryColoresVehiculo){
+            colores+=queryColoresVehiculo[key]['color']+",";
+        }
+        for(key in queryOpcionesVehiculo){
+            opciones+="<br>- "+queryOpcionesVehiculo[key]['opcion'];
+        }
+        
+        var total=queryVehiculo['precio']-$('#descuento_vehiculo').val();
+    
+        newRow = "<tr id=vehiculoTr>" +
+            "<td >Serial: "+queryVehiculo['id']+"<br>Modelo: "+queryVehiculo['modelo']+"<br>Placa: "+queryVehiculo['placa']+"<br>Colores: "+colores+"<br>Peso: "+queryVehiculo['peso']+"kg<br>Otras características: "+opciones+"</td>" +
+            "<td ></td>" +
+            "<td >"+queryVehiculo['precio']+"</td>" +
+            "<td >"+$('#descuento_vehiculo').val()+"</td>" +
+            "<td class=contar>"+total+"</td>" +
+            "<td ><button type=button onclick=deleteRow(this)>X</button></td>" +
+        "</tr>";
+        $('#tabla_factura > tbody:first').append(newRow);
+        flagVehiculo=1;
+        alert("Vehiculo añadido correctamente");
+    }
+    recalcular();
 }
     
 function deleteRow(td){
     document.getElementById("tabla_factura").deleteRow(td.parentNode.parentNode.rowIndex);
+    if(td.parentNode.parentNode.id=="vehiculoTr"){
+        flagVehiculo=0;
+    }
+    recalcular();
 }
+    
+
     
 
     
