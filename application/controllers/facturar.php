@@ -32,14 +32,14 @@ class Facturar extends CI_Controller{
         );
         
         $nro_articulos = $this->input->post('nro_articulos');
-        $articulos=array()();
+        $articulos=array();
         
-        for(i=0;i<=$nro_articulos;i++){
-            $articulos[i]['id_articulo']=>$this->input->post('id_articulo'.i);
-            //$articulos[i]['nro_factura']=>$this->input->post('nro_factura'.i);
-            $articulos[i]['precio_venta']=>$this->input->post('precio_articulo'.i);
-            $articulos[i]['descuento']=>$this->input->post('descuento_articulo'.i);
-            $articulos[i]['cantidad']=>$this->input->post('cantidad_articulo'.i);
+        for($i=0;$i<=$nro_articulos;$i++){
+            $articulos[i]['id_articulo']=$this->input->post('id_articulo'.i);
+            //$articulos[i]['nro_factura']=$this->input->post('nro_factura'.i);
+            $articulos[i]['precio_venta']=$this->input->post('precio_articulo'.i);
+            $articulos[i]['descuento']=$this->input->post('descuento_articulo'.i);
+            $articulos[i]['cantidad']=$this->input->post('cantidad_articulo'.i);
         }
         
         $result = $this->Factura_model->addFactura($factura,$articulos);
