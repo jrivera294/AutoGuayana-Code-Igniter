@@ -22,13 +22,15 @@
             </li>
             <li class="dropdown-submenu">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                     Empleados
+                     Recursos Humanos
                      <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
                      <li><a href="<?= base_url("index.php/empleados/cargarRegistroEmpleados");?>">Registrar empleado</a></li>
                      <li ><a href="#">Gestionar empleados</a></li>
                      <li ><a href="#">Gestionar fichas</a></li>
+                    <li><a href="<?= base_url("index.php/departamentos");?>">Departamentos</a></li>
+                    <li><a href="#">Cargos</a></li>
                 </ul>
             </li>
               <li class="dropdown-submenu">

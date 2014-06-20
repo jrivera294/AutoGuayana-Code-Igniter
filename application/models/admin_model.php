@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php/* if ( ! defined('BASEPATH')) exit('No direct script access allowed');
    class Admin_model extends CI_Model{
         function __construct(){
             parent::__construct();
@@ -14,11 +14,11 @@
        function updateArticulo($articulo){
            $query = $this->db->query("UPDATE articulos SET precio=?,stock=?,descripcion=?,modelo=?,fabricante=? WHERE id=?",$articulo);
             return $query;
-        /* echo "articulo".  $articulo['precio' ];
+         echo "articulo".  $articulo['precio' ];
          echo "articulo".  $articulo[   'stock' ];
          echo "articulo".  $articulo[   'descripcion'];
          echo "articulo".  $articulo[   'modelo' ];
-         echo "articulo".  $articulo[   'fabricante']; */
+         echo "articulo".  $articulo[   'fabricante'];
        }
 
 
@@ -53,5 +53,5 @@
             return $query->result();
         }
 
-   }
+   }*/
 ?>
