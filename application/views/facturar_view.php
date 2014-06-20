@@ -50,15 +50,15 @@ function getVehiculo(){
     if($('#id_vehiculo').val()){
         $.ajax({
             type : "post",
-            url: "<?php echo base_url().'index.php/vehiculo/getVehiculoFactura'?>",
+            url: "<?php echo base_url().'index.php/vehiculos/getVehiculoFactura'?>",
             cache: false,
-            data : {id :  $('#id_vehiculo').val()},
+            data : {id_vehiculo :  $('#id_vehiculo').val()},
             success : function(json){
                 var obj=jQuery.parseJSON(json);
                 if(obj[0]){
-                    $('#modelo_vehiculo').val(obj[0].nombre);
-                    $('#garantia_vehiculo').val(obj[0].apellido1);
-                    $('#precio_vehiculo').val(obj[0].apellido2);
+                    $('#modelo_vehiculo').val(obj[0].modelo);
+                    $('#garantia_vehiculo').val(obj[0].monto_garantia_ext);
+                    $('#precio_vehiculo').val(obj[0].precio);
                 }else{
                     alert("Vehiculo no encontrado");
                 }
@@ -72,7 +72,7 @@ function getArticulo(){
     if($('#id_articulo').val()){
         $.ajax({
             type : "post",
-            url: "<?php echo base_url().'index.php/articulo/getArticuloFactura'?>",
+            url: "<?php echo base_url().'index.php/articulos/getArticuloFactura'?>",
             cache: false,
             data : {id :  $('#id_articulo').val()},
             success : function(json){
