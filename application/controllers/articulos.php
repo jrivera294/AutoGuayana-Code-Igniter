@@ -123,7 +123,7 @@ class Articulos extends CI_Controller{
 
         $data['message_type']=1;
         $data['message']="Articulo Actualizado satisfactoriamente";
-       $this->gestionArticulos();
+       $this->cargarGestionArticulos();
     }
 
      public function getArticuloFactura(){

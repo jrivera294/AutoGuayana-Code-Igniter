@@ -6,7 +6,7 @@
 
          <h2 class="sub-header">Edicion Articulo</h2>
          <div>
-         <form role="form" action='<?= base_url();?>index.php/admin/updateArticulo' method="post">
+         <form role="form" action='<?= base_url();?>index.php/articulos/editarArticulo' method="post">
              <?php
                     if(is_array($articulos) && count($articulos) ) {
 
@@ -15,7 +15,16 @@
               ?>
              <input type="hidden" name = "id" value="<?php echo $articulos['id']; ?>">
              <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="col-xs-12 col-sm-2 col-md-2">
+                    <h3>ID:</h3>
+                    <div class="form-group">
+                        <input disabled type="text" name="id_visible" id="id_visible"  class="form-control input-lg" placeholder="" value=
+                               "<?php echo $articulos['id']; ?>" tabindex="1">
+                    </div>
+                </div>
+
+
+                <div class="col-xs-12 col-sm-10 col-md-10">
                     <h3>Descripcion:</h3>
                     <div class="form-group">
                         <input type="text" name="descripcion" id="descripcion"  class="form-control input-lg" placeholder="" value=
