@@ -73,7 +73,7 @@ CREATE TABLE color_vehiculo(
 );
 
 CREATE TABLE articulos(
-	id serial NOT NULL,
+	id integer NOT NULL,
 	precio real NOT NULL CHECK(precio>=0),
 	stock integer NOT NULL CHECK(stock>=0),
 	descripcion varchar(20) NOT NULL,

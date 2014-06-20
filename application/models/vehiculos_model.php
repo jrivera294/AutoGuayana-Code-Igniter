@@ -36,6 +36,11 @@
             return $query->result();
         }
 
+        function getVehiculoBySerial($serial){
+            $query = $this->db->query("SELECT * FROM vehiculo WHERE id = ?",array($serial));
+            return $query->result();
+       }
+
         function getColoresVehiculo($serial_vehiculo){
             $query = $this->db->query("SELECT color FROM color_vehiculo WHERE id_vehiculo = ?",$serial_vehiculo);
             return $query->result();

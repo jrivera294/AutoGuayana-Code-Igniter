@@ -126,7 +126,11 @@ class Articulos extends CI_Controller{
        $this->gestionArticulos();
     }
 
-
+     public function getArticuloFactura(){
+        $id= $this->input->post('id_articulo');
+        $query = $this->Articulos_model->getArticulosById($id);
+        echo json_encode($query);
+    }
 }
 
 ?>

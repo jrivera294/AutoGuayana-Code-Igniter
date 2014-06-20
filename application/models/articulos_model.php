@@ -12,8 +12,15 @@
             return $query->result();
         }
 
+       function getArticuloById($id){
+            $query = $this->db->query("SELECT * FROM articulos WHERE id = ?",array($id));
+            return $query->result();
+       }
+
+
+
        function addArticulo($articulo){
-           $query = $this->db->query("INSERT INTO articulos (precio,stock,descripcion,modelo,fabricante) VALUES (?,?,?,?,?)",$articulo);
+           $query = $this->db->query("INSERT INTO articulos VALUES (?,?,?,?,?,?)",$articulo);
             return $query;
        }
 
