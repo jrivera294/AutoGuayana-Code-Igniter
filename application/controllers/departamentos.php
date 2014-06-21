@@ -1,21 +1,28 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Articulos extends CI_Controller{
+class Departamentos extends CI_Controller{
 
     public function __construct(){
         parent::__construct();
-        $this->load->model('Departamento_model');
+        $this->load->model('Departamentos_model');
     }
 
       public function index()
       {
-        $query = $this->Departamento_model->getDepartamentos();
+        $query = $this->Departamentos_model->getDepartamentos();
         $data['departamentos'] = $query;
         $this->load->view('layouts/header');
         $this->load->view('layouts/adminSidebar');
-        $this->load->view('stock/articulos_view',$data);
+        $this->load->view('admin/gestionDepartamentos_view',$data);
         $this->load->view('layouts/footer');
       }
+
+     public function cargarRegistroDepartamentos(){
+         $this->load->view('layouts/header');
+        $this->load->view('layouts/adminSidebar');
+        $this->load->view('admin/registroDepartamentos_view');
+        $this->load->view('layouts/footer');
+     }
 
 }
 
