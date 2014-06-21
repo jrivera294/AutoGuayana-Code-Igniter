@@ -3,6 +3,7 @@
     var queryVehiculo=null;
     var queryColoresVehiculo=null;
     var queryOpcionesVehiculos=null;
+    var queryArticulos=null;
     var flagVehiculo=0;
     
 /* ------------ Ocultar y mostrar campos -------------------- */
@@ -81,15 +82,16 @@ function getArticulo(){
             type : "post",
             url: "<?php echo base_url().'index.php/articulos/getArticuloFactura'?>",
             cache: false,
-            data : {id :  $('#id_articulo').val()},
+            data : {id_articulo :  $('#id_articulo').val()},
             success : function(json){
                 var obj=jQuery.parseJSON(json);
-                if(obj[0]){
-                    $('#fabricante_articulo').val(obj[0].fabricante);
-                    $('#modelo_articulo').val(obj[0].modelo);
-                    $('#stock_articulo').val(obj[0].stock);
-                    $('#descripcion_articulo').val(obj[0].descripcion);
-                    $('#precio_articulo').val(obj[0].precio);
+                queryArticulos=obj[0];
+                if(queryArticulos){
+                    $('#fabricante_articulo').val(queryArticulos.fabricante);
+                    $('#modelo_articulo').val(queryArticulos.modelo);
+                    $('#stock_articulo').val(queryArticulos.stock);
+                    $('#descripcion_articulo').val(queryArticulos.descripcion);
+                    $('#precio_articulo').val(queryArticulos.precio);
                 }else{
                     alert("Articulo no encontrado");
                 }
@@ -160,19 +162,24 @@ function recalcular(){
     document.getElementById('sub_total').innerHTML=sub_total;
     document.getElementById('iva').innerHTML=iva;
     document.getElementById('total').innerHTML=total;
-}    
+}
+
  
 function addArticulo(){
+    var total=(queryArticulos['precio']*$('#cantidad_articulo').val())-$('#descuento_articulo').val();
+    
     newRow = "<tr>" +
-        "<td style=display:none><input type=hidden name=id_articulo"+nro_articulos+" id=id_articulo"+nro_articulos+" class=form-control></td>" +
-        "<td style=display:none><input type=hidden name=cantidad_articulo"+nro_articulos+" id=cantidad_articulo"+nro_articulos+" class=form-control></td>" +
-        "<td style=display:none><input type=hidden name=descuento_articulo"+nro_articulos+" id=descuento_articulo"+nro_articulos+" class=form-control></td>" +
-        "<td style=display:none><input type=hidden name=precio_articulo"+nro_articulos+" id=precio_articulo"+nro_articulos+" class=form-control></td>" +
-        "<td >412421412 - Pioneer superbass<br>Subwoofer 10000w</td>" +
-        "<td >Cantidad</td>" +
-        "<td >Precio</td>" +
-        "<td >Descuento</td>" +
-        "<td class=contar>Precio-Descuento</td>" +
+        "<td style=display:none><input type=hidden name=id_articulo"+nro_articulos+" id=id_articulo"+nro_articulos+" value="+queryArticulos['id']+" class=form-control></td>" +
+        "<td style=display:none><input type=hidden name=cantidad_articulo"+nro_articulos+" id=cantidad_articulo"+nro_articulos+" value="+$('#cantidad_articulo').val()+" class=form-control></td>" +
+        "<td style=display:none><input type=hidden name=descuento_articulo"+nro_articulos+" id=descuento_articulo"+nro_articulos+" value="+$('#descuento_articulo').val()+" class=form-control></td>" +
+        "<td style=display:none><input type=hidden name=precio_articulo"+nro_articulos+" id=precio_articulo"+nro_articulos+" value="+queryArticulos['precio']+" class=form-control></td>" +
+            
+            
+        "<td >Serial: "+queryArticulos['id']+" - "+queryArticulos['fabricante']+" "+queryArticulos['modelo']+"<br>Descripcion: "+queryArticulos['descripcion']+"</td>" +
+        "<td >"+$('#cantidad_articulo').val()+"</td>" +
+        "<td >"+queryArticulos['precio']+"</td>" +
+        "<td >"+$('#descuento_articulo').val()+"</td>" +
+        "<td class=contar>"+total+"</td>" +
         "<td ><button type=button onclick=deleteRow(this);>X</button></td>" +
     "</tr>";
     $('#tabla_factura > tbody:last').append(newRow);
