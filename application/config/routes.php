@@ -47,6 +47,7 @@ $route['seguro'] = "seguro";
 $route['vehiculos'] = "vehiculos";
 $route['articulos'] = "articulos";
 $route['departamentos'] = "departamentos";
+$route['cargos'] ="cargos";
 $route['administracion'] = "vehiculos/cargarGestionVehiculos";
 //$route['stock'] = "stock/traerVehiculo";
 $route['404_override'] = '';

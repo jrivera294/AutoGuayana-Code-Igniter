@@ -30,7 +30,7 @@
                      <li ><a href="#">Gestionar empleados</a></li>
                      <li ><a href="#">Gestionar fichas</a></li>
                     <li><a href="<?= base_url("index.php/departamentos");?>">Departamentos</a></li>
-                    <li><a href="#">Cargos</a></li>
+                    <li><a href="<?= base_url("index.php/cargos");?>">Cargos</a></li>
                 </ul>
             </li>
               <li class="dropdown-submenu">

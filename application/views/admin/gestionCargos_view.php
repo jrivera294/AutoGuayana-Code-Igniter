@@ -5,7 +5,7 @@
 
             <div class="row">
                 <div class="col-xs-12 col-md-6">
-                    <h2 class="sub-header">Departamentos</h2>
+                    <h2 class="sub-header">Cargos</h2>
                 </div>
 
           </div>
@@ -17,7 +17,7 @@
             <!-- Button Drop Down -->
                 <div class="col-xs-12 col-md-6">
                     <div class="control-group">
-                      <label class="control-label" for="buttondropdown">Buscar Departamento</label>
+                      <label class="control-label" for="buttondropdown">Buscar Cargo</label>
                       <div class="controls">
                         <div class="input-append">
                           <input id="buttondropdown" name="buttondropdown" class="input-xlarge" placeholder="" type="text">
@@ -38,7 +38,7 @@
 
                 <div class="col-xs-12 col-md-6">
                       <br>
-                    <a href="<?= base_url("index.php/departamentos/cargarRegistroDepartamentos");?>"> <input  type="button "value="Agregar Departamento" class="btn btn-primary btn-block btn-lg" tabindex="7" >
+                    <a href="<?= base_url("index.php/cargos/cargarRegistroCargos");?>"> <input  type="button "value="Agregar Cargo" class="btn btn-primary btn-block btn-lg" tabindex="7" >
                    </a>
                 </div>
             </div>
@@ -50,23 +50,26 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>Codigo Departamento</th>
+                  <th>Codigo Cargo</th>
                   <th>Nombre</th>
+                  <th>Sueldo</th>
                   <th>Editar</th>
                 </tr>
               </thead>
               <tbody>
                 <?php
-                    if(is_array($departamentos) && count($departamentos) ) {
-                        foreach($departamentos as $loop){
+                    if(is_array($cargos) && count($cargos) ) {
+                        foreach($cargos as $loop){
                 ?>
                 <tr>
-                  <td><?= $loop->cod_dpto; ?></td>
+                  <td><?= $loop->cod_cargo; ?></td>
                   <td><?= $loop->nombre; ?></td>
+                  <td><?= $loop->sueldo; ?></td>
                   <td>
-                        <form action="<?= base_url("index.php/departamentos/cargarEdicionDepartamentos");?>" method="post" id="formulario">
-                            <input type="hidden" name = "cod_dpto" value="<?= $loop->cod_dpto; ?>">
+                        <form action="<?= base_url("index.php/cargos/cargarEdicionCargos");?>" method="post" id="formulario">
+                            <input type="hidden" name = "cod_cargo" value="<?= $loop->cod_cargo; ?>">
                             <input type="hidden" name = "nombre" value="<?= $loop->nombre; ?>">
+                            <input type="hidden" name = "sueldo" value="<?= $loop->sueldo; ?>">
                             <button class="btn-warning btn-xs btn-primary" type="submit">Editar</input>
 
                         </form>
