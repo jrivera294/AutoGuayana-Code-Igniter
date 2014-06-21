@@ -5,7 +5,7 @@
 
          <h2 class="sub-header">Registro Departamento</h2>
          <div>
-         <form role="form">
+         <form role="form" action="<?= base_url();?>index.php/departamentos/registrarDepartamento" method="post">
 
 
 

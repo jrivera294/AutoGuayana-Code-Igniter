@@ -7,10 +7,11 @@
           <h2 class="sub-header">Artículos</h2>
           <div>
           <form class="form-horizontal">
-            <fieldset>
+            <div class="row">
 
 
             <!-- Button Drop Down -->
+            <div class="col-xs-12 col-md-6">
             <div class="control-group">
               <label class="control-label" for="buttondropdown">Buscar Artículo</label>
               <div class="controls">
@@ -29,8 +30,15 @@
                 </div>
               </div>
             </div>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                      <br>
+                    <a href="<?= base_url("index.php/articulos/cargarRegistroArticulos");?>"> <input  type="button "value="Agregar Articulo" class="btn btn-primary btn-block btn-lg" tabindex="7" >
+                   </a>
+                </div>
 
-            </fieldset>
+            </div>
+              <br>
           </form>
           </div>
           <div class="table-responsive">

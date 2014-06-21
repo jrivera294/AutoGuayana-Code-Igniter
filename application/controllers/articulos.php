@@ -25,21 +25,6 @@ class Articulos extends CI_Controller{
         $this->load->view('layouts/footer');
     }
 
-    /*public function registrarArticulo(){
-        $articulo =array(
-            'id' => $this->input->post('id'),
-            'precio' => $this->input->post('precio'),
-            'stock' => $this->input->post('stock'),
-            'descripcion' => $this->input->post('descripcion'),
-            'modelo' => $this->input->post('modelo'),
-            'fabricante' => $this->input->post('fabricante'),
-        );
-
-        $result = $this->Stock_model->addArticulo($articulo);
-        $this->load->view('layouts/header');
-        $this->load->view('stock/articulos_view');
-        $this->load->view('layouts/footer');
-    }*/
 
     //introducir los articulos ingresados
     public function registrarArticulo(){
@@ -89,14 +74,6 @@ class Articulos extends CI_Controller{
             'id' => $this->input->post('id')
         );
         $data['articulos']=$articulo;
-        /* echo "articulo".  $articulo['precio' ];
-         echo "articulo".  $articulo[   'stock' ];
-         echo "articulo".  $articulo[   'descripcion'];
-         echo "articulo".  $articulo[   'modelo' ];
-         echo "articulo".  $articulo[   'fabricante'];*/
-       /* $result = $this->Admin_model->updateArticulo($articulo,$this->input->post('id'));
-        $data['message_type']=1;
-        $data['message']="Articulo Actualizado satisfactoriamente";*/
         $this->load->view('layouts/header');
         $this->load->view('layouts/adminSidebar');
         $this->load->view('admin/edicionArticulos_view',$data);
@@ -113,16 +90,22 @@ class Articulos extends CI_Controller{
             'id' => $this->input->post('id')
         );
         $data['articulos']=$articulo;
-        /* echo "articulo".  $articulo['precio' ];
-         echo "articulo".  $articulo[   'stock' ];
-         echo "articulo".  $articulo[   'descripcion'];
-         echo "articulo".  $articulo[   'modelo' ];
-         echo "articulo".  $articulo[   'fabricante'];*/
         $result = $this->Articulos_model->updateArticulo($articulo);
 
         $data['message_type']=1;
         $data['message']="Articulo Actualizado satisfactoriamente";
-       $this->cargarGestionArticulos();
+
+        //volver a copiar cargarGestionArticulos para visualizar el mensaje verde
+        $query = $this->Articulos_model->getArticulos();
+        $data['articulos'] = $query;
+        /*if ($actualizacion==1){
+            $data['message_type']=1;
+            $data['message']="Articulo actualizado satisfactoriamente";
+        }*/
+        $this->load->view('layouts/header',$data);
+        $this->load->view('layouts/adminSidebar');
+        $this->load->view('admin/gestionArticulos_view');
+        $this->load->view('layouts/footer');
     }
 
      public function getArticuloFactura(){

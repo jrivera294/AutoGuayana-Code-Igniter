@@ -18,8 +18,7 @@
                 <div class="col-xs-12 col-sm-2 col-md-2">
                     <h3>ID:</h3>
                     <div class="form-group">
-                        <input disabled type="text" name="id_visible" id="id_visible"  class="form-control input-lg" placeholder="" value=
-                               "<?php echo $articulos['id']; ?>" tabindex="1">
+                        <input disabled type="text" name="id_visible" id="id_visible"  class="form-control input-lg" placeholder="" value="<?php echo $articulos['id']; ?>" tabindex="1">
                     </div>
                 </div>
 
@@ -74,7 +73,7 @@
 
              <div class="row">
                  <div class="col-xs-12 col-md-6"><input type="submit" value="Actualizar" class="btn btn-primary btn-block btn-lg" tabindex="7"></div>
-                 <div class="col-xs-12 col-md-6"><a href="<?= base_url("index.php/admin/gestionArticulos");?>" class="btn btn-warning btn-block btn-lg">Cancelar</a></div>
+                 <div class="col-xs-12 col-md-6"><a href="<?= base_url("index.php/articulos/cargarGestionArticulos");?>" class="btn btn-warning btn-block btn-lg">Cancelar</a></div>
              </div>
 
              </form>

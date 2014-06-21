@@ -27,11 +27,6 @@
        function updateArticulo($articulo){
            $query = $this->db->query("UPDATE articulos SET precio=?,stock=?,descripcion=?,modelo=?,fabricante=? WHERE id=?",$articulo);
             return $query;
-        /* echo "articulo".  $articulo['precio' ];
-         echo "articulo".  $articulo[   'stock' ];
-         echo "articulo".  $articulo[   'descripcion'];
-         echo "articulo".  $articulo[   'modelo' ];
-         echo "articulo".  $articulo[   'fabricante']; */
        }
 
 

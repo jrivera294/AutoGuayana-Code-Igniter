@@ -38,11 +38,12 @@
 
                 <div class="col-xs-12 col-md-6">
                       <br>
-                     <input  value="Agregar Departamento" class="btn btn-primary btn-block btn-lg" tabindex="7" href="<?= base_url("index.php/departamentos/cargarRegistroDepartamentos");?>">
+                    <a href="<?= base_url("index.php/departamentos/cargarRegistroDepartamentos");?>"> <input  type="button "value="Agregar Departamento" class="btn btn-primary btn-block btn-lg" tabindex="7" >
+                   </a>
                 </div>
             </div>
             </fieldset>
-
+              <br>
           </form>
           </div>
           <div class="table-responsive">
@@ -51,6 +52,7 @@
                 <tr>
                   <th>Codigo Departamento</th>
                   <th>Nombre</th>
+                  <th>Editar</th>
                 </tr>
               </thead>
               <tbody>
@@ -63,8 +65,8 @@
                   <td><?= $loop->nombre; ?></td>
                   <td>
                         <form action="<?= base_url("index.php/departamentos/cargarEdicionDepartamentos");?>" method="post" id="formulario">
-                            <input type="hidden" name = "id" value="<?= $loop->cod_dpto; ?>">
-                            <input type="hidden" name = "fabricante" value="<?= $loop->nombre; ?>">
+                            <input type="hidden" name = "cod_dpto" value="<?= $loop->cod_dpto; ?>">
+                            <input type="hidden" name = "nombre" value="<?= $loop->nombre; ?>">
                             <button class="btn-warning btn-xs btn-primary" type="submit">Editar</input>
 
                         </form>

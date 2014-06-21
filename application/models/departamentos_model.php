@@ -9,5 +9,15 @@
             return $query->result();
        }
 
+       public function addDepartamento($departamento){
+           $query = $this->db->query("INSERT INTO departamento VALUES (?,?)",$departamento);
+           return $query;
+       }
+
+       public function updateDepartamento($departamento){
+           $query = $this->db->query("UPDATE departamento SET nombre=? WHERE cod_dpto=?",$departamento);
+            return $query;
+       }
+
    }
 ?>
