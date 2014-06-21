@@ -1,5 +1,10 @@
 <script language="JavaScript"> 
     var nro_articulos=0;
+    var queryVehiculo=null;
+    var queryColoresVehiculo=null;
+    var queryOpcionesVehiculos=null;
+    var queryArticulos=null;
+    var flagVehiculo=0;
     
 /* ------------ Ocultar y mostrar campos -------------------- */
 function oculta(id){
@@ -55,10 +60,13 @@ function getVehiculo(){
             data : {id_vehiculo :  $('#id_vehiculo').val()},
             success : function(json){
                 var obj=jQuery.parseJSON(json);
-                if(obj[0]){
-                    $('#modelo_vehiculo').val(obj[0].modelo);
-                    $('#garantia_vehiculo').val(obj[0].monto_garantia_ext);
-                    $('#precio_vehiculo').val(obj[0].precio);
+                queryVehiculo=obj['vehiculo'][0];
+                queryColoresVehiculo=obj['colores'];
+                queryOpcionesVehiculo=obj['opciones'];
+                if(queryVehiculo=obj['vehiculo'][0]){
+                    $('#modelo_vehiculo').val(queryVehiculo.modelo);
+                    $('#garantia_vehiculo').val(queryVehiculo.monto_garantia_ext);
+                    $('#precio_vehiculo').val(queryVehiculo.precio);
                 }else{
                     alert("Vehiculo no encontrado");
                 }
@@ -74,15 +82,16 @@ function getArticulo(){
             type : "post",
             url: "<?php echo base_url().'index.php/articulos/getArticuloFactura'?>",
             cache: false,
-            data : {id :  $('#id_articulo').val()},
+            data : {id_articulo :  $('#id_articulo').val()},
             success : function(json){
                 var obj=jQuery.parseJSON(json);
-                if(obj[0]){
-                    $('#fabricante_articulo').val(obj[0].fabricante);
-                    $('#modelo_articulo').val(obj[0].modelo);
-                    $('#stock_articulo').val(obj[0].stock);
-                    $('#descripcion_articulo').val(obj[0].descripcion);
-                    $('#precio_articulo').val(obj[0].precio);
+                queryArticulos=obj[0];
+                if(queryArticulos){
+                    $('#fabricante_articulo').val(queryArticulos.fabricante);
+                    $('#modelo_articulo').val(queryArticulos.modelo);
+                    $('#stock_articulo').val(queryArticulos.stock);
+                    $('#descripcion_articulo').val(queryArticulos.descripcion);
+                    $('#precio_articulo').val(queryArticulos.precio);
                 }else{
                     alert("Articulo no encontrado");
                 }
@@ -135,43 +144,91 @@ function getBanco(){
         alert("Debe ingresar un RIF de banco");
     }
 }
+    
+/* ------------ Funciones de modificación de la tabla -------------------- */
+    
+function recalcular(){
+    var tds = document.getElementById('tabla_factura').getElementsByTagName('td');
+    var sub_total = 0;
+    var iva=0;
+    var total=0;
+    for(var i = 0; i < tds.length; i ++) {
+        if(tds[i].className == 'contar') {
+            sub_total += parseInt(tds[i].innerHTML);
+        }
+    }
+    iva=sub_total*0.12;
+    total=sub_total+iva;
+    document.getElementById('sub_total').innerHTML=sub_total;
+    document.getElementById('iva').innerHTML=iva;
+    document.getElementById('total').innerHTML=total;
+}
+
  
 function addArticulo(){
+    var total=(queryArticulos['precio']*$('#cantidad_articulo').val())-$('#descuento_articulo').val();
+    
     newRow = "<tr>" +
-        "<td style=display:none><input type=hidden name=id_articulo"+nro_articulos+" id=id_articulo"+nro_articulos+" class=form-control></td>" +
-        "<td style=display:none><input type=hidden name=cantidad_articulo"+nro_articulos+" id=cantidad_articulo"+nro_articulos+" class=form-control></td>" +
-        "<td style=display:none><input type=hidden name=descuento_articulo"+nro_articulos+" id=descuento_articulo"+nro_articulos+" class=form-control></td>" +
-        "<td style=display:none><input type=hidden name=precio_articulo"+nro_articulos+" id=precio_articulo"+nro_articulos+" class=form-control></td>" +
-        "<td >412421412 - Pioneer superbass<br>Subwoofer 10000w</td>" +
-        "<td >Cantidad</td>" +
-        "<td >Precio</td>" +
-        "<td >Descuento</td>" +
-        "<td >Precio-Descuento</td>" +
+        "<td style=display:none><input type=hidden name=id_articulo"+nro_articulos+" id=id_articulo"+nro_articulos+" value="+queryArticulos['id']+" class=form-control></td>" +
+        "<td style=display:none><input type=hidden name=cantidad_articulo"+nro_articulos+" id=cantidad_articulo"+nro_articulos+" value="+$('#cantidad_articulo').val()+" class=form-control></td>" +
+        "<td style=display:none><input type=hidden name=descuento_articulo"+nro_articulos+" id=descuento_articulo"+nro_articulos+" value="+$('#descuento_articulo').val()+" class=form-control></td>" +
+        "<td style=display:none><input type=hidden name=precio_articulo"+nro_articulos+" id=precio_articulo"+nro_articulos+" value="+queryArticulos['precio']+" class=form-control></td>" +
+            
+            
+        "<td >Serial: "+queryArticulos['id']+" - "+queryArticulos['fabricante']+" "+queryArticulos['modelo']+"<br>Descripcion: "+queryArticulos['descripcion']+"</td>" +
+        "<td >"+$('#cantidad_articulo').val()+"</td>" +
+        "<td >"+queryArticulos['precio']+"</td>" +
+        "<td >"+$('#descuento_articulo').val()+"</td>" +
+        "<td class=contar>"+total+"</td>" +
         "<td ><button type=button onclick=deleteRow(this);>X</button></td>" +
     "</tr>";
     $('#tabla_factura > tbody:last').append(newRow);
    nro_articulos++;
     $('#nro_articulos').val(nro_articulos);
     alert("Artículo añadido correctamente");
-    
+    recalcular();
 }
+    
 function addVehiculo(){
-
-    newRow = "<tr>" +
-        "<td >512354545 - Toyota corolla<br>Placa: asdasfa<br>Color: Rojo, Verde, Azul<br>Peso: 5000kg<br>Otras características:</td>" +
-        "<td >Cantidad</td>" +
-        "<td >Precio</td>" +
-        "<td >Descuento</td>" +
-        "<td >Precio-Descuento</td>" +
-        "<td ><button type=button onclick=deleteRow(this)>X</button></td>" +
-    "</tr>";
-    $('#tabla_factura > tbody:first').append(newRow);
-    alert("Vehiculo añadido correctamente");
+    if(flagVehiculo==1){
+        alert("No puede añadir dos vehiculos en una misma factura");
+    }else{
+        var key;
+        var colores="";
+        var opciones="";
+        for(key in queryColoresVehiculo){
+            colores+=queryColoresVehiculo[key]['color']+",";
+        }
+        for(key in queryOpcionesVehiculo){
+            opciones+="<br>- "+queryOpcionesVehiculo[key]['opcion'];
+        }
+        
+        var total=queryVehiculo['precio']-$('#descuento_vehiculo').val();
+    
+        newRow = "<tr id=vehiculoTr>" +
+            "<td >Serial: "+queryVehiculo['id']+"<br>Modelo: "+queryVehiculo['modelo']+"<br>Placa: "+queryVehiculo['placa']+"<br>Colores: "+colores+"<br>Peso: "+queryVehiculo['peso']+"kg<br>Otras características: "+opciones+"</td>" +
+            "<td ></td>" +
+            "<td >"+queryVehiculo['precio']+"</td>" +
+            "<td >"+$('#descuento_vehiculo').val()+"</td>" +
+            "<td class=contar>"+total+"</td>" +
+            "<td ><button type=button onclick=deleteRow(this)>X</button></td>" +
+        "</tr>";
+        $('#tabla_factura > tbody:first').append(newRow);
+        flagVehiculo=1;
+        alert("Vehiculo añadido correctamente");
+    }
+    recalcular();
 }
     
 function deleteRow(td){
     document.getElementById("tabla_factura").deleteRow(td.parentNode.parentNode.rowIndex);
+    if(td.parentNode.parentNode.id=="vehiculoTr"){
+        flagVehiculo=0;
+    }
+    recalcular();
 }
+    
+
     
 
     

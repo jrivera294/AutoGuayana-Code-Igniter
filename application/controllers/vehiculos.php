@@ -135,7 +135,10 @@ class Vehiculos extends CI_Controller{
 
      public function getVehiculoFactura(){
         $serial = $this->input->post('id_vehiculo');
-        $query = $this->Vehiculos_model->getVehiculoBySerial($serial);
+         $query=array();
+        $query['vehiculo'] = $this->Vehiculos_model->getVehiculoBySerial($serial);
+        $query['colores'] = $this->Vehiculos_model->getColoresVehiculo($serial);
+        $query['opciones'] = $this->Vehiculos_model->getOpcionesVehiculo($serial);
         echo json_encode($query);
     }
 
