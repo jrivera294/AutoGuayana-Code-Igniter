@@ -1,56 +1,12 @@
 <div class="container-fluid">
      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-         <ul class="nav nav-sidebar">
-             <li class="dropdown-submenu active">
-               <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    Artículos
-                    <span class="caret"></span>
-               </a>
-               <ul class="dropdown-menu ">
-                    <li class="active" ><a href="<?= base_url("index.php/admin/registroArticulo");?>">Registrar artículos</a></li>
-                    <li ><a href="<?= base_url("index.php/admin/gestionArticulos");?>">Gestionar artículos</a></li>
-               </ul>
-           </li>
-             <li class="dropdown-submenu">
-               <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    Vehículos
-                    <span class="caret"></span>
-               </a>
-               <ul class="dropdown-menu">
-                    <li><a href="<?= base_url("index.php/admin/registroVehiculos");?>">Registrar vehículos</a></li>
-                    <li ><a href="<?= base_url("index.php/admin/gestionVehiculos");?>">Gestionar vehículos</a></li>
-               </ul>
-           </li>
-           <li class="dropdown-submenu">
-               <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    Empleados
-                    <span class="caret"></span>
-               </a>
-               <ul class="dropdown-menu">
-                    <li ><a href="#">Gestionar empleados</a></li>
-                    <li ><a href="#">Gestionar fichas</a></li>
-               </ul>
-           </li>
-             <li class="dropdown-submenu">
-               <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    Reportes
-                    <span class="caret"></span>
-               </a>
-               <ul class="dropdown-menu">
-                    <li ><a href="#">Ventas</a></li>
-                    <li ><a href="#">Top 5 vendedores</a></li>
-                    <li ><a href="#">Desempeño general</a></li>
-               </ul>
-           </li>
-         </ul>
-        </div>
+
        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
 
          <h2 class="sub-header">Edicion Articulo</h2>
          <div>
-         <form role="form" action='<?= base_url();?>index.php/admin/updateArticulo' method="post">
+         <form role="form" action='<?= base_url();?>index.php/articulos/editarArticulo' method="post">
              <?php
                     if(is_array($articulos) && count($articulos) ) {
 
@@ -59,7 +15,15 @@
               ?>
              <input type="hidden" name = "id" value="<?php echo $articulos['id']; ?>">
              <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="col-xs-12 col-sm-2 col-md-2">
+                    <h3>ID:</h3>
+                    <div class="form-group">
+                        <input disabled type="text" name="id_visible" id="id_visible"  class="form-control input-lg" placeholder="" value="<?php echo $articulos['id']; ?>" tabindex="1">
+                    </div>
+                </div>
+
+
+                <div class="col-xs-12 col-sm-10 col-md-10">
                     <h3>Descripcion:</h3>
                     <div class="form-group">
                         <input type="text" name="descripcion" id="descripcion"  class="form-control input-lg" placeholder="" value=
@@ -109,7 +73,7 @@
 
              <div class="row">
                  <div class="col-xs-12 col-md-6"><input type="submit" value="Actualizar" class="btn btn-primary btn-block btn-lg" tabindex="7"></div>
-                 <div class="col-xs-12 col-md-6"><a href="<?= base_url("index.php/admin/gestionArticulos");?>" class="btn btn-warning btn-block btn-lg">Cancelar</a></div>
+                 <div class="col-xs-12 col-md-6"><a href="<?= base_url("index.php/articulos/cargarGestionArticulos");?>" class="btn btn-warning btn-block btn-lg">Cancelar</a></div>
              </div>
 
              </form>

@@ -1,60 +1,17 @@
 <div class="container-fluid">
       <div class="row">
-       <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-              <li class="dropdown-submenu  active">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                     Artículos
-                     <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                     <li ><a href="<?= base_url("index.php/admin/registroArticulos");?>">Registrar artículos</a></li>
-                     <li class="active" ><a href="<?= base_url("index.php/admin/gestionArticulos");?>">Gestionar artículos</a></li>
-                </ul>
-            </li>
-              <li class=" dropdown-submenu">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                     Vehículos
-                     <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                     <li ><a href="<?= base_url("index.php/admin/registroVehiculos");?>">Registrar vehículos</a></li>
-                     <li ><a href="<?= base_url("index.php/admin/gestionVehiculos");?>">Gestionar vehículos</a></li>
-                </ul>
-            </li>
-            <li class="dropdown-submenu">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                     Empleados
-                     <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                     <li ><a href="#">Gestionar empleados</a></li>
-                     <li ><a href="#">Gestionar fichas</a></li>
-                </ul>
-            </li>
-              <li class="dropdown-submenu">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                     Reportes
-                     <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                     <li ><a href="#">Ventas</a></li>
-                     <li ><a href="#">Top 5 vendedores</a></li>
-                     <li ><a href="#">Desempeño general</a></li>
-                </ul>
-            </li>
-          </ul>
-        </div>
+
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
 
           <h2 class="sub-header">Artículos</h2>
           <div>
           <form class="form-horizontal">
-            <fieldset>
+            <div class="row">
 
 
             <!-- Button Drop Down -->
+            <div class="col-xs-12 col-md-6">
             <div class="control-group">
               <label class="control-label" for="buttondropdown">Buscar Artículo</label>
               <div class="controls">
@@ -73,8 +30,15 @@
                 </div>
               </div>
             </div>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                      <br>
+                    <a href="<?= base_url("index.php/articulos/cargarRegistroArticulos");?>"> <input  type="button "value="Agregar Articulo" class="btn btn-primary btn-block btn-lg" tabindex="7" >
+                   </a>
+                </div>
 
-            </fieldset>
+            </div>
+              <br>
           </form>
           </div>
           <div class="table-responsive">
@@ -103,7 +67,7 @@
                   <td><?= $loop->stock;?></td>
                   <td><?= $loop->precio?></td>
                   <td>
-                        <form action="<?= base_url("index.php/admin/edicionArticulos");?>" method="post" id="formulario">
+                        <form action="<?= base_url("index.php/articulos/cargarEdicionArticulos");?>" method="post" id="formulario">
                             <input type="hidden" name = "id" value="<?= $loop->id; ?>">
                             <input type="hidden" name = "fabricante" value="<?= $loop->fabricante?>">
                             <input type="hidden" name = "modelo" value="<?=$loop->modelo;?>">

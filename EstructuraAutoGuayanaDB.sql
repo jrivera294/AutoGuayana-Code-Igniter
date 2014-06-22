@@ -73,7 +73,7 @@ CREATE TABLE color_vehiculo(
 );
 
 CREATE TABLE articulos(
-	id serial NOT NULL,
+	id integer NOT NULL,
 	precio real NOT NULL CHECK(precio>=0),
 	stock integer NOT NULL CHECK(stock>=0),
 	descripcion varchar(20) NOT NULL,
@@ -159,7 +159,7 @@ CREATE TABLE aseguradora(
 
 CREATE TABLE factura(
 	nro_factura serial NOT NULL,
-	fecha_emisión date NOT NULL,
+	fecha_emision date NOT NULL,
 	tipo_financiamiento char(11) check (tipo_financiamiento in('Financiado','Contado')) NOT NULL,
 	cuotas integer,
 	pago_cuota real,
@@ -170,14 +170,14 @@ CREATE TABLE factura(
 	rif_aseguradora varchar(20) NOT NULL REFERENCES aseguradora(rif_aseguradora) ON UPDATE CASCADE ON DELETE RESTRICT, 
 	ci_cliente integer NOT NULL REFERENCES cliente(cedula) ON UPDATE CASCADE ON DELETE RESTRICT, 
 	id_empleado serial NOT NULL REFERENCES empleado(id) ON UPDATE CASCADE ON DELETE RESTRICT, 
-	rif_banco integer NOT NULL REFERENCES banco(rif_banco) ON UPDATE CASCADE ON DELETE RESTRICT, 
-	comisión real NOT NULL,
+	rif_banco integer REFERENCES banco(rif_banco) ON UPDATE CASCADE ON DELETE RESTRICT, 
+	comision real NOT NULL,
 
 	PRIMARY KEY (nro_factura)
 );
 
 CREATE TABLE detalle(
-    id_articulo serial NOT NULL REFERENCES articulos(id) ON UPDATE CASCADE ON DELETE RESTRICT,
+    id_articulo integer NOT NULL REFERENCES articulos(id) ON UPDATE CASCADE ON DELETE RESTRICT,
     nro_factura serial NOT NULL REFERENCES factura(nro_factura) ON UPDATE CASCADE ON DELETE RESTRICT,
     precio_venta real NOT NULL CHECK(precio_venta>=0),
     descuento real NOT NULL CHECK(descuento>=0),

@@ -1,7 +1,10 @@
 <script language="JavaScript"> 
-    var queryArticulo=null;
+    var nro_articulos=0;
     var queryVehiculo=null;
-    var queryCliente=null;
+    var queryColoresVehiculo=null;
+    var queryOpcionesVehiculos=null;
+    var queryArticulos=null;
+    var flagVehiculo=0;
     
 /* ------------ Ocultar y mostrar campos -------------------- */
 function oculta(id){
@@ -32,7 +35,6 @@ function getClient(){
             success : function(json){
                 var obj=jQuery.parseJSON(json);
                 if(obj[0]){
-                    queryCliente=obj[0];
                     $('#nombre_cliente').val(obj[0].nombre);
                     $('#apellido1_cliente').val(obj[0].apellido1);
                     $('#apellido2_cliente').val(obj[0].apellido2);
@@ -49,58 +51,57 @@ function getClient(){
         alert("Debe ingresar una cédula de usuario");
     }
 }
-/*function getVehiculo(){
-    if($('#cedula_cliente').val()){
+function getVehiculo(){
+    if($('#id_vehiculo').val()){
         $.ajax({
             type : "post",
-            url: "<?php echo base_url().'index.php/admin/getClienteFactura'?>",
+            url: "<?php echo base_url().'index.php/vehiculos/getVehiculoFactura'?>",
             cache: false,
-            data : {cedula :  $('#cedula_cliente').val()},
+            data : {id_vehiculo :  $('#id_vehiculo').val()},
             success : function(json){
                 var obj=jQuery.parseJSON(json);
-                if(obj[0]){
-                    $('#nombre_cliente').val(obj[0].nombre);
-                    $('#apellido1_cliente').val(obj[0].apellido1);
-                    $('#apellido2_cliente').val(obj[0].apellido2);
-                    //$('#tlf_cel_cliente').val(obj[0].asd);
-                    //$('#tlf_fijo_cliente').val(obj[0].nombre);
-                    $('#dir_cliente').val(obj[0].dir);
+                queryVehiculo=obj['vehiculo'][0];
+                queryColoresVehiculo=obj['colores'];
+                queryOpcionesVehiculo=obj['opciones'];
+                if(queryVehiculo=obj['vehiculo'][0]){
+                    $('#modelo_vehiculo').val(queryVehiculo.modelo);
+                    $('#garantia_vehiculo').val(queryVehiculo.monto_garantia_ext);
+                    $('#precio_vehiculo').val(queryVehiculo.precio);
                 }else{
-                    alert("Usuario no encontrado");
+                    alert("Vehiculo no encontrado");
+                }
+            },
+        });
+    }else{
+        alert("Debe ingresar un serial de vehiculo");
+    }
+}
+function getArticulo(){
+    if($('#id_articulo').val()){
+        $.ajax({
+            type : "post",
+            url: "<?php echo base_url().'index.php/articulos/getArticuloFactura'?>",
+            cache: false,
+            data : {id_articulo :  $('#id_articulo').val()},
+            success : function(json){
+                var obj=jQuery.parseJSON(json);
+                queryArticulos=obj[0];
+                if(queryArticulos){
+                    $('#fabricante_articulo').val(queryArticulos.fabricante);
+                    $('#modelo_articulo').val(queryArticulos.modelo);
+                    $('#stock_articulo').val(queryArticulos.stock);
+                    $('#descripcion_articulo').val(queryArticulos.descripcion);
+                    $('#precio_articulo').val(queryArticulos.precio);
+                }else{
+                    alert("Articulo no encontrado");
                 }
 
             },
         });
     }else{
-        alert("Debe ingresar una cédula de usuario");
+        alert("Debe ingresar un id de articulo");
     }
-}*/
-/*function getArticulo(){
-    if($('#cedula_cliente').val()){
-        $.ajax({
-            type : "post",
-            url: "<?php echo base_url().'index.php/admin/getClienteFactura'?>",
-            cache: false,
-            data : {cedula :  $('#cedula_cliente').val()},
-            success : function(json){
-                var obj=jQuery.parseJSON(json);
-                if(obj[0]){
-                    $('#nombre_cliente').val(obj[0].nombre);
-                    $('#apellido1_cliente').val(obj[0].apellido1);
-                    $('#apellido2_cliente').val(obj[0].apellido2);
-                    //$('#tlf_cel_cliente').val(obj[0].asd);
-                    //$('#tlf_fijo_cliente').val(obj[0].nombre);
-                    $('#dir_cliente').val(obj[0].dir);
-                }else{
-                    alert("Usuario no encontrado");
-                }
-
-            },
-        });
-    }else{
-        alert("Debe ingresar una cédula de usuario");
-    }
-}*/ 
+} 
 function getAseguradora(){
     if($('#rif_aseguradora').val()){
         $.ajax({
@@ -143,37 +144,108 @@ function getBanco(){
         alert("Debe ingresar un RIF de banco");
     }
 }
+    
+/* ------------ Funciones de modificación de la tabla -------------------- */
+    
+function recalcular(){
+    var tds = document.getElementById('tabla_factura').getElementsByTagName('td');
+    var sub_total = 0;
+    var iva=0;
+    var total=0;
+    for(var i = 0; i < tds.length; i ++) {
+        if(tds[i].className == 'contar') {
+            sub_total += parseInt(tds[i].innerHTML);
+        }
+    }
+    iva=sub_total*0.12;
+    total=sub_total+iva;
+    document.getElementById('sub_total').innerHTML=sub_total;
+    document.getElementById('iva').innerHTML=iva;
+    document.getElementById('total').innerHTML=total;
+}
+
  
 function addArticulo(){
-
+    var total=(queryArticulos['precio']*$('#cantidad_articulo').val())-$('#descuento_articulo').val();
+    
     newRow = "<tr>" +
-        "<td >412421412 - Pioneer superbass<br>Subwoofer 10000w paj paja...</td>" +
-        "<td >Cantidad</td>" +
-        "<td >Precio</td>" +
-        "<td >Descuento</td>" +
-        "<td >Precio-Descuento</td>" +
-        "<td ><button type=button onclick=deleteRow(this)>X</button></td>" +
+        "<td style=display:none><input type=hidden name=id_articulo"+nro_articulos+" id=id_articulo"+nro_articulos+" value="+queryArticulos['id']+" class=form-control></td>" +
+        "<td style=display:none><input type=hidden name=cantidad_articulo"+nro_articulos+" id=cantidad_articulo"+nro_articulos+" value="+$('#cantidad_articulo').val()+" class=form-control></td>" +
+        "<td style=display:none><input type=hidden name=descuento_articulo"+nro_articulos+" id=descuento_articulo"+nro_articulos+" value="+$('#descuento_articulo').val()+" class=form-control></td>" +
+        "<td style=display:none><input type=hidden name=precio_articulo"+nro_articulos+" id=precio_articulo"+nro_articulos+" value="+queryArticulos['precio']+" class=form-control></td>" +
+            
+            
+        "<td >Serial: "+queryArticulos['id']+" - "+queryArticulos['fabricante']+" "+queryArticulos['modelo']+"<br>Descripcion: "+queryArticulos['descripcion']+"</td>" +
+        "<td >"+$('#cantidad_articulo').val()+"</td>" +
+        "<td >"+queryArticulos['precio']+"</td>" +
+        "<td >"+$('#descuento_articulo').val()+"</td>" +
+        "<td class=contar>"+total+"</td>" +
+        "<td ><button type=button onclick=deleteRow(this);>X</button></td>" +
     "</tr>";
-    $('#tabla_factura > tbody > tr').eq(1).before(newRow);
+    $('#tabla_factura > tbody:last').append(newRow);
+   nro_articulos++;
+    $('#nro_articulos').val(nro_articulos);
     alert("Artículo añadido correctamente");
+    recalcular();
 }
+    
 function addVehiculo(){
-
-    newRow = "<tr>" +
-        "<td >512354545 - Toyota corolla<br>Placa: asdasfa<br>Color: Rojo, Verde, Azul<br>Peso: 5000kg<br>Otras características:</td>" +
-        "<td >Cantidad</td>" +
-        "<td >Precio</td>" +
-        "<td >Descuento</td>" +
-        "<td >Precio-Descuento</td>" +
-        "<td ><button type=button onclick=deleteRow(this)>X</button></td>" +
-    "</tr>";
-    $('#tabla_factura > tbody > tr').eq(0).before(newRow);
-    alert("Vehiculo añadido correctamente");
+    if(flagVehiculo==1){
+        alert("No puede añadir dos vehiculos en una misma factura");
+    }else{
+        var key;
+        var colores="";
+        var opciones="";
+        for(key in queryColoresVehiculo){
+            colores+=queryColoresVehiculo[key]['color']+",";
+        }
+        for(key in queryOpcionesVehiculo){
+            opciones+="<br>- "+queryOpcionesVehiculo[key]['opcion'];
+        }
+        
+        var total=queryVehiculo['precio']-$('#descuento_vehiculo').val();
+    
+        newRow = "<tr id=vehiculoTr>" +
+            "<td >Serial: "+queryVehiculo['id']+"<br>Modelo: "+queryVehiculo['modelo']+"<br>Placa: "+queryVehiculo['placa']+"<br>Colores: "+colores+"<br>Peso: "+queryVehiculo['peso']+"kg<br>Otras características: "+opciones+"</td>" +
+            "<td ></td>" +
+            "<td >"+queryVehiculo['precio']+"</td>" +
+            "<td >"+$('#descuento_vehiculo').val()+"</td>" +
+            "<td class=contar>"+total+"</td>" +
+            "<td ><button type=button onclick=deleteRow(this)>X</button></td>" +
+        "</tr>";
+        $('#tabla_factura > tbody:first').append(newRow);
+        flagVehiculo=1;
+        
+        if($('input[name="tipo_garantia"]:checked').val()=="Extendida"){
+            newRow = "<tr id=garantiaTr>" +
+                "<td > Garantía extendida </td>" +
+                "<td ></td>" +
+                "<td >"+queryVehiculo['monto_garantia_ext']+"</td>" +
+                "<td ></td>" +
+                "<td class=contar>"+queryVehiculo['monto_garantia_ext']+"</td>" +
+                "<td ></td>" +
+            "</tr>";
+            $('#tabla_factura > tbody:first').append(newRow);
+            
+        }
+        
+        alert("Vehiculo añadido correctamente");
+    }
+    recalcular();
 }
     
 function deleteRow(td){
     document.getElementById("tabla_factura").deleteRow(td.parentNode.parentNode.rowIndex);
+    if(td.parentNode.parentNode.id=="vehiculoTr"){
+        flagVehiculo=0;
+        document.getElementById("tabla_factura").deleteRow(document.getElementById("garantiaTr").rowIndex);
+    }
+    recalcular();
 }
+    
+
+    
+
     
 </script> 
 
@@ -299,9 +371,22 @@ function deleteRow(td){
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <h4>Descuento:</h4>
 					            <div class="form-group">
-                                    <input type="text" name="descuento_vehiculo" id="descuento_vehiculo" class="form-control input-sm" placeholder="" tabindex="1" required>
+                                    <input type="text" name="descuento_vehiculo" id="descuento_vehiculo" class="form-control input-sm" placeholder="" tabindex="1" value="0">
 					            </div>
 				            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <h4>Garantia</h4>
+                               <div class="form-group">
+                                    <label class="radio" for="radios-0">
+                                        <input type="radio" name="tipo_garantia" id="Estandar" value="Estandar" checked="checked" tabindex="5">
+                                        Estandar
+                                    </label>
+                                    <label class="radio" for="radios-1">
+                                        <input type="radio" name="tipo_garantia" id="Extendida" value="Extendida" tabindex="6">
+                                        Extendida
+                                    </label>
+                                </div>
+                            </div>                         
                              <div class="col-xs-12 col-sm-6 col-md-6">
                                      <br><br>
                                   <button type="button" class="btn btn-md btn-primary" onclick="getVehiculo()">Buscar</button>
@@ -349,10 +434,18 @@ function deleteRow(td){
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <h4>Descuento:</h4>
 					            <div class="form-group">
-                                    <input type="text" name="descuento_articulo" id="descuento_articulo" class="form-control input-sm" placeholder="" tabindex="1" required>
+                                    <input type="text" name="descuento_articulo" id="descuento_articulo" class="form-control input-sm" placeholder="" tabindex="1" value="0">
 					            </div>
 				            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <h4>Cantidad:</h4>
+					            <div class="form-group">
+                                    <input type="text" name="cantidad_articulo" id="cantidad_articulo" class="form-control input-sm" placeholder="" tabindex="1" value="1">
+					            </div>
+				            </div>
+                                                      
                              <div class="col-xs-12 col-sm-6 col-md-6">
+                                 <br><br>  
                                   <button type="button" class="btn btn-md btn-primary" onclick="getArticulo()">Buscar</button>
                                   <button type="button" class="btn btn-md btn-success" onclick="addArticulo()">Añadir</button>
                              </div>
@@ -430,7 +523,7 @@ function deleteRow(td){
                                     <div class="col-xs-12 col-sm-3 col-md-3">
                                         <h4>Monto por cuota</h4>
                                         <div class="form-group">
-                                        <input type="text" name="monto_cuotas_financ" id="monto_cuotas_financ" class="form-control input-sm" placeholder="" tabindex="1">
+                                        <input type="text" name="monto_cuotas_financ" id="monto_cuotas_financ" class="form-control input-sm" placeholder="" tabindex="1" disabled>
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12" id="inputs_banco">                                    
@@ -469,6 +562,9 @@ function deleteRow(td){
                                 </tr>
                               </thead>
                               <tbody>
+                                                                                       
+                              </tbody>
+                              <tfoot>
                                 <tr>
                                     <td</td>
                                     <td></td>
@@ -492,14 +588,15 @@ function deleteRow(td){
                                     <td></td>
                                     <td>Total:</td>
                                     <td id="total">0</td>
-                                </tr>                                                                                              
-                              </tbody>
+                                </tr>                                     
+                                  
+                              </tfoot>
                             </table>
                           </div>
                           <div class="col-xs-6 col-md-6"> </div>                   
 <div class="col-xs-12 col-md-6"><input type="submit" value="Facturar" class="btn btn-success btn-block btn-lg" tabindex="12"></div>
                                                     
-
+<input type="hidden" name="nro_articulos" id="nro_articulos" class="form-control">
                           
 
 </div>

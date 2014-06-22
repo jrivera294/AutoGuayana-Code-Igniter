@@ -1,50 +1,5 @@
  <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-              <li class="dropdown-submenu">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                     Artículos
-                     <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                     <li ><a href="<?= base_url("index.php/admin/registroArticulos");?>">Registrar artículos</a></li>
-                     <li ><a href="<?= base_url("index.php/admin/gestionArticulos");?>">Gestionar artículos</a></li>
-                </ul>
-            </li>
-              <li class="active dropdown-submenu">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                     Vehículos
-                     <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                     <li ><a href="<?= base_url("index.php/admin/registroVehiculos");?>">Registrar vehículos</a></li>
-                     <li class="active"><a href="<?= base_url("index.php/admin/gestionVehiculos");?>">Gestionar vehículos</a></li>
-                </ul>
-            </li>
-            <li class="dropdown-submenu">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                     Empleados
-                     <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                     <li ><a href="#">Gestionar empleados</a></li>
-                     <li ><a href="#">Gestionar fichas</a></li>
-                </ul>
-            </li>
-              <li class="dropdown-submenu">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                     Reportes
-                     <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                     <li ><a href="#">Ventas</a></li>
-                     <li ><a href="#">Top 5 vendedores</a></li>
-                     <li ><a href="#">Desempeño general</a></li>
-                </ul>
-            </li>
-          </ul>
-        </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
 
@@ -117,7 +72,7 @@
                   <td><?= $loop->fecha_fab ?></td>
                   <td><?= $loop->precio ?></td>
                   <td>
-                        <form action="<?= base_url("index.php/admin/edicionVehiculos");?>" method="post" id="formulario">
+                        <form action="<?= base_url("index.php/vehiculos/cargarEdicionVehiculos");?>" method="post" id="formulario">
                             <input type="hidden" name = "serial" value="<?= $loop->id; ?>">
                             <input type="hidden" name = "precio" value="<?= $loop->precio?>">
                             <input type="hidden" name = "modelo" value="<?=$loop->modelo;?>">

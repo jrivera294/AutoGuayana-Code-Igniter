@@ -4,13 +4,18 @@ class Stock extends CI_Controller{
 
     public function __construct(){
         parent::__construct();
-        $this->load->model('Stock_model');
+        $this->load->model('Articulos_model');
     }
+    public function index(){
+       $query = $this->Articulos_model->getArticulos();
+        $data['articulos'] = $query;
 
-  /*  public function index(){
         $this->load->view('layouts/header');
+        $this->load->view('stock/articulos_view',$data);
         $this->load->view('layouts/footer');
-    }*/
+    }
+}
+/*
     public function articulos()
     {
         $query = $this->Stock_model->getArticulos();
@@ -50,4 +55,5 @@ class Stock extends CI_Controller{
     }
 
 }
+*/
 ?>
