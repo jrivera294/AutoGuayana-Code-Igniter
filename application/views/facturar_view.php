@@ -215,6 +215,20 @@ function addVehiculo(){
         "</tr>";
         $('#tabla_factura > tbody:first').append(newRow);
         flagVehiculo=1;
+        
+        if($('input[name="tipo_garantia"]:checked').val()=="Extendida"){
+            newRow = "<tr id=garantiaTr>" +
+                "<td > Garantía extendida </td>" +
+                "<td ></td>" +
+                "<td >"+queryVehiculo['monto_garantia_ext']+"</td>" +
+                "<td ></td>" +
+                "<td class=contar>"+queryVehiculo['monto_garantia_ext']+"</td>" +
+                "<td ></td>" +
+            "</tr>";
+            $('#tabla_factura > tbody:first').append(newRow);
+            
+        }
+        
         alert("Vehiculo añadido correctamente");
     }
     recalcular();
@@ -224,6 +238,7 @@ function deleteRow(td){
     document.getElementById("tabla_factura").deleteRow(td.parentNode.parentNode.rowIndex);
     if(td.parentNode.parentNode.id=="vehiculoTr"){
         flagVehiculo=0;
+        document.getElementById("tabla_factura").deleteRow(document.getElementById("garantiaTr").rowIndex);
     }
     recalcular();
 }
@@ -356,18 +371,18 @@ function deleteRow(td){
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <h4>Descuento:</h4>
 					            <div class="form-group">
-                                    <input type="text" name="descuento_vehiculo" id="descuento_vehiculo" class="form-control input-sm" placeholder="" tabindex="1" required>
+                                    <input type="text" name="descuento_vehiculo" id="descuento_vehiculo" class="form-control input-sm" placeholder="" tabindex="1" value="0">
 					            </div>
 				            </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <h4>Garantia</h4>
                                <div class="form-group">
                                     <label class="radio" for="radios-0">
-                                        <input type="radio" name="tipo_garantia" id="estandar" value="Estandar" checked="checked" tabindex="5">
+                                        <input type="radio" name="tipo_garantia" id="Estandar" value="Estandar" checked="checked" tabindex="5">
                                         Estandar
                                     </label>
                                     <label class="radio" for="radios-1">
-                                        <input type="radio" name="tipo_garantia" id="extendida" value="Extendida" tabindex="6">
+                                        <input type="radio" name="tipo_garantia" id="Extendida" value="Extendida" tabindex="6">
                                         Extendida
                                     </label>
                                 </div>
@@ -419,13 +434,13 @@ function deleteRow(td){
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <h4>Descuento:</h4>
 					            <div class="form-group">
-                                    <input type="text" name="descuento_articulo" id="descuento_articulo" class="form-control input-sm" placeholder="" tabindex="1" required>
+                                    <input type="text" name="descuento_articulo" id="descuento_articulo" class="form-control input-sm" placeholder="" tabindex="1" value="0">
 					            </div>
 				            </div>
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <h4>Cantidad:</h4>
 					            <div class="form-group">
-                                    <input type="text" name="cantidad_articulo" id="cantidad_articulo" class="form-control input-sm" placeholder="" tabindex="1" required>
+                                    <input type="text" name="cantidad_articulo" id="cantidad_articulo" class="form-control input-sm" placeholder="" tabindex="1" value="1">
 					            </div>
 				            </div>
                                                       
@@ -508,7 +523,7 @@ function deleteRow(td){
                                     <div class="col-xs-12 col-sm-3 col-md-3">
                                         <h4>Monto por cuota</h4>
                                         <div class="form-group">
-                                        <input type="text" name="monto_cuotas_financ" id="monto_cuotas_financ" class="form-control input-sm" placeholder="" tabindex="1">
+                                        <input type="text" name="monto_cuotas_financ" id="monto_cuotas_financ" class="form-control input-sm" placeholder="" tabindex="1" disabled>
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12" id="inputs_banco">                                    

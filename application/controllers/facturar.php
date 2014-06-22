@@ -34,22 +34,27 @@ class Facturar extends CI_Controller{
         $nro_articulos = $this->input->post('nro_articulos');
         $articulos=array();
         
+        $j=0;
+        
         for($i=0;$i<=$nro_articulos;$i++){
-            $articulos[i]['id_articulo']=$this->input->post('id_articulo'.i);
-            //$articulos[i]['nro_factura']=$this->input->post('nro_factura'.i);
-            $articulos[i]['precio_venta']=$this->input->post('precio_articulo'.i);
-            $articulos[i]['descuento']=$this->input->post('descuento_articulo'.i);
-            $articulos[i]['cantidad']=$this->input->post('cantidad_articulo'.i);
+            if($this->input->post('id_articulo'.$i)){
+                $articulos[$j]['id_articulo']=$this->input->post('id_articulo'.$i);
+                //$articulos[$j]['nro_factura']=$this->input->post('nro_factura'.$i);
+                $articulos[$j]['precio_venta']=$this->input->post('precio_articulo'.$i);
+                $articulos[$j]['descuento']=$this->input->post('descuento_articulo'.$i);
+                $articulos[$j]['cantidad']=$this->input->post('cantidad_articulo'.$i);
+                $j++;
+            }
         }
         
-        $result = $this->Factura_model->addFactura($factura,$articulos);
+        $this->Factura_model->addFactura($factura,$articulos);
         
         $data['message_type']=1;
         $data['message']="Factura procesada satisfactoriamente";
 
-        /*$this->load->view('layouts/header',$data);
+        $this->load->view('layouts/header',$data);
         $this->load->view('clientes/registrocliente_view');
-        $this->load->view('layouts/footer');*/
+        $this->load->view('layouts/footer');
     }
 }
 ?>
