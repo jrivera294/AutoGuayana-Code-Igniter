@@ -9,6 +9,12 @@
             return $query->result();
        }
 
+       public function getNombreCargo($cod_cargo){
+            $query = $this->db->query("SELECT nombre FROM cargo WHERE cod_cargo = ?",$cod_cargo);
+            foreach( $query->result() as $cargo)
+                return $cargo->nombre;
+       }
+
        public function addCargo($cargo){
            $query = $this->db->query("INSERT INTO cargo VALUES (?,?,?)",$cargo);
            return $query;

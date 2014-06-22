@@ -40,11 +40,15 @@ class Articulos extends CI_Controller{
         echo $articulo['precio'];
 
         $result = $this->Articulos_model->addArticulo($articulo);
+
+
         $data['message_type']=1;
         $data['message']="Articulo registrado satisfactoriamente";
+        $query = $this->Articulos_model->getArticulos();
+        $data['articulos'] = $query;
         $this->load->view('layouts/header',$data);
         $this->load->view('layouts/adminSidebar');
-        $this->load->view('admin/registroArticulos_view');
+        $this->load->view('admin/gestionArticulos_view');
         $this->load->view('layouts/footer');
     }
 

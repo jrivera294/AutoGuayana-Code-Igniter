@@ -6,10 +6,11 @@
           <h2 class="sub-header">Vehículos</h2>
           <div>
           <form class="form-horizontal">
-            <fieldset>
+            <div class="row">
 
 
             <!-- Button Drop Down -->
+            <div class="col-xs-12 col-md-6">
             <div class="control-group">
               <label class="control-label" for="buttondropdown">Buscar Vehículo</label>
               <div class="controls">
@@ -28,8 +29,15 @@
                 </div>
               </div>
             </div>
+            </div>
 
-            </fieldset>
+             <div class="col-xs-12 col-md-6">
+                      <br>
+                    <a href="<?= base_url("index.php/vehiculos/cargarRegistroVehiculos");?>"> <input  type="button "value="Agregar Vehiculo" class="btn btn-primary btn-block btn-lg" tabindex="7" >
+                   </a>
+                </div>
+            </div>
+          <br>
           </form>
 
           </div>

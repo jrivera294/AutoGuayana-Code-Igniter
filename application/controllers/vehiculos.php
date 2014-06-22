@@ -43,8 +43,6 @@ class Vehiculos extends CI_Controller{
         );
 
         $result = $this->Vehiculos_model->addVehiculo($vehiculo);
-
-
         for ($i=0 ; $i < count($_POST) - 10 ; $i++ ){
             if (!empty($_POST['color'.$i]))
                 //echo "color".$i.": ".$_POST['color'.$i];
@@ -55,13 +53,23 @@ class Vehiculos extends CI_Controller{
                // echo "opcion".$i.": ".$_POST['opcion'.$i];
                  $result_opcion = $this->Vehiculos_model->addOpcionVehiculo($_POST['opcion'.$i],$vehiculo['serial']);
         }
-       // $result = $this->Admin_model->addVehiculo($vehiculo);
 
-        $data['message_type']=1;
-        $data['message']="Vehiculo registrado satisfactoriamente";
+
+        //preparar info del vehiculo y desplegar index agaiinnn
+        $query = $this->Vehiculos_model->getVehiculos();
+        $colores = array();
+        $i=0;
+        $data['vehiculos'] = $query;
+
+        foreach($data['vehiculos'] as $row ){
+            $colores[$i] = array();
+            $colores[$i] = $this->Vehiculos_model->getColoresVehiculo($row->id);
+            $i++;
+        }
+        $data['colores'] = $colores;
         $this->load->view('layouts/header',$data);
         $this->load->view('layouts/adminSidebar');
-        $this->load->view('admin/registroVehiculos_view');
+        $this->load->view('admin/gestionVehiculos_view');
         $this->load->view('layouts/footer');
     }
 
