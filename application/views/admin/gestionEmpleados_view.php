@@ -78,10 +78,26 @@
                   <td><?= $cargos[$i]; ?></td>
                   <td><?= $loop->status; ?></td>
                   <td>
-                      <button type="button" class="btn btn-xs btn-primary">Ver</button>
+                       <form action="<?= base_url("index.php/empleados/cargarContactosEmpleado");?>" method="post" id="contactos">
+                            <input type="hidden" name = "id" value="<?= $loop->id; ?>">
+                            <input type="hidden" name = "cedula" value="<?= $loop->cedula; ?>">
+                            <input type="hidden" name = "nombre" value="<?= $loop->nombre; ?>">
+                            <input type="hidden" name = "apellido1" value="<?= $loop->apellido1; ?>">
+                            <input type="hidden" name = "apellido2" value="<?= $loop->apellido2; ?>">
+                            <input type="hidden" name = "dpto" value="<?= $departamentos[$i]; ?>">
+                           <button class="btn btn-xs btn-primary" type="submit">Ver</input>
+                        </form>
                   </td>
                   <td>
-                      <button type="button" class="btn btn-xs btn-primary">Ver</button>
+                       <form action="<?= base_url("index.php/dependientes/cargarGestionDependientes");?>" method="post" id="dependientes">
+                            <input type="hidden" name = "id" value="<?= $loop->id; ?>">
+                            <input type="hidden" name = "cedula" value="<?= $loop->cedula; ?>">
+                            <input type="hidden" name = "nombre" value="<?= $loop->nombre; ?>">
+                            <input type="hidden" name = "apellido1" value="<?= $loop->apellido1; ?>">
+                            <input type="hidden" name = "apellido2" value="<?= $loop->apellido2; ?>">
+                            <input type="hidden" name = "dpto" value="<?= $departamentos[$i]; ?>">
+                           <button class="btn btn-xs btn-warning" type="submit">Ver</input>
+                        </form>
                   </td>
                   <td>
                         <form action="<?= base_url("index.php/empleados/cargarEdicionEmpleados");?>" method="post" id="formulario">
@@ -98,7 +114,7 @@
                             <input type="hidden" name = "status" value="<?= $loop->status; ?>">
                             <input type="hidden" name = "cod_cargo" value="<?= $loop->cod_cargo; ?>">
                             <input type="hidden" name = "cod_dpto" value="<?= $loop->cod_dpto; ?>">
-                            <button class="btn-warning btn-xs btn-primary" type="submit">Editar</input>
+                            <button class="btn-success btn-xs btn-primary" type="submit">Editar</input>
 
                         </form>
                   </td>

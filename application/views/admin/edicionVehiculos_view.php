@@ -14,7 +14,7 @@
                     input.id="color"+i;
                     input.className = "form-control input-lg";
                     input.value = color;
-                     document.writeln("<h3>colorrrrrrrrrrrrrrrrrrrrrrrrr</h3>"+input.name);
+                    // document.writeln("<h3>colorrrrrrrrrrrrrrrrrrrrrrrrr</h3>"+input.name);
                     containerColor.appendChild(input);
                     containerColor.appendChild(document.createElement("br"));
 
@@ -80,7 +80,7 @@
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <h3>Fecha de fabricación:</h3>
 					<div class="form-group">
-                        <input type="date" name="fecha_fab" value="<?php echo $articulos['fecha_fab']; ?>"id="fecha_fab">
+                        <input type="date" name="fecha_fab" value="<?php echo $vehiculo['fecha_fab']; ?>"id="fecha_fab">
 					</div>
 				</div>
 
@@ -137,7 +137,7 @@
                                 $i++;
                             }
               } ?>
-                                <br>-->
+                                <br>
 
 					</div>
                   <!--  <button type="button" class="btn btn-md btn-primary" onclick="traerOp_Col('verde',0)">Añadir</button>-->

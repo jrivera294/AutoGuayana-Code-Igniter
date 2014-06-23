@@ -88,6 +88,7 @@
              </div>
 
              <div class="row">
+                 <div class="col-xs-12 col-sm-2 col-md-2"></div>
                  <div class="col-xs-12 col-sm-4 col-md-4">
                    <h3>Sexo:</h3>
                      <div class="form-group">
@@ -101,19 +102,20 @@
                         </label>
 					</div>
                  </div>
-
                  <div class="col-xs-12 col-sm-4 col-md-4">
                    <h3>Fecha de nacimiento:</h3>
                      <div class="form-group">
                        <input type="date" name="fecha_nac" id="fecha_nac">
                      </div>
                  </div>
-                  <div class="col-xs-12 col-sm-4 col-md-4">
+                 <div class="col-xs-12 col-sm-2 col-md-2"></div>
+
+                 <!-- <div class="col-xs-12 col-sm-4 col-md-4">
                    <h3>Fecha de Contratación:</h3>
                      <div class="form-group">
                        <input type="date" name="fecha_contr" id="fecha_contr">
                      </div>
-                 </div>
+                 </div>-->
              </div>
              <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -160,7 +162,7 @@
              <br>
              <div class="row">
                  <div class="col-xs-12 col-md-6"><input type="submit" value="Registrar" class="btn btn-primary btn-block btn-lg" tabindex="7"></div>
-                 <div class="col-xs-12 col-md-6"><a href="#" class="btn btn-warning btn-block btn-lg">Cancelar</a></div>
+                 <div class="col-xs-12 col-md-6"><a href="<?= base_url();?>index.php/empleados/cargarGestionEmpleados" class="btn btn-warning btn-block btn-lg">Cancelar</a></div>
             </div>
 </form>
          </div>
