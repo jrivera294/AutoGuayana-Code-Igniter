@@ -14,8 +14,11 @@ class Facturar extends CI_Controller{
     }
     
     public function save(){
+        $comision=$this->input->post('total_post')*0.01;
+        $precio_venta_ve=$this->input->post('precio_vehiculo')-$this->input->post('descuento_vehiculo');
+        
         $factura =array(
-            'fecha_emision' => getdate(),
+            //'fecha_emision' => getdate(),
             'tipo_financiamiento' => $this->input->post('tfinanc'),
             'cuotas' => $this->input->post('nro_cuotas_financ'),
             'pago_cuota' => $this->input->post('monto_cuotas_financ'),
@@ -23,14 +26,16 @@ class Facturar extends CI_Controller{
             'tipo_garantia' => $this->input->post('tipo_garantia'),  
             'id_vehiculo' => $this->input->post('id_vehiculo'),
             //En el modelo hacer get de los demas campos de vehiculo
-            //'precio_venta_ve' => $this->input->post('empresa'),
+            'precio_venta_ve' => $precio_venta_ve,
             'rif_aseguradora' => $this->input->post('rif_aseguradora'),
             'ci_cliente' => $this->input->post('cedula_cliente'),
             //'id_empleado' => $this->input->post('ingresos'),
+            'id_empleado' => 1,
             'rif_banco' => $this->input->post('rif_banco'),
-            'comision' => $this->input->post('total')*0.05
+            'comision' => $comision
         );
         
+
         $nro_articulos = $this->input->post('nro_articulos');
         $articulos=array();
         
@@ -48,7 +53,6 @@ class Facturar extends CI_Controller{
         }
         
         $this->Factura_model->addFactura($factura,$articulos);
-        
         $data['message_type']=1;
         $data['message']="Factura procesada satisfactoriamente";
 

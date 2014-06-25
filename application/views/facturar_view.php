@@ -162,6 +162,7 @@ function recalcular(){
     document.getElementById('sub_total').innerHTML=sub_total;
     document.getElementById('iva').innerHTML=iva;
     document.getElementById('total').innerHTML=total;
+    $('#total_post').val(total);
 }
 
  
@@ -597,6 +598,7 @@ function deleteRow(td){
 <div class="col-xs-12 col-md-6"><input type="submit" value="Facturar" class="btn btn-success btn-block btn-lg" tabindex="12"></div>
                                                     
 <input type="hidden" name="nro_articulos" id="nro_articulos" class="form-control">
+<input type="hidden" name="total_post" id="total_post" class="form-control">
                           
 
 </div>
