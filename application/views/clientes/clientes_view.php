@@ -47,8 +47,7 @@
                   <th>Cédula</th>
                   <th>Nombre</th>
                   <th>Dirección</th>
-                  <th>Teléfonos</th>
-                  <th>Correos</th>
+                  <th>Contacto</th>
                   <th>Fecha Nacimiento</th>
                   <th>Última actualización</th>
                   <th>Compras</th>
@@ -64,10 +63,13 @@
                   <td><?=$loop->nombre?> <?=$loop->apellido1?> <?=$loop->apellido2?></td>
                   <td><?=$loop->dir;?></td>
                   <td>
-                      <button type="button" class="btn btn-xs btn-primary">Ver</button>
-                  </td>
-                  <td>
-                      <button type="button" class="btn btn-xs btn-primary">Ver</button>
+                      <form action="<?= base_url("index.php/clientes/cargarContactosCliente");?>" method="post" id="contactos">
+                            <input type="hidden" name = "cedula" value="<?= $loop->cedula; ?>">
+                            <input type="hidden" name = "nombre" value="<?= $loop->nombre; ?>">
+                            <input type="hidden" name = "apellido1" value="<?= $loop->apellido1; ?>">
+                            <input type="hidden" name = "apellido2" value="<?= $loop->apellido2; ?>">
+                           <button class="btn btn-xs btn-primary" type="submit">Ver</input>
+                        </form>
                   </td>
                   <td>
                     <?php

@@ -74,5 +74,123 @@ class Clientes extends CI_Controller{
         $query = $this->Client_model->getClientByCedula($cedula);
         echo json_encode($query); 
     }   
+
+    public function cargarContactosCliente(){
+        echo "he entrado en cargarContactos";
+
+        $cliente = array(
+            'cedula' => $this->input->post('cedula'),
+            'nombre' => $this->input->post('nombre'),
+            'apellido1' => $this->input->post('apellido1'),
+            'apellido2' => $this->input->post('apellido2')
+        );
+        $telefonos = $this->Client_model->getTelefonosCliente($cliente['cedula']);
+        $correos = $this->Client_model->getCorreosCliente($cliente['cedula']);
+
+        $data['cliente'] = $cliente;
+        $data['telefonos'] = $telefonos;
+        $data['correos'] = $correos;
+
+        $this->load->view('layouts/header',$data);
+        $this->load->view('clientes/gestionContactos_view');
+        $this->load->view('layouts/footer');
+    }
+
+    public function eliminarCorreo(){
+        $cliente = array(
+            'cedula' => $this->input->post('cedula'),
+            'nombre' => $this->input->post('nombre'),
+            'apellido1' => $this->input->post('apellido1'),
+            'apellido2' => $this->input->post('apellido2')
+        );
+
+        $this->Client_model->deleteCorreoCliente($cliente['cedula'],$this->input->post('correo'));
+
+        $telefonos = $this->Client_model->getTelefonosCliente($cliente['cedula']);
+        $correos = $this->Client_model->getCorreosCliente($cliente['cedula']);
+
+        $data['cliente'] = $cliente;
+        $data['telefonos'] = $telefonos;
+        $data['correos'] = $correos;
+
+        $data['message_type']=1;
+        $data['message']="Correo eliminado satisfactoriamente";
+
+        $this->load->view('layouts/header',$data);
+        $this->load->view('clientes/gestionContactos_view');
+        $this->load->view('layouts/footer');
+
+    }
+
+    public function eliminarTelefono(){
+        $cliente = array(
+            'cedula' => $this->input->post('cedula'),
+            'nombre' => $this->input->post('nombre'),
+            'apellido1' => $this->input->post('apellido1'),
+            'apellido2' => $this->input->post('apellido2')
+        );
+
+        $this->Client_model->deleteTelefonoCliente($cliente['cedula'],$this->input->post('telefono'));
+
+        $telefonos = $this->Client_model->getTelefonosCliente($cliente['cedula']);
+        $correos = $this->Client_model->getCorreosCliente($cliente['cedula']);
+
+        $data['cliente'] = $cliente;
+        $data['telefonos'] = $telefonos;
+        $data['correos'] = $correos;
+
+        $data['message_type']=1;
+        $data['message']="Telefono eliminado satisfactoriamente";
+
+        $this->load->view('layouts/header',$data);
+        $this->load->view('clientes/gestionContactos_view');
+        $this->load->view('layouts/footer');
+
+    }
+     public function agregarTelefono(){
+        $cliente = array(
+            'cedula' => $this->input->post('cedula'),
+            'nombre' => $this->input->post('nombre'),
+            'apellido1' => $this->input->post('apellido1'),
+            'apellido2' => $this->input->post('apellido2')
+        );
+        $this->Client_model->addTelefonoCliente($this->input->post('telefono'),$cliente['cedula']);
+
+         $telefonos = $this->Client_model->getTelefonosCliente($cliente['cedula']);
+        $correos = $this->Client_model->getCorreosCliente($cliente['cedula']);
+
+        $data['cliente'] = $cliente;
+        $data['telefonos'] = $telefonos;
+        $data['correos'] = $correos;
+        $data['message_type']=1;
+        $data['message']="Telefono registrado satisfactoriamente";
+
+        $this->load->view('layouts/header',$data);
+        $this->load->view('clientes/gestionContactos_view');
+        $this->load->view('layouts/footer');
+    }
+
+    public function agregarCorreo(){
+        $cliente = array(
+            'cedula' => $this->input->post('cedula'),
+            'nombre' => $this->input->post('nombre'),
+            'apellido1' => $this->input->post('apellido1'),
+            'apellido2' => $this->input->post('apellido2')
+        );
+        $this->Client_model->addCorreoCliente($this->input->post('correo'),$cliente['cedula']);
+
+         $telefonos = $this->Client_model->getTelefonosCliente($cliente['cedula']);
+        $correos = $this->Client_model->getCorreosCliente($cliente['cedula']);
+
+        $data['cliente'] = $cliente;
+        $data['telefonos'] = $telefonos;
+        $data['correos'] = $correos;
+        $data['message_type']=1;
+        $data['message']="Telefono registrado satisfactoriamente";
+
+        $this->load->view('layouts/header',$data);
+        $this->load->view('clientes/gestionContactos_view');
+        $this->load->view('layouts/footer');
+    }
 }
 ?>

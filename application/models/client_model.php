@@ -14,6 +14,41 @@
             return $query->result();
        }
 
+
+       function addTelefonoCliente($telefono,$cedula){
+            $info = array($cedula,$telefono);
+            $query = $this->db->query("INSERT INTO telefonos_cliente VALUES (?,?)",$info);
+            return $query;
+        }
+
+       function getTelefonosCliente($cedula){
+            $query = $this->db->query("SELECT telefono FROM telefonos_cliente WHERE id_cliente = ?",$cedula);
+            return $query->result();
+        }
+
+        function deleteTelefonoCliente($cedula,$telefono){
+            $info = array($cedula,$telefono);
+            $query = $this->db->query("DELETE FROM telefonos_cliente WHERE  id_cliente = ? AND telefono = ?",$info);
+            return $query;
+        }
+
+        function addCorreoCliente($correo,$cedula){
+            $info = array($cedula,$correo);
+            $query = $this->db->query("INSERT INTO correos_cliente VALUES (?,?)",$info);
+            return $query;
+        }
+
+        function getCorreosCliente($cedula){
+            $query = $this->db->query("SELECT correo FROM correos_cliente WHERE id_cliente = ?",$cedula);
+            return $query->result();
+        }
+
+       function deleteCorreoCliente($cedula,$correo){
+            $info = array($cedula,$correo);
+            $query = $this->db->query("DELETE FROM correos_cliente WHERE  id_cliente = ? AND correo = ?",$info);
+            return $query;
+        }
+
         function addClient($client,$tlf,$correos){
             foreach ($client as $cell=>$value){
                 if($value==''){

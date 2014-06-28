@@ -218,8 +218,7 @@ class Empleados extends CI_Controller{
         $data['correos'] = $correos;
 
         $this->load->view('layouts/header',$data);
-        $this->load->view('layouts/adminSidebar');
-        $this->load->view('admin/gestionContactos_view');
+        $this->load->view('clientes/gestionContactos_view');
         $this->load->view('layouts/footer');
     }
 
