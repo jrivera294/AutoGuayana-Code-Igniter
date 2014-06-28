@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <?php
-        echo "Contactos"."<br>";
+      /*  echo "Contactos"."<br>";
         echo $empleado['id']."<br>";
         echo $empleado['cedula']."<br>";
         echo $empleado['nombre']."<br>";
@@ -12,7 +12,7 @@
         }
         foreach($correos as $correo){
             echo "correo ".$correo->correo." <br>";
-        }
+        }*/
 
     ?>
         <h2 class="sub-header">Información de Contacto</h2>
@@ -45,7 +45,12 @@
                                 <td><?php echo $tlf->telefono; ?></td>
                                 <td>
                                     <form action="<?= base_url("index.php/empleados/eliminarTelefono"); ?>" method="post" id="tlf">
-                                    <input type="hidden" name = "id" value="<?php $empleado['id']; ?>">
+                                    <input type="hidden" name = "id" value="<?= $empleado['id']; ?>">
+                                    <input type="hidden" name = "cedula" value="<?= $empleado['cedula']; ?>">
+                                    <input type="hidden" name = "nombre" value="<?= $empleado['nombre']; ?>">
+                                    <input type="hidden" name = "apellido1" value="<?= $empleado['apellido1']; ?>">
+                                    <input type="hidden" name = "apellido2" value="<?= $empleado['apellido2']; ?>">
+                                    <input type="hidden" name = "departamento" value="<?= $empleado['departamento']; ?>">
                                     <input type="hidden" name = "telefono" value="<?= $tlf->telefono;  ?>">
                                     <button class="btn btn-xs btn-danger" type="submit">Eliminar</input>
                                     </form>
@@ -72,9 +77,14 @@
                                     <td><?php echo $correo->correo; ?></td>
                                     <td>
                                         <form action="<?= base_url("index.php/empleados/eliminarCorreo");?>" method="post" id="correo">
-                                            <input type="hidden" name = "id" value="<?php $empleado['id']; ?>">
-                                            <input type="hidden" name = "telefono" value="<?= $correo->correo;  ?>">
-                                            <button class="btn btn-xs btn-danger" type="submit">Eliminar</input>
+                                        <input type="hidden" name = "id" value="<?= $empleado['id']; ?>">
+                                        <input type="hidden" name = "cedula" value="<?= $empleado['cedula']; ?>">
+                                        <input type="hidden" name = "nombre" value="<?= $empleado['nombre']; ?>">
+                                        <input type="hidden" name = "apellido1" value="<?= $empleado['apellido1']; ?>">
+                                        <input type="hidden" name = "apellido2" value="<?= $empleado['apellido2']; ?>">
+                                        <input type="hidden" name = "departamento" value="<?= $empleado['departamento']; ?>">
+                                        <input type="hidden" name = "correo" value="<?= $correo->correo;  ?>">
+                                        <button class="btn btn-xs btn-danger" type="submit">Eliminar</input>
                                         </form>
                                     </td>
                                 </tr>
@@ -89,8 +99,14 @@
           <!--  <div class="col-xs-6 col-md-2"></div> -->
             <div class="col-xs-6 col-md-3">
                 <label>Nuevo Telefono</label>
-                <form action="<?= base_url("index.php/empleados/agregarCorreo");?>" method="post" id="correo">
-                    <input type="hidden" name = "id" value="<?php $empleado['id']; ?>">
+                <form action="<?= base_url("index.php/empleados/agregarTelefono");?>" method="post" id="telefono">
+                    <input type="hidden" name = "id" value="<?= $empleado['id']; ?>">
+                    <input type="hidden" name = "cedula" value="<?= $empleado['cedula']; ?>">
+                    <input type="hidden" name = "nombre" value="<?= $empleado['nombre']; ?>">
+                    <input type="hidden" name = "apellido1" value="<?= $empleado['apellido1']; ?>">
+                    <input type="hidden" name = "apellido2" value="<?= $empleado['apellido2']; ?>">
+                    <input type="hidden" name = "departamento" value="<?= $empleado['departamento']; ?>">
+
                     <input type="text" name = "telefono" >
                     <button class="btn btn-xs btn-primary" type="submit">Agregar</input>
                 </form>
@@ -98,12 +114,25 @@
             <div class="col-xs-6 col-md-6"></div>
             <div class="col-xs-6 col-md-3">
                 <label>Nuevo Correo</label>
-                <form action="<?= base_url("index.php/empleados/agregarTelefono");?>" method="post" id="correo">
-                    <input type="hidden" name = "id" value="<?php $empleado['id']; ?>">
+                <form action="<?= base_url("index.php/empleados/agregarCorreo");?>" method="post" id="correo">
+                    <input type="hidden" name = "id" value="<?= $empleado['id']; ?>">
+                    <input type="hidden" name = "cedula" value="<?= $empleado['cedula']; ?>">
+                    <input type="hidden" name = "nombre" value="<?= $empleado['nombre']; ?>">
+                    <input type="hidden" name = "apellido1" value="<?= $empleado['apellido1']; ?>">
+                    <input type="hidden" name = "apellido2" value="<?= $empleado['apellido2']; ?>">
+                    <input type="hidden" name = "departamento" value="<?= $empleado['departamento']; ?>">
                     <input type="email" name = "correo">
                     <button class="btn btn-xs btn-primary" type="submit">Agregar</input>
                 </form>
             </div>
           <!--  <div class="col-xs-6 col-md-2"></div> -->
         </div>
+            <div class="row">
+                  <div class="col-xs-12 col-md-3"><br><br></div>
+                  <div class="col-xs-12 col-md-6">
+                      <br>
+                      <br>
+                      <a href="<?= base_url();?>index.php/empleados/cargarGestionEmpleados" class="btn btn-warning btn-block btn-lg">Retornar</a>
+                  </div>
+              </div>
 </div>

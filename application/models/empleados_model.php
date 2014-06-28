@@ -53,10 +53,20 @@
             $query = $this->db->query("INSERT INTO telefonos_empleados VALUES (?,?)",$info);
             return $query;
         }
-
+       function deleteTelefonoEmpleado($idEmpleado,$telefono){
+            $info = array($idEmpleado,$telefono);
+            $query = $this->db->query("DELETE FROM telefonos_empleados WHERE  id_empleado = ? AND telefono = ?",$info);
+            return $query;
+        }
         function addCorreoEmpleado($correo,$idEmpleado){
             $info = array($idEmpleado,$correo);
             $query = $this->db->query("INSERT INTO correos_empleados VALUES (?,?)",$info);
+            return $query;
+        }
+
+        function deleteCorreoEmpleado($idEmpleado,$correo){
+            $info = array($idEmpleado,$correo);
+            $query = $this->db->query("DELETE FROM correos_empleados WHERE  id_empleado = ? AND correo = ?",$info);
             return $query;
         }
 

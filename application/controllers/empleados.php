@@ -210,16 +210,140 @@ class Empleados extends CI_Controller{
             'apellido2' => $this->input->post('apellido2'),
             'departamento' => $this->input->post('dpto')
         );
-        $telefonos = $this->Empleados_model->getTelefonosEmpleado($idEmpleado);
-        $correos = $this->Empleados_model->getCorreosEmpleado($idEmpleado);
+        $telefonos = $this->Empleados_model->getTelefonosEmpleado($empleado['id']);
+        $correos = $this->Empleados_model->getCorreosEmpleado($empleado['id']);
 
         $data['empleado'] = $empleado;
         $data['telefonos'] = $telefonos;
         $data['correos'] = $correos;
 
-        $this->load->view('layouts/header');
+        $this->load->view('layouts/header',$data);
         $this->load->view('layouts/adminSidebar');
-        $this->load->view('admin/gestionContactos_view',$data);
+        $this->load->view('admin/gestionContactos_view');
+        $this->load->view('layouts/footer');
+    }
+
+    public function agregarCorreo(){
+      /* $correo = array(
+            'id' => $this->input->post('id'),
+            'correo' => $this->input->post('correo')
+       );*/
+        $empleado = array(
+            'id' => $this->input->post('id'),
+            'cedula' => $this->input->post('cedula'),
+            'nombre' => $this->input->post('nombre'),
+            'apellido1' => $this->input->post('apellido1'),
+            'apellido2' => $this->input->post('apellido2'),
+            'departamento' => $this->input->post('dpto')
+        );
+        echo $empleado['id'];
+        $this->Empleados_model->addCorreoEmpleado($this->input->post('correo'),$empleado['id']);
+       // $this->cargarContactosEmpleado();
+
+        $telefonos = $this->Empleados_model->getTelefonosEmpleado($empleado['id']);
+        $correos = $this->Empleados_model->getCorreosEmpleado($empleado['id']);
+
+        $data['empleado'] = $empleado;
+        $data['telefonos'] = $telefonos;
+        $data['correos'] = $correos;
+
+        $data['message_type']=1;
+        $data['message']="Correo registrado satisfactoriamente";
+
+        $this->load->view('layouts/header',$data);
+        $this->load->view('layouts/adminSidebar');
+        $this->load->view('admin/gestionContactos_view');
+        $this->load->view('layouts/footer');
+    }
+
+    public function eliminarCorreo(){
+        $empleado = array(
+            'id' => $this->input->post('id'),
+            'cedula' => $this->input->post('cedula'),
+            'nombre' => $this->input->post('nombre'),
+            'apellido1' => $this->input->post('apellido1'),
+            'apellido2' => $this->input->post('apellido2'),
+            'departamento' => $this->input->post('dpto')
+        );
+
+        $this->Empleados_model->deleteCorreoEmpleado($empleado['id'],$this->input->post('correo'));
+
+        $telefonos = $this->Empleados_model->getTelefonosEmpleado($empleado['id']);
+        $correos = $this->Empleados_model->getCorreosEmpleado($empleado['id']);
+
+        $data['empleado'] = $empleado;
+        $data['telefonos'] = $telefonos;
+        $data['correos'] = $correos;
+
+        $data['message_type']=1;
+        $data['message']="Correo eliminado satisfactoriamente";
+
+        $this->load->view('layouts/header',$data);
+        $this->load->view('layouts/adminSidebar');
+        $this->load->view('admin/gestionContactos_view');
+        $this->load->view('layouts/footer');
+
+    }
+
+    public function agregarTelefono(){
+      /* $correo = array(
+            'id' => $this->input->post('id'),
+            'correo' => $this->input->post('correo')
+       );*/
+        $empleado = array(
+            'id' => $this->input->post('id'),
+            'cedula' => $this->input->post('cedula'),
+            'nombre' => $this->input->post('nombre'),
+            'apellido1' => $this->input->post('apellido1'),
+            'apellido2' => $this->input->post('apellido2'),
+            'departamento' => $this->input->post('dpto')
+        );
+        echo "id traido".$empleado['id']."<br>";
+        echo "ci" .$empleado['cedula']."<br>";
+        echo "departamento".$empleado['departamento']."<br>";
+        $this->Empleados_model->addTelefonoEmpleado($this->input->post('telefono'),$empleado['id']);
+     //   $this->cargarContactosEmpleado();
+
+         $telefonos = $this->Empleados_model->getTelefonosEmpleado($empleado['id']);
+        $correos = $this->Empleados_model->getCorreosEmpleado($empleado['id']);
+
+        $data['empleado'] = $empleado;
+        $data['telefonos'] = $telefonos;
+        $data['correos'] = $correos;
+        $data['message_type']=1;
+        $data['message']="Telefono registrado satisfactoriamente";
+
+        $this->load->view('layouts/header',$data);
+        $this->load->view('layouts/adminSidebar');
+        $this->load->view('admin/gestionContactos_view');
+        $this->load->view('layouts/footer');
+    }
+
+    public function eliminarTelefono(){
+         $empleado = array(
+            'id' => $this->input->post('id'),
+            'cedula' => $this->input->post('cedula'),
+            'nombre' => $this->input->post('nombre'),
+            'apellido1' => $this->input->post('apellido1'),
+            'apellido2' => $this->input->post('apellido2'),
+            'departamento' => $this->input->post('dpto')
+        );
+
+        $this->Empleados_model->deleteTelefonoEmpleado($empleado['id'],$this->input->post('telefono'));
+
+        $telefonos = $this->Empleados_model->getTelefonosEmpleado($empleado['id']);
+        $correos = $this->Empleados_model->getCorreosEmpleado($empleado['id']);
+
+        $data['empleado'] = $empleado;
+        $data['telefonos'] = $telefonos;
+        $data['correos'] = $correos;
+
+        $data['message_type']=1;
+        $data['message']="Telefono eliminado satisfactoriamente";
+
+        $this->load->view('layouts/header',$data);
+        $this->load->view('layouts/adminSidebar');
+        $this->load->view('admin/gestionContactos_view');
         $this->load->view('layouts/footer');
     }
 
@@ -227,4 +351,5 @@ class Empleados extends CI_Controller{
         $this->Empleados_model->deleteEmpleado($this->input->post('id'));
         $this->cargarGestionEmpleados();
     }
+
 }

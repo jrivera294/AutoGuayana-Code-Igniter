@@ -11,6 +11,13 @@ class Vehiculos extends CI_Controller{
     {
         $query = $this->Vehiculos_model->getVehiculos();
         $data['vehiculos'] = $query;
+         $i=0;
+        foreach($data['vehiculos'] as $row ){
+            $colores[$i] = array();
+            $colores[$i] = $this->Vehiculos_model->getColoresVehiculo($row->id);
+            $i++;
+        }
+        $data['colores'] = $colores;
 
         $this->load->view('layouts/header');
         $this->load->view('stock/vehiculos_view',$data);

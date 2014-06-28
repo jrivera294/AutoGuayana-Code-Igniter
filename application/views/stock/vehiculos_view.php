@@ -52,21 +52,35 @@
                 </tr>
               </thead>
               <tbody>
-                <?php
-                    if(is_array($vehiculos) && count($vehiculos) ) {
+               <?php
+                    $vehiculoActual=0; //variables auxiliares para imprimir el color
+                    $indiceVehiculo=0;
+                    if(is_array($vehiculos) &&  is_array($colores) && count($vehiculos) ) {
                         foreach($vehiculos as $loop){
                 ?>
                 <tr>
                   <td><?=$loop->id;?></td>
                   <td><?=$loop->modelo;?></td>
-                  <td><?=$loop->color;?><td>
+                    <?php
+                    $indiceVehiculo=0;
+                    foreach ($colores  as $row){
+                        if ($indiceVehiculo==$vehiculoActual){
+                            echo"<td>";
+                            foreach($row as $r)
+                                echo $r->color."<br>";
+                            echo"</td>";
+                        }
+                        $indiceVehiculo++;
+                    }
+                   ?>
                   <td><?=$loop->fecha_fab;?></td>
                   <td><?=$loop->precio;?></td>
                   <td>
                       <button type="button" class="btn btn-xs btn-primary">Ver</button>
                   </td>
                 </tr>
-                <?php    }
+                <?php    $vehiculoActual++;
+                        }
                   }
                   ?>
               </tbody>
