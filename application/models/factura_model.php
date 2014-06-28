@@ -7,12 +7,18 @@
         /*function getFacturaByFecha($fecha_ini,$fecha_fin){
             $query = $this->db->query("SELECT * FROM cliente", array());
             return $query->result();
-        }
+        }*/
 
-       function getFacturaById($id_factura){
-            $query = $this->db->query("SELECT * FROM cliente WHERE cedula=?", array($cedula));
-            return $query->result();
-       }*/
+       function getFacturaById($nro_factura){
+            $factura = $this->db->query("SELECT * FROM factura WHERE nro_factura=?", array($nro_factura));
+            return $factura->result();
+       }
+       
+       function getArticulosById($nro_factura){
+            $articulos = $this->db->query("SELECT * FROM detalle WHERE nro_factura=?", array($nro_factura));
+            return $articulos->result();
+       }     
+       
 
         function addFactura($factura,$articulos){            
             
@@ -37,6 +43,10 @@
             if ($this->db->trans_status() === FALSE){
                 // generate an error... or use the log_message() function to log your error
             }
-        }   
+            
+            return $id_factura;
+        }
+       
+       
    }
 ?>

@@ -49,6 +49,7 @@ $route['articulos'] = "articulos";
 $route['departamentos'] = "departamentos";
 $route['cargos'] ="cargos";
 $route['administracion'] = "vehiculos/cargarGestionVehiculos";
+$route['facturar/factura_pdf/(:num)'] = "facturar/factura_pdf/$1";
 //$route['stock'] = "stock/traerVehiculo";
 $route['404_override'] = '';
 

@@ -5,6 +5,7 @@ class Facturar extends CI_Controller{
     public function __construct(){
         parent::__construct();
         $this->load->model('Factura_model');
+        $this->load->model('Client_model');
         $this->load->library("mpdf");
     }
 
@@ -53,41 +54,53 @@ class Facturar extends CI_Controller{
             }
         }
         
-        $this->Factura_model->addFactura($factura,$articulos);
+        $nro_factura = $this->Factura_model->addFactura($factura,$articulos);
         $data['message_type']=1;
-        $data['message']="Factura procesada satisfactoriamente";
+        $data['message']="Factura nro: $nro_factura procesada satisfactoriamente";
+        $data['nro_factura'] = $nro_factura;
 
         $this->load->view('layouts/header',$data);
-        $this->load->view('clientes/imprimir_factura_view.php');
+        $this->load->view('imprimir_factura_view');
         $this->load->view('layouts/footer');
     }
     
-    public function imprimir_pdf($nro_factura){
-        //Buscar datos de factura:
-       /* $factura = ;
-        $vehiculo = ;
-        $artículos = ;
-        $cliente = ;
-        $vendedor = ; */
+    public function factura_pdf($nro_factura=0){
+        if($nro_factura==0){
+            show_404();
+        }else{
+            //Buscar datos de factura:
+           /* $factura = ;
+            $vehiculo = ;
+            $artículos = ;
+            $cliente = ;
+            $vendedor = ; */
+
+
+
+            //Especificamos algunos parametros del PDF
+            //$this->mpdf->mPDF('utf-8','A4');
+
+            //PASAMOS LA RUTA DONDE ESTA EL ESTILO
+            //$stylesheet = file_get_contents('public/');
+            //cargamos el estilo CSS
+            //$this->mpdf->WriteHTML($stylesheet,1);
+            //CARGAMOS LOS PARAMETROS
+
+            $data['factura'] = $this->Factura_model->getFacturaById($nro_factura);
+            $data['articulos'] = $this->Factura_model->getArticulosById($nro_factura);
+            $data['cliente']= $this->Client_model->getClientByCedula($data['factura'][0]->ci_cliente);
+            //OBTENEMOS LA VISTA EN HTML
+
+
+            $this->load->view('pdf/factura_view_pdf.php', $data);
+
+            //ESCRIBIMOS AL PDF
+            //$this->mpdf->WriteHTML($html,2);
+
+            //SALIDA DE NUESTRO PDF
+            //$this->mpdf->Output();
+        }
         
-        
-        
-        //Especificamos algunos parametros del PDF
-        $this->mpdf->mPDF('utf-8','A4');
-        
-        //PASAMOS LA RUTA DONDE ESTA EL ESTILO
-        //$stylesheet = file_get_contents('public/');
-        //cargamos el estilo CSS
-        //$this->mpdf->WriteHTML($stylesheet,1);
-        //CARGAMOS LOS PARAMETROS
-        $data['nombre'] = "Renatto NL";
-        //OBTENEMOS LA VISTA EN HTML
-        $html = $this->load->view('pdf/factura.php', $data, true);
-        //ESCRIBIMOS AL PDF
-        $this->mpdf->WriteHTML($html,2);
-        
-        //SALIDA DE NUESTRO PDF
-        $this->mpdf->Output();
     }
 }
 ?>

@@ -5,7 +5,7 @@
 
 
           <h2 class="sub-header">Imprimir factura</h2>
-            <div class="col-xs-6 col-md-3"><a href="<?= base_url("index.php/facturar/imprimir_pdf");?>" class="btn btn-warning btn-block btn-lg" tabindex="13">Imprimir factura</a></div>
+            <div class="col-xs-6 col-md-3"><a href="<?= base_url("index.php/facturar/factura_pdf/$nro_factura");?>" class="btn btn-warning btn-block btn-lg" tabindex="13">Imprimir factura</a></div>
         </div>
       </div>
     </div>
