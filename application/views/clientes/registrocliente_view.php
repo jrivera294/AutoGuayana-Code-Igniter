@@ -1,3 +1,42 @@
+<script type='text/javascript'>
+        function addTelefono(){
+
+
+            var container = document.getElementById("telefonos");
+
+            i=(container.childElementCount )/2 + 1;
+            container.appendChild(document.createTextNode("Telefono " + (i)));
+            // Create an <input> element, set its type and name attributes
+            var input = document.createElement("input");
+            input.type = "text";
+            input.name = "telefono"+i;
+            input.id="telefono"+i;
+            input.className = "form-control input-sm";
+            //input.addClass("form-control input-lg");
+            container.appendChild(input);
+            // Append a line break
+            container.appendChild(document.createElement("br"));
+
+        }
+        function addCorreo(){
+
+
+            var container = document.getElementById("correos");
+
+            i=((container.childElementCount))/2 + 1;
+            container.appendChild(document.createTextNode("Correo " + (i)));
+            // Create an <input> element, set its type and name attributes
+            var input = document.createElement("input");
+            input.type = "email";
+            input.name = "correo"+i;
+            input.id="correo"+i;
+            input.className = "form-control input-sm";
+            container.appendChild(input);
+            container.appendChild(document.createElement("br"));
+
+
+        }
+</script>
 <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
@@ -101,16 +140,20 @@
             <div class="row">
                 <div class="col-xs-8 form-group">
                 <h4>Correos:</h4>
-				<input type="email" name="email" id="email" class="form-control input-sm" placeholder="Correo" tabindex="10">
+				<input type="email" name="correo0" id="correo0" class="form-control input-sm" placeholder="Correo" tabindex="10">
 			     </div><br><br>
-                <button type="button" class="btn btn-md btn-primary">Añadir</button>
+                <div class="col-xs-8 form-group" id="correos">
+                </div>
+                <button type="button" class="btn btn-md btn-primary" onclick="addCorreo()" >Añadir</button>
             </div>
             <div class="row">
                 <div class="col-xs-8 form-group">
                 <h4>Números de teléfono:</h4>
-				<input type="tel" name="telefono" id="telefono" class="form-control input-sm" placeholder="Teléfono" tabindex="11">
+				<input type="tel" name="telefono0" id="telefono0" class="form-control input-sm" placeholder="Teléfono" tabindex="11">
 			     </div><br><br>
-                <button type="button" class="btn btn-md btn-primary">Añadir</button>
+                <div class="col-xs-8 form-group" id="telefonos">
+                </div>
+                <button type="button" class="btn btn-md btn-primary" onclick="addTelefono()" >Añadir</button>
             </div>
 
 <br>

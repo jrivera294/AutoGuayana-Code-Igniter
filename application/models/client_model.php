@@ -14,13 +14,27 @@
             return $query->result();
        }
 
-        function addClient($client){
+        function addClient($client,$tlf,$correos){
             foreach ($client as $cell=>$value){
                 if($value==''){
                     $client[$cell]=null;
                 }
             }
             $query = $this->db->query("INSERT INTO cliente VALUES (?,?,?,?,?,?,?,?,?)",$client);
+
+            //$query = $this->db->query("SELECT cedula FROM cliente WHERE cedula=?", $client['cedula']);//busco id
+            //foreach($query->result() as $c)
+              //  $idCliente = $c->id;
+
+            for ($i = 0 ; $i < count($tlf) ; $i++){//inserto tlf
+                $info = array($client['cedula'],$tlf[$i]);
+                $queryT = $this->db->query("INSERT INTO telefonos_cliente VALUES (?,?)",$info);
+            }
+
+            for ($i = 0 ; $i < count($correos) ; $i++){//inserto correos
+                $info = array($client['cedula'],$correos[$i]);
+                $queryC = $this->db->query("INSERT INTO correos_cliente VALUES (?,?)",$info);
+            }
             return $query;
         }    
    }

@@ -36,7 +36,20 @@ class Clientes extends CI_Controller{
             'ingresos' => $this->input->post('ingresos')              
         );
         
-        $result = $this->Client_model->addClient($cliente);
+
+         $tlf = array();
+         $correos = array();
+         for ($i=0 ; $i < count($_POST) ; $i++ ){
+            if (!empty($this->input->post('telefono'.$i)))
+                $tlf[$i] = $this->input->post('telefono'.$i);
+        }
+        for ($i=0 ; $i < count($_POST) ; $i++ ){
+            if (!empty($_POST['correo'.$i]))
+                $correos[$i] = $this->input->post('correo'.$i);
+
+        }
+
+        $result = $this->Client_model->addClient($cliente,$tlf,$correos);
         
         $data['message_type']=1;
         $data['message']="Cliente registrado satisfactoriamente";
