@@ -8,43 +8,75 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="<?= base_url("favicon.ico");?>">
 
-    <title><?php echo (isset($title)) ? $title : "AutoGuayana" ?></title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="<?= base_url("assets/css/bootstrap.min.css");?>" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="<?= base_url("assets/css/custom.css");?>" rel="stylesheet">
+
+    
+    <script language="JavaScript"> 
+    function recalcular(){
+        var tds = document.getElementById('tabla_factura').getElementsByTagName('td');
+        var sub_total = 0;
+        var iva=0;
+        var total=0;
+        for(var i = 0; i < tds.length; i ++) {
+            if(tds[i].className == 'contar') {
+                sub_total += parseInt(tds[i].innerHTML);
+            }
+        }
+        iva=sub_total*0.12;
+        total=sub_total+iva;
+        document.getElementById('sub_total').innerHTML=sub_total;
+        document.getElementById('iva').innerHTML=iva;
+        document.getElementById('total').innerHTML=total;
+    }
+    </script>
+    
   </head>
    
-    <body>
-    <div class="col-md-4">
+    <body onload="recalcular()">
+    <h3 align="center">Factura</h3>
+
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <td>
         RIF. J-0000000001 <br>
         Av. Principal Ciudad Guayana, <br>
         Concesionario AutoGuayana <br>
         Sector industrial, Zona postal 8050.<br>
         <br>
-                
-    </div>
-    <div class="col-md-4" align="left">
-        Fecha de emisión: <br>    
-        Nro. Factura: <br>
-        <br>
-        
-        Vendedor: <br>
-        Id: <br>
 
-    </div>
-    <div class="col-md-12">
-            Nombre o razón social: <?= $cliente[0]->nombre." ".$cliente[0]->apellido1." ".$cliente[0]->apellido2 ; ?><br>
+                </td>
+                <td align="right"><br>
+        Fecha de emisión: <?= $factura[0]->fecha_emision; ?><br>    
+        Nro. Factura: <?= $factura[0]->nro_factura; ?><br>
+        <br> 
+        
+        Vendedor: <?= $vendedor[0]->nombre." ".$vendedor[0]->apellido1." ".$vendedor[0]->apellido2 ; ?><br>
+        Id: <?= $vendedor[0]->id; ?><br>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                              Nombre o razón social: <?= $cliente[0]->nombre." ".$cliente[0]->apellido1." ".$cliente[0]->apellido2 ; ?><br>
         C.I: <?= $cliente[0]->cedula; ?> <br>
         Dirección: <?= $cliente[0]->dir; ?><br>
-        Teléfonos: <br>
-         
-    </div>
-    <br>
+        Teléfonos:<br>
+        <?php 
+            foreach($tlf_cliente as $loop){
+                echo $loop->telefono;
+                echo "<br>";
+            } 
+        echo "<br><br>";
+        ?>  
+                </td>
+            </tr>
+        </tbody>
+    </table>    
     <div class="col-lg-12">
-            <table class="table table-striped">
+           
+            <table class="table table-striped" id="tabla_factura" border="1">
               <thead>
                 <tr>
                     <th>ID - Descripción</th>
@@ -55,34 +87,105 @@
                 </tr>
               </thead>
               <tbody>
-               
+              
+
+                <tr >
+                    <td >Serial: <?= $vehiculo[0]->id;?><br>
+                         Modelo: <?= $vehiculo[0]->modelo;?><br>
+                         Placa:  <?= $vehiculo[0]->placa;?><br>
+                         Colores: <?php foreach ($colores as $loop){ echo $loop->color.", "; }?><br>
+                         Peso:  <?= $vehiculo[0]->peso;?> kg<br>
+                         Otras características: <br>
+                           <?php foreach ($opciones as $loop){ echo "-".$loop->opcion."<br> "; }?>
+                    </td>
+                    <td ></td>
+                    <td ><?= $vehiculo[0]->precio;?></td>
+                    <td ><?= $vehiculo[0]->precio- $factura[0]->precio_venta_ve;?></td>
+                    <td class="contar"><?= $factura[0]->precio_venta_ve;?></td>
+                </tr>
+              
+              <?php 
+                if($factura[0]->tipo_garantia=="Extendida"){?>
+               <?php  ?>
+                <tr>
+                  <td id="garantiaTr"> Garantía extendida</td>
+                  <td></td>
+                  <td><?=$vehiculo[0]->monto_garantia_ext?></td>
+                  <td></td>
+                  <td class="contar"><?=$vehiculo[0]->monto_garantia_ext?></td>
+                </tr>
+                <?php } ?>               
                 <?php
-                    if(is_array($clientes) && count($clientes) ) {
-                        foreach($clientes as $loop){
+                    if(is_array($detalle) && count($detalle) ) {
+                        foreach($detalle as $loop){
                 ?>
                 <tr>
-                  <td><?=$loop->cedula;?></td>
-                  <td><?=$loop->nombre?> <?=$loop->apellido1?> <?=$loop->apellido2?></td>
-                  <td>
-                      <button type="button" class="btn btn-xs btn-primary">Ver</button>
+                  <td>Serial: <?= $loop->articulo->id;?> - <?=$loop->articulo->fabricante;?> <?=$loop->articulo->modelo;?> <br>
+                      Descripción: <?=$loop->articulo->descripcion;?>
                   </td>
-                  <td>
-                    <?php
-                        if($loop->fecha_nac){
-                            echo date("d/m/Y",strtotime($loop->fecha_nac));
-                    }
-                  ?></td>
-                  <td>
-                      <button type="button" class="btn btn-xs btn-primary">Ver</button>
-                  </td>
+                  <td><?=$loop->cantidad?></td>
+                  <td><?=$loop->precio_venta?></td>
+                  <td><?=$loop->descuento?></td>
+                  <td class="contar"><?= $loop->precio_venta - $loop->descuento;?></td>
                 </tr>
                 <?php
                         }
                     }
                 ?>
+                
               </tbody>
+              <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Sub-Total:</td>
+                    <td id="sub_total">0</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td >Iva(12%):</td>
+                    <td id="iva">0</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Total:</td>
+                    <td id="total">0</td>
+                </tr>                                     
+
+              </tfoot>
             </table>
-          </div>    
+      </div>  
+    <div class="col-md-6">
+    <h3 align="center">Información de financiamiento:</h3>
+    Tipo de pago: <?= $factura[0]->tipo_financiamiento; ?><br> 
+    <?php 
+        if($factura[0]->tipo_financiamiento=="Financiado"){
+            if(isset($factura[0]->rif_banco)){
+               echo "Financiado por banco<br>";
+               echo "Entidad bancaria: Nombre banco ".$banco[0]['nombre_banco']."   - RIF: ".$factura[0]->rif_banco;
+            }else{
+               echo "Financiado por AutoGuayana";
+            }
+            
+            echo "Cuotas: <br>";
+            echo "Nro. de cuotas: ".$factura[0]->cuotas."<br>";
+            echo "Pago por cuota: ".$factura[0]->pago_cuota."<br>";
+            echo "Pago por cuota: ".$factura[0]->interes."<br>"; 
+        }     
+    ?>
+
+    </div>
+    <div class="col-md-6">  
+        <h3 align="center">Información de financiamiento:</h3>
+         Aseguradora: <?= $factura[0]->rif_aseguradora; ?>   - RIF: <?= $aseguradora[0]->nombre_aseguradora; ?><br>
+         Monto asegurado: <?= $factura[0]->monto_asegurado; ?><br>
+         Precio: <?= $factura[0]->precio_seguro; ?><br>
+    </div>
   
   </body>
 </html>

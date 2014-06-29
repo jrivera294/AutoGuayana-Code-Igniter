@@ -6,6 +6,11 @@ class Facturar extends CI_Controller{
         parent::__construct();
         $this->load->model('Factura_model');
         $this->load->model('Client_model');
+        $this->load->model('Empleados_model');
+        $this->load->model('Vehiculos_model');
+        $this->load->model('Articulos_model');
+        $this->load->model('Seguro_model');
+        $this->load->model('Banco_model');
         $this->load->library("mpdf");
     }
 
@@ -34,7 +39,9 @@ class Facturar extends CI_Controller{
             //'id_empleado' => $this->input->post('ingresos'),
             'id_empleado' => 1,
             'rif_banco' => $this->input->post('rif_banco'),
-            'comision' => $comision
+            'comision' => $comision,
+            'monto_asegurado' => $this->input->post('monto_seguro'),
+            'precio_seguro' => $this->input->post('precio_seguro')
         );
         
 
@@ -68,37 +75,41 @@ class Facturar extends CI_Controller{
         if($nro_factura==0){
             show_404();
         }else{
-            //Buscar datos de factura:
-           /* $factura = ;
-            $vehiculo = ;
-            $artículos = ;
-            $cliente = ;
-            $vendedor = ; */
-
-
-
             //Especificamos algunos parametros del PDF
-            //$this->mpdf->mPDF('utf-8','A4');
+            $this->mpdf->mPDF('utf-8','A4');
 
             //PASAMOS LA RUTA DONDE ESTA EL ESTILO
-            //$stylesheet = file_get_contents('public/');
+            $stylesheet = file_get_contents(base_url("assets/css/bootstrap.min.css"));
             //cargamos el estilo CSS
-            //$this->mpdf->WriteHTML($stylesheet,1);
+            $this->mpdf->WriteHTML($stylesheet,1);
             //CARGAMOS LOS PARAMETROS
 
             $data['factura'] = $this->Factura_model->getFacturaById($nro_factura);
-            $data['articulos'] = $this->Factura_model->getArticulosById($nro_factura);
+            
+            
+            $data['detalle'] = $this->Factura_model->getArticulosById($nro_factura);
+            foreach($data['detalle'] as $loop){
+                $loop->articulo = $this->Articulos_model->getArticuloById($loop->id_articulo)[0];
+            }
             $data['cliente']= $this->Client_model->getClientByCedula($data['factura'][0]->ci_cliente);
+            $data['tlf_cliente']= $this->Client_model->getTelefonosCliente($data['factura'][0]->ci_cliente);
+            $data['vendedor']= $this->Empleados_model->getEmpleadoById(1);
+            $data['vehiculo']= $this->Vehiculos_model->getVehiculoBySerial($data['factura'][0]->id_vehiculo);
+            $data['colores']= $this->Vehiculos_model->getColoresVehiculo($data['factura'][0]->id_vehiculo);
+            $data['opciones']= $this->Vehiculos_model->getOpcionesVehiculo($data['factura'][0]->id_vehiculo);
+            $data['banco']= $this->Banco_model->getBancoByRif($data['factura'][0]->rif_banco);
+            $data['aseguradora']= $this->Seguro_model->getSeguroByRif($data['factura'][0]->rif_aseguradora);
+            
             //OBTENEMOS LA VISTA EN HTML
 
+            $html=$this->load->view('pdf/factura_view_pdf.php',$data, true);
 
-            $this->load->view('pdf/factura_view_pdf.php', $data);
 
             //ESCRIBIMOS AL PDF
-            //$this->mpdf->WriteHTML($html,2);
+            $this->mpdf->WriteHTML($html,2);
 
             //SALIDA DE NUESTRO PDF
-            //$this->mpdf->Output();
+            $this->mpdf->Output();
         }
         
     }

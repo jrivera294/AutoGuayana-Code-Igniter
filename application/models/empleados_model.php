@@ -3,6 +3,11 @@
         function __construct(){
             parent::__construct();
         }
+       
+       public function getEmpleadoById($id){
+            $query = $this->db->query("SELECT id,cedula,nombre,apellido1,apellido2 FROM empleado WHERE id=?", $id);
+            return $query->result();
+        }
 
         public function getIdEmpleado($cedula){
             $query = $this->db->query("SELECT id FROM empleado WHERE cedula=?", $cedula);

@@ -28,7 +28,7 @@ CREATE TABLE cliente(
 
 CREATE TABLE telefonos_cliente(
 	id_cliente integer REFERENCES cliente(cedula) ON UPDATE CASCADE ON DELETE RESTRICT,
-	telefono integer,
+	telefono varchar,
 
     PRIMARY KEY(id_cliente,telefono)
 );
@@ -118,7 +118,7 @@ CREATE TABLE empleado (
 
 CREATE TABLE telefonos_empleados(
 	id_empleado serial NOT NULL REFERENCES empleado(id) ON UPDATE CASCADE ON DELETE RESTRICT, --FORANEA
-	telefono integer NOT NULL, --CHEKEAR QUE TENGA 12 DIGITOS
+	telefono varchar NOT NULL, --CHEKEAR QUE TENGA 12 DIGITOS
 	PRIMARY KEY (id_empleado,telefono)
 );
 
@@ -172,6 +172,9 @@ CREATE TABLE factura(
 	id_empleado serial NOT NULL REFERENCES empleado(id) ON UPDATE CASCADE ON DELETE RESTRICT, 
 	rif_banco integer REFERENCES banco(rif_banco) ON UPDATE CASCADE ON DELETE RESTRICT, 
 	comision real NOT NULL,
+    
+    monto_asegurado real NOT NULL,
+    precio_seguro real NOT NULL,
 
 	PRIMARY KEY (nro_factura)
 );
