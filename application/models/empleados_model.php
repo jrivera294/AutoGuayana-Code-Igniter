@@ -89,5 +89,23 @@
             return $query;
        }
 
+       function getEmpleado_ById($idEmpleado){
+            $query = $this->db->query("SELECT * FROM empleado WHERE id= ?", $idEmpleado);
+            return $query->result();
+        }
+
+       function desempenio ($datos,$ind){
+           if ($ind==1){
+                $query = $this->db->query("SELECT * FROM desempenoGeneral_view WHERE (fecha_emision >= ? AND fecha_emision <= ?  AND id= ?       )",$datos);
+
+                return $query->result();
+           }
+           else if ($ind==0){
+              $query = $this->db->query("SELECT * FROM desempenoGeneral_view WHERE (fecha_emision >= ? AND fecha_emision <= ?  )",$datos);
+                return $query->result();
+           }
+
+       }
+
    }
 ?>

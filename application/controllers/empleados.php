@@ -409,7 +409,7 @@ class Empleados extends CI_Controller{
         );
 
         $info = $this->Empleados_model->desempenio($datos,1);
-        $empleado = $this->Empleados_model->getEmpleadoById($this->input->post('id'));
+        $empleado = $this->Empleados_model->getEmpleado_ById($this->input->post('id'));
         $nombreDpto = array();
          $i=0;
         foreach ($empleado as $emp){
