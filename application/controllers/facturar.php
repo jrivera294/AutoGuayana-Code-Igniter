@@ -99,6 +99,7 @@ class Facturar extends CI_Controller{
             $data['opciones']= $this->Vehiculos_model->getOpcionesVehiculo($data['factura'][0]->id_vehiculo);
             $data['banco']= $this->Banco_model->getBancoByRif($data['factura'][0]->rif_banco);
             $data['aseguradora']= $this->Seguro_model->getSeguroByRif($data['factura'][0]->rif_aseguradora);
+            $data['total_factura']=0;
             
             //OBTENEMOS LA VISTA EN HTML
 
