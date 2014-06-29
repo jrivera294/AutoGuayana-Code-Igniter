@@ -14,6 +14,11 @@
             return $query->result();
         }
 
+
+        function getEmpleadoById($idEmpleado){
+            $query = $this->db->query("SELECT * FROM empleado WHERE id= ?", $idEmpleado);
+            return $query->result();
+        }
        function getTelefonosEmpleado($idEmpleado){
             $query = $this->db->query("SELECT telefono FROM telefonos_empleados WHERE id_empleado = ?",$idEmpleado);
             return $query->result();
@@ -82,6 +87,19 @@
        function deleteEmpleado($idEmpleado){
             $query = $this->db->query("DELETE FROM empleado WHERE id= ?",$idEmpleado);
             return $query;
+       }
+
+       function desempenio ($datos,$ind){
+           if ($ind==1){
+                $query = $this->db->query("SELECT * FROM desempenoGeneral_view WHERE (fecha_emision >= ? AND fecha_emision <= ?  AND id= ?       )",$datos);
+
+                return $query->result();
+           }
+           else if ($ind==0){
+              $query = $this->db->query("SELECT * FROM desempenoGeneral_view WHERE (fecha_emision >= ? AND fecha_emision <= ?  )",$datos);
+                return $query->result();
+           }
+
        }
 
    }

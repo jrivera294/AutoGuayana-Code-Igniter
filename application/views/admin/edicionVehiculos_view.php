@@ -170,7 +170,7 @@
 
 			<div class="row">
 				<div class="col-xs-12 col-md-6"><input type="submit" value="Registrar" class="btn btn-primary btn-block btn-lg" tabindex="13"></div>
-				<div class="col-xs-12 col-md-6"><a href="#" class="btn btn-warning btn-block btn-lg">Cancelar</a></div>
+				<div class="col-xs-12 col-md-6"><a href='<?= base_url("index.php/vehiculos/cargarGestionVehiculos");?>' class="btn btn-warning btn-block btn-lg">Cancelar</a></div>
 			</div>
               <?php }
         ?>

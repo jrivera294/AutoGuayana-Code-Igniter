@@ -1,47 +1,72 @@
+<script language="JavaScript" type="text/javascript">
+    function verifica() {
+        if (document.formulario.obliga.value != "") {
+            document.formulario.submit();
+        } else {
+            alert("FALTAN DATOS!!!!!");
+        }
+    // TOAD
+    }
+</script>
+
 <div class="container-fluid">
      <div class="row">
        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
 
          <h2 class="sub-header">Desempeño General</h2>
+        <form action="<?= base_url("index.php/empleados/desempenioTodos");?>" method="post">
          <div class="row">
-             <div class="col-xs-12 col-sm-3 col-md-3">
-                <div class="control-group">
-                    <label class="control-label" for="searchinput">Ingresar Vendedor</label>
-                    <div class="controls">
-                        <input id="searchinput" name="searchinput" type="text" placeholder="Ci o ID" class="input-xlarge search-query">
-
-                    </div>
-                </div>
-
-                 <!-- Button -->
-                 <div class="control-group">
-                    <div class="controls">
-                        <button id="singlebutton" name="singlebutton" class="btn btn-primary">Generar</button>
-                    </div>
-                </div>
-             </div>
-             <div class="col-xs-12 col-sm-3 col-md-3">
+                 <div class="col-xs-12 col-sm-3 col-md-3">
                    <h4>Desde:</h4>
-                   <input type="date">
-             </div>
-             <div class="col-xs-12 col-sm-3 col-md-3">
-                   <h4>Hasta:</h4>
-                   <input type="date">
-             </div>
-
-             <div class="col-xs-12 col-sm-3 col-md-3">
+                   <input type="date" name="fecha_inicio">
+                </div>
+                 <div class="col-xs-12 col-sm-3 col-md-3">
+                       <h4>Hasta:</h4>
+                       <input type="date" name="fecha_fin">
+                 </div>
+               <br>
+               <div class="col-xs-12 col-sm-3 col-md-6">
                 <div class="control-group">
                     <label class="control-label" for="button1id">Generar Reporte Para Todos Los Vendedores</label>
                     <div class="controls">
-                        <button id="button1id" name="button1id" class="btn btn-success">Generar Todos</button>
+                        <input type="submit" class="btn btn-success" value="Generar Todos">
                     </div>
                 </div>
-            </div>
-        </div>
+                </div>
+           </div>
          <br>
          <br>
-        <legend>Info Vendedor:</legend>
+        </form>
+        <form action="<?= base_url("index.php/empleados/desempenioInd");?>" method="post">
+         <div class="row">
+                 <div class="col-xs-12 col-sm-3 col-md-3">
+                   <h4>Desde:</h4>
+                   <input type="date" name="fecha_inicio">
+                </div>
+                 <div class="col-xs-12 col-sm-3 col-md-3">
+                       <h4>Hasta:</h4>
+                       <input type="date" name="fecha_fin">
+                 </div>
+               <br>
+                <div class="col-xs-12 col-sm-3 col-md-3">
+                    <label class="control-label" for="button1id">ID empleado</label>
+                    <input type="text" name="id">
+                </div>
+
+               <div class="col-xs-12 col-sm-3 col-md-3">
+                <div class="control-group">
+                    <label class="control-label" for="button1id">Generar Reporte</label>
+                    <div class="controls">
+                        <input type="submit" class="btn btn-primary" value="Generar">
+                    </div>
+                </div>
+                </div>
+           </div>
+         <br>
+         <br>
+        </form>
+       <!-- <legend>Info Vendedor:</legend>
         <div class="row">
                <div class="col-xs-12 col-sm-3 col-md-4">
                    <h4>Cedula:</h4>
@@ -111,7 +136,7 @@
                </tr>
              </tbody>
            </table>
-         </div>
+         </div>-->
        </div>
      </div>
    </div>

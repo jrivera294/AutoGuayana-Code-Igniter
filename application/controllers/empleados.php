@@ -346,6 +346,84 @@ class Empleados extends CI_Controller{
         $this->load->view('layouts/footer');
     }
 
+    public function desempenio (){
+        $this->load->view('layouts/header');
+        $this->load->view('layouts/adminSidebar');
+        $this->load->view('admin/desempenioGeneral_view');
+        $this->load->view('layouts/footer');
+    }
+
+    public function desempenioTodos(){
+
+      /*  echo"hola mundo";
+        echo "fecha_inicio:(".$this->input->post('fecha_inicio').")";
+        echo "fecha_fin:(".$this->input->post('fecha_fin').")";*/
+        if ($this->input->post('fecha_fin')=="" || $this->input->post('fecha_inicio')==""){
+            $data['message_type']=1;
+            $data['message']="Ingrese fecha";
+            $this->load->view('layouts/header',$data);
+            $this->load->view('layouts/adminSidebar');
+            $this->load->view('admin/desempenioGeneral_view');
+            $this->load->view('layouts/footer');
+            return;
+        }
+        $datos = array(
+            "fecha_inicio" =>$this->input->post('fecha_inicio'),
+            "fecha_fin" => $this->input->post('fecha_fin')
+        );
+
+       $info = $this->Empleados_model->desempenio($datos,0);
+       $empleados = $this->Empleados_model->getEmpleados();
+
+        $nombreDpto = array();
+         $i=0;
+        foreach ($empleados as $emp){
+            $nombreDpto[$i++] = $this->Departamentos_model->getNombreDpto($emp->cod_dpto);
+        }
+        $data['departamento']=$nombreDpto;
+        $data['fecha_inicio']=$this->input->post('fecha_inicio');
+        $data['fecha_fin']=$this->input->post('fecha_fin');
+        $data['empleado'] = $empleados;
+        $data['info'] = $info;
+        $data['individual'] = 1;
+        $this->load->view('pdf/desempenio_view_pdf',$data);
+    }
+     public function desempenioInd(){
+
+      /*  echo"hola mundo";
+        echo "fecha_inicio:(".$this->input->post('fecha_inicio').")";
+        echo "fecha_fin:(".$this->input->post('fecha_fin').")";*/
+        if ($this->input->post('fecha_fin')=="" || $this->input->post('fecha_inicio')=="" || $this->input->post('id')==""){
+            $data['message_type']=1;
+            $data['message']="Ingrese datos correctamente";
+            $this->load->view('layouts/header',$data);
+            $this->load->view('layouts/adminSidebar');
+            $this->load->view('admin/desempenioGeneral_view');
+            $this->load->view('layouts/footer');
+            return;
+        }
+        $datos = array(
+            "fecha_inicio" =>$this->input->post('fecha_inicio'),
+            "fecha_fin" => $this->input->post('fecha_fin'),
+            "id" => $this->input->post('id')
+        );
+
+        $info = $this->Empleados_model->desempenio($datos,1);
+        $empleado = $this->Empleados_model->getEmpleadoById($this->input->post('id'));
+        $nombreDpto = array();
+         $i=0;
+        foreach ($empleado as $emp){
+            $nombreDpto[$i++] = $this->Departamentos_model->getNombreDpto($emp->cod_dpto);
+        }
+        $data['departamento']=$nombreDpto;
+        $data['fecha_inicio']=$this->input->post('fecha_inicio');
+        $data['fecha_fin']=$this->input->post('fecha_fin');
+        $data['empleado'] = $empleado;
+        $data['info'] = $info;
+        $data['individual'] = 1;
+        $this->load->view('pdf/desempenio_view_pdf',$data);
+    }
+
     public function eliminarEmpleado(){
         $this->Empleados_model->deleteEmpleado($this->input->post('id'));
         $this->cargarGestionEmpleados();

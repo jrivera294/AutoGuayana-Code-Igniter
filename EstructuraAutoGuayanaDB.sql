@@ -235,7 +235,7 @@ WHERE tf.nro_factura = f.nro_factura AND f.id_empleado = e.id
 GROUP BY e.id,tf.nro_factura,f.fecha_emision;
 
 CREATE view desempenoGeneral_view AS
-SELECT DISTINCT e.id,e.cedula,e.nombre,e.apellido1,e.dir,tf.nro_factura,f.fecha_emision,v.modelo,f.precio_venta_ve, SUM(tf.total) as total
+SELECT DISTINCT e.id,e.cedula,e.nombre,e.apellido1,e.dir,tf.nro_factura,f.fecha_emision,f.id_vehiculo,v.modelo,f.precio_venta_ve, SUM(tf.total) as total
 FROM  empleado as e, totalfactura_view as tf , factura as f, vehiculo as v
 WHERE tf.nro_factura = f.nro_factura AND f.id_empleado = e.id AND f.id_vehiculo = v.id
-GROUP BY e.id,e.cedula,tf.nro_factura,f.fecha_emision,v.modelo,f.precio_venta_ve;
+GROUP BY e.id,e.cedula,tf.nro_factura,f.fecha_emision,f.id_vehiculo,v.modelo,f.precio_venta_ve;
