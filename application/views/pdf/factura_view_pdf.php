@@ -1,46 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="<?= base_url("favicon.ico");?>">
 
 
-
-
-    
-    <script language="JavaScript"> 
-    function recalcular(){
-        var tds = document.getElementById('tabla_factura').getElementsByTagName('td');
-        var sub_total = 0;
-        var iva=0;
-        var total=0;
-        for(var i = 0; i < tds.length; i ++) {
-            if(tds[i].className == 'contar') {
-                sub_total += parseInt(tds[i].innerHTML);
-            }
-        }
-        iva=sub_total*0.12;
-        total=sub_total+iva;
-        document.getElementById('sub_total').innerHTML=sub_total;
-        document.getElementById('iva').innerHTML=iva;
-        document.getElementById('total').innerHTML=total;
-    }
-    </script>
-    
   </head>
    
-    <body onload="recalcular()">
+    <body >
     <h3 align="center">Factura</h3>
 
     <table class="table table-striped">
         <tbody>
             <tr>
                 <td>
-        RIF. J-0000000001 <br>
+        AutoGuayana C.A - RIF. J-0000000001 <br>
         Av. Principal Ciudad Guayana, <br>
         Concesionario AutoGuayana <br>
         Sector industrial, Zona postal 8050.<br>
@@ -105,7 +77,7 @@
                 </tr>
               
               <?php 
-                if($factura[0]->tipo_garantia=="Extendida"){?>
+                if(trim($factura[0]->tipo_garantia)==="Extendida"){?>
                <?php  ?>
                 <tr>
                   <td id="garantiaTr"> Garantía extendida</td>
@@ -140,21 +112,21 @@
                     <td></td>
                     <td></td>
                     <td>Sub-Total:</td>
-                    <td id="sub_total">0</td>
+                    <td id="sub_total"><?php echo $total_factura*0.88; ?></td>
                 </tr>
                 <tr>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td >Iva(12%):</td>
-                    <td id="iva">0</td>
+                    <td id="iva"><?php echo $total_factura*0.12; ?></td>
                 </tr>
                 <tr>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td>Total:</td>
-                    <td id="total">0</td>
+                    <td id="total"><?php echo $total_factura; ?></td>
                 </tr>                                     
 
               </tfoot>
@@ -164,14 +136,15 @@
     <h3 align="center">Información de financiamiento:</h3>
     Tipo de pago: <?= $factura[0]->tipo_financiamiento; ?><br> 
     <?php 
-        if($factura[0]->tipo_financiamiento=="Financiado"){
+        if(trim($factura[0]->tipo_financiamiento)==='Financiado'){
             if(isset($factura[0]->rif_banco)){
+            echo"<br>";
                echo "Financiado por banco<br>";
-               echo "Entidad bancaria: Nombre banco ".$banco[0]['nombre_banco']."   - RIF: ".$factura[0]->rif_banco;
+               echo "Entidad bancaria: Nombre banco ".$banco[0]->nombre_banco."   - RIF: ".$factura[0]->rif_banco."<br>";
             }else{
                echo "Financiado por AutoGuayana";
             }
-            
+            echo "<br>";
             echo "Cuotas: <br>";
             echo "Nro. de cuotas: ".$factura[0]->cuotas."<br>";
             echo "Pago por cuota: ".$factura[0]->pago_cuota."<br>";

@@ -99,11 +99,93 @@ class Facturar extends CI_Controller{
             $data['opciones']= $this->Vehiculos_model->getOpcionesVehiculo($data['factura'][0]->id_vehiculo);
             $data['banco']= $this->Banco_model->getBancoByRif($data['factura'][0]->rif_banco);
             $data['aseguradora']= $this->Seguro_model->getSeguroByRif($data['factura'][0]->rif_aseguradora);
-            $data['total_factura']=0;
+            if(trim($data['factura'][0]->tipo_garantia)==="Extendida"){
+                $data['total_factura']=$this->Factura_model->getFacturaTotal($nro_factura)[0]->total+$data['vehiculo'][0]->monto_garantia_ext;
+            }else{
+                $data['total_factura']=$this->Factura_model->getFacturaTotal($nro_factura)[0]->total;
+            }
+            
             
             //OBTENEMOS LA VISTA EN HTML
 
             $html=$this->load->view('pdf/factura_view_pdf.php',$data, true);
+
+
+            //ESCRIBIMOS AL PDF
+            $this->mpdf->WriteHTML($html,2);
+
+            //SALIDA DE NUESTRO PDF
+            $this->mpdf->Output();
+        }
+        
+    }
+    
+    public function licencia_pdf($nro_factura=0){
+        if($nro_factura==0){
+            show_404();
+        }else{
+            //Especificamos algunos parametros del PDF
+            $this->mpdf->mPDF('utf-8','A4');
+
+            //PASAMOS LA RUTA DONDE ESTA EL ESTILO
+            $stylesheet = file_get_contents(base_url("assets/css/bootstrap.min.css"));
+            //cargamos el estilo CSS
+            $this->mpdf->WriteHTML($stylesheet,1);
+            //CARGAMOS LOS PARAMETROS
+
+            $data['factura'] = $this->Factura_model->getFacturaById($nro_factura);
+            
+        
+            $data['cliente']= $this->Client_model->getClientByCedula($data['factura'][0]->ci_cliente);
+            $data['vehiculo']= $this->Vehiculos_model->getVehiculoBySerial($data['factura'][0]->id_vehiculo);
+            $data['colores']= $this->Vehiculos_model->getColoresVehiculo($data['factura'][0]->id_vehiculo);
+            $data['opciones']= $this->Vehiculos_model->getOpcionesVehiculo($data['factura'][0]->id_vehiculo);
+            
+            
+            //OBTENEMOS LA VISTA EN HTML
+
+            $html=$this->load->view('pdf/licencia_view_pdf.php',$data, true);
+
+
+            //ESCRIBIMOS AL PDF
+            $this->mpdf->WriteHTML($html,2);
+
+            //SALIDA DE NUESTRO PDF
+            $this->mpdf->Output();
+        }
+        
+    }
+    
+    public function estado_pdf($nro_factura=0){
+        if($nro_factura==0){
+            show_404();
+        }else{
+            //Especificamos algunos parametros del PDF
+            $this->mpdf->mPDF('utf-8','A4');
+
+            //PASAMOS LA RUTA DONDE ESTA EL ESTILO
+            $stylesheet = file_get_contents(base_url("assets/css/bootstrap.min.css"));
+            //cargamos el estilo CSS
+            $this->mpdf->WriteHTML($stylesheet,1);
+            //CARGAMOS LOS PARAMETROS
+
+            $data['factura'] = $this->Factura_model->getFacturaById($nro_factura);
+            
+        
+            $data['cliente']= $this->Client_model->getClientByCedula($data['factura'][0]->ci_cliente);
+            $data['vehiculo']= $this->Vehiculos_model->getVehiculoBySerial($data['factura'][0]->id_vehiculo);
+            $data['colores']= $this->Vehiculos_model->getColoresVehiculo($data['factura'][0]->id_vehiculo);
+            $data['opciones']= $this->Vehiculos_model->getOpcionesVehiculo($data['factura'][0]->id_vehiculo);
+            $data['vendedor']= $this->Empleados_model->getEmpleadoById(1);
+            $data['aseguradora']= $this->Seguro_model->getSeguroByRif($data['factura'][0]->rif_aseguradora);
+            if(trim($data['factura'][0]->tipo_garantia)==="Extendida"){
+                $data['total_factura']=$this->Factura_model->getFacturaTotal($nro_factura)[0]->total+$data['vehiculo'][0]->monto_garantia_ext;
+            }else{
+                $data['total_factura']=$this->Factura_model->getFacturaTotal($nro_factura)[0]->total;
+            }
+            //OBTENEMOS LA VISTA EN HTML
+
+            $html=$this->load->view('pdf/estado_view_pdf.php',$data, true);
 
 
             //ESCRIBIMOS AL PDF
