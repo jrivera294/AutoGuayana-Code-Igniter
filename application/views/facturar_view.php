@@ -486,7 +486,7 @@ function deleteRow(td){
                                     <h4>Tipo de pago</h4>
                                    <div class="form-group">
                                         <label class="radio" for="radios-0">
-                                            <input type="radio" name="tpago" id="contado" value="Contado" checked="checked" tabindex="5" onClick="oculta('inputs_financiamiento'); muestra('inputs_financiamiento2');">
+                                            <input type="radio" name="tpago" id="contado" value="Contado" checked="checked" tabindex="5" onClick="oculta('inputs_financiamiento'); oculta('inputs_financiamiento2');">
                                             De contado
                                         </label>
                                         <label class="radio" for="radios-1">
