@@ -5,6 +5,7 @@ class Vehiculos extends CI_Controller{
     public function __construct(){
         parent::__construct();
         $this->load->model('Vehiculos_model');
+        $this->load->library("mpdf");
     }
 
      public function index()
@@ -156,6 +157,36 @@ class Vehiculos extends CI_Controller{
         $query['colores'] = $this->Vehiculos_model->getColoresVehiculo($serial);
         $query['opciones'] = $this->Vehiculos_model->getOpcionesVehiculo($serial);
         echo json_encode($query);
+    }
+    
+    public function calcomania_pdf($id_vehiculo=1){
+        if($id_vehiculo==0){
+            show_404();
+        }else{
+            //Especificamos algunos parametros del PDF
+            $this->mpdf->mPDF('utf-8','A4');
+
+            //PASAMOS LA RUTA DONDE ESTA EL ESTILO
+            $stylesheet = file_get_contents(base_url("assets/css/bootstrap.min.css"));
+            //cargamos el estilo CSS
+            $this->mpdf->WriteHTML($stylesheet,1);
+            //CARGAMOS LOS PARAMETROS
+            $data['vehiculo']= $this->Vehiculos_model->getVehiculoBySerial($id_vehiculo);
+            $data['colores']= $this->Vehiculos_model->getColoresVehiculo($id_vehiculo);
+            $data['opciones']= $this->Vehiculos_model->getOpcionesVehiculo($id_vehiculo);
+            
+            
+            //OBTENEMOS LA VISTA EN HTML
+
+            $html=$this->load->view('pdf/calcomania_pdf.php',$data, true);
+
+
+            //ESCRIBIMOS AL PDF
+            $this->mpdf->WriteHTML($html,2);
+
+            //SALIDA DE NUESTRO PDF
+            $this->mpdf->Output();
+        }
     }
 
 }
