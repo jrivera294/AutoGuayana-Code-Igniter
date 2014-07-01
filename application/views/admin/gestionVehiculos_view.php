@@ -99,7 +99,7 @@
                         </form>
                   </td>
                   <td>
-                      <button type="button" class="btn btn-xs btn-primary">Generar</button>
+                      <a href="<?= base_url("index.php/vehiculos/calcomania_pdf/$loop->id");?>" type="button" class="btn btn-xs btn-primary">Generar</a>
                   </td>
                 </tr>
                 <?php

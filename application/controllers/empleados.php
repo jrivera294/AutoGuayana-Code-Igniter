@@ -7,6 +7,7 @@ class Empleados extends CI_Controller{
         $this->load->model('Empleados_model');
         $this->load->model('Departamentos_model');
         $this->load->model('Cargos_model');
+        $this->load->library("mpdf");
     }
 
    /* public function index(){
@@ -372,6 +373,7 @@ class Empleados extends CI_Controller{
             "fecha_fin" => $this->input->post('fecha_fin')
         );
 
+       $this->mpdf->mPDF('utf-8','A4');
        $info = $this->Empleados_model->desempenio($datos,0);
        $empleados = $this->Empleados_model->getEmpleados();
 
@@ -386,7 +388,16 @@ class Empleados extends CI_Controller{
         $data['empleado'] = $empleados;
         $data['info'] = $info;
         $data['individual'] = 1;
-        $this->load->view('pdf/desempenio_view_pdf',$data);
+
+
+            $html=$this->load->view('pdf/desempenio_view_pdf.php',$data, true);
+
+
+            //ESCRIBIMOS AL PDF
+            $this->mpdf->WriteHTML($html,2);
+
+            //SALIDA DE NUESTRO PDF
+            $this->mpdf->Output();
     }
      public function desempenioInd(){
 
@@ -424,6 +435,67 @@ class Empleados extends CI_Controller{
         $this->load->view('pdf/desempenio_view_pdf',$data);
     }
 
+    public function top5 (){
+       // echo "hola mundo top5<br>";
+        $top5 = $this->Empleados_model->getTop5();
+        $top5_porAnios = array();
+        $i=0;
+       /* foreach ($top5 as $emp){
+            echo "cedula: ".$emp->cedula."<br>";
+            echo "nombre: ".$emp->nombre."<br>";
+            echo "total: ".$emp->total."<br>";
+            echo "<br><br>";
+        }*/
+        foreach($top5 as $emp)
+            $cedulas[$i++] = $emp->cedula;
+
+        $top5_porAnios= $this->Empleados_model->getTop5porAnios($cedulas);
+
+       /* foreach ( $top5_porAnios as $top5a){
+            echo $top5a->cedula." ".$top5a->total." ".$top5a->anio."<br>";
+        }*/
+        $anioActual =  date("Y");
+        $arrayAux = array();
+        $arrayFinal = array();
+       for ($i = 0 ; $i < 5 ; $i++){
+            foreach ($top5_porAnios as $top5a){
+                if ($cedulas[$i] == $top5a->cedula)
+                    $arrayFinal["$top5a->anio"] = $top5a->total;
+            }
+
+                foreach ($top5 as $emp){
+                    if ($emp->cedula== $cedulas[$i]){
+                        $arrayFinal["cedula"] = $emp->cedula;
+                        $arrayFinal["nombre"] = $emp->nombre;
+                        $arrayFinal["apellido1"] = $emp->apellido1;
+                        $arrayFinal["apellido2"] = $emp->apellido2;
+                        $arrayFinal["total"] = $emp->total;
+
+                    }
+            }
+           $arrayAux[$i] = $arrayFinal;
+           for ($anio_actual =date("Y") ; $anio_actual >= date("Y")-3 ; $anio_actual-- ){
+                $arrayFinal["$top5a->anio"] ="";
+           }
+        }
+        foreach($arrayAux as $array){
+            echo "<br>";
+            echo "cedula: ".$array["cedula"]."<br>";
+            echo "nombre: ".$array["nombre"]."<br>";
+            echo "total".$array["total"]."<br>";
+            echo "2014 ".$array["2014"]."<br>";
+            echo "2013 ".$array["2013"]."<br>";
+            echo "2012 ".$array["2012"]."<br>";
+            echo "2011 ".$array["2011"]."<br>";
+             echo "<br>";
+        }
+        $ventasAnios = $this->Empleados_model->getVentasPorAnio();
+
+        foreach ($ventasAnios as $ven){
+            echo "anio:".$ven->anio."  total  ";
+            echo $ven->total."<br>";
+        }
+    }
     public function eliminarEmpleado(){
         $this->Empleados_model->deleteEmpleado($this->input->post('id'));
         $this->cargarGestionEmpleados();

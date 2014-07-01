@@ -107,5 +107,38 @@
 
        }
 
+       public function getTop5(){
+            $query = $this->db->query(
+    "SELECT DISTINCT e.cedula, e.nombre,e.apellido1,e.apellido2,SUM (f.precio_venta_ve + f.comision)as total
+     FROM empleado as e, factura as f
+     WHERE (e.id = f.id_empleado AND
+     (extract( year from current_date) - (3) <= extract( year from f.fecha_emision)))
+     GROUP BY e.cedula,e.nombre,apellido1,apellido2 ORDER  BY  total DESC  LIMIT 5;");
+           return $query->result();
+       }
+
+       public function getTop5porAnios($cedulas){
+            $query = $this->db->query(
+            "SELECT e.cedula, SUM (f.precio_venta_ve + f.comision)as total, extract( year from f.fecha_emision) as anio
+             FROM empleado as e ,factura as f
+             WHERE ( e.id = f.id_empleado AND
+                   (extract( year from current_date) - (3) <= extract( year from f.fecha_emision)) AND
+                   (e.cedula = 1 OR e.cedula = 1007 OR e.cedula = 1004 OR e.cedula = 1001 OR e.cedula = 1003 ))
+             GROUP BY e.cedula,f.fecha_emision",$cedulas);
+
+            return $query->result();
+       }
+
+       public function getVentasPorAnio(){
+       $query = $this->db->query (
+           "SELECT SUM(cast(f.precio_venta_ve as double precision)) as total,extract( year from f.fecha_emision) as anio
+           FROM factura as f
+           WHERE  ( extract( year from current_date) - (3) <= extract( year from f.fecha_emision))
+           GROUP BY anio");
+
+           return $query->result();
+       }
+
+
    }
 ?>
