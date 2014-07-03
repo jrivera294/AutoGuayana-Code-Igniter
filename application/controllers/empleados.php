@@ -418,7 +418,7 @@ class Empleados extends CI_Controller{
             "fecha_fin" => $this->input->post('fecha_fin'),
             "id" => $this->input->post('id')
         );
-
+         $this->mpdf->mPDF('utf-8','A4');
         $info = $this->Empleados_model->desempenio($datos,1);
         $empleado = $this->Empleados_model->getEmpleado_ById($this->input->post('id'));
         $nombreDpto = array();
@@ -432,7 +432,15 @@ class Empleados extends CI_Controller{
         $data['empleado'] = $empleado;
         $data['info'] = $info;
         $data['individual'] = 1;
-        $this->load->view('pdf/desempenio_view_pdf',$data);
+
+        $html=$this->load->view('pdf/desempenio_view_pdf.php',$data, true);
+
+
+        //ESCRIBIMOS AL PDF
+        $this->mpdf->WriteHTML($html,2);
+
+        //SALIDA DE NUESTRO PDF
+        $this->mpdf->Output();
     }
 
     public function top5 (){
@@ -478,7 +486,7 @@ class Empleados extends CI_Controller{
                 $arrayFinal["$top5a->anio"] ="";
            }
         }
-        foreach($arrayAux as $array){
+      /*  foreach($arrayAux as $array){
             echo "<br>";
             echo "cedula: ".$array["cedula"]."<br>";
             echo "nombre: ".$array["nombre"]."<br>";
@@ -488,13 +496,28 @@ class Empleados extends CI_Controller{
             echo "2012 ".$array["2012"]."<br>";
             echo "2011 ".$array["2011"]."<br>";
              echo "<br>";
-        }
+        }*/
         $ventasAnios = $this->Empleados_model->getVentasPorAnio();
 
+       /* $ventasA =array();
+        $i=0;
         foreach ($ventasAnios as $ven){
-            echo "anio:".$ven->anio."  total  ";
-            echo $ven->total."<br>";
-        }
+            if ($ven->anio==date("Y")-$i++)
+                $ventasA[date("Y")-$i]=$ven->total;
+        }*/
+
+
+        $data['top5'] = $arrayAux;
+        $data['anios'] = $ventasAnios;
+         $html=$this->load->view('pdf/top5_view_pdf.php',$data, true);
+
+
+        //ESCRIBIMOS AL PDF
+        $this->mpdf->WriteHTML($html,2);
+
+        //SALIDA DE NUESTRO PDF
+        $this->mpdf->Output();
+
     }
     public function eliminarEmpleado(){
         $this->Empleados_model->deleteEmpleado($this->input->post('id'));

@@ -134,7 +134,7 @@
            "SELECT SUM(cast(f.precio_venta_ve as double precision)) as total,extract( year from f.fecha_emision) as anio
            FROM factura as f
            WHERE  ( extract( year from current_date) - (3) <= extract( year from f.fecha_emision))
-           GROUP BY anio");
+           GROUP BY anio ORDER BY anio ASC");
 
            return $query->result();
        }
