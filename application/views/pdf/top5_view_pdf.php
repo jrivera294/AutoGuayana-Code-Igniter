@@ -27,6 +27,27 @@
             }
         ?>
     <body>
+        <?php
+          foreach($top5 as $array){
+            echo "<br>";
+            echo "cedula: ".$array["cedula"]."<br>";
+            echo "nombre: ".$array["nombre"]."<br>";
+            echo "total".$array["total"]."<br>";
+            echo "2014 ".$array["2014"]."<br>";
+            echo "2013 ".$array["2013"]."<br>";
+            echo "2012 ".$array["2012"]."<br>";
+            echo "2011 ".$array["2011"]."<br>";
+             echo "<br>";
+        }
+
+        /*
+       $ventasA =array();
+        $i=0;
+        foreach ($anios as $ven){
+            if ($ven->anio==date("Y")-$i++)
+                $ventasA[date("Y")-$i]=$ven->total;
+        }*/
+    ?>
     <?php if(is_array($top5) && count($top5) ) {
             $nro=1;
                         foreach($top5 as $loop){
@@ -81,13 +102,13 @@
 
 
 
-                             if ($anio->anio ==date("Y") && $anio->total!=0 && $loop[date("Y")]!=0)
+                             if ($anio->anio == date("Y") && $anio->total!=0 && $loop[date("Y")]!=0)
                             {
                                 echo "<td>";
                                 echo "&nbsp;&nbsp;&nbsp;&nbsp;";
                                 echo number_format(100/$anio->total *$loop[date("Y")],2);
                                 echo "</td>";
-                                 continue;
+                                continue;
 
                             }
 

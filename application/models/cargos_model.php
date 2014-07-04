@@ -9,6 +9,12 @@
             return $query->result();
        }
 
+       public function getCargosByCod($cod_cargo){
+            $query = $this->db->query("SELECT * FROM cargo WHERE cod_cargo=?",$cod_cargo);
+           return $query->result();
+
+       }
+
        public function getNombreCargo($cod_cargo){
             $query = $this->db->query("SELECT nombre FROM cargo WHERE cod_cargo = ?",$cod_cargo);
             foreach( $query->result() as $cargo)

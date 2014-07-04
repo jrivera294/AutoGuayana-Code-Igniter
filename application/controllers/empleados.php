@@ -7,6 +7,7 @@ class Empleados extends CI_Controller{
         $this->load->model('Empleados_model');
         $this->load->model('Departamentos_model');
         $this->load->model('Cargos_model');
+        $this->load->model('Dependientes_model');
         $this->load->library("mpdf");
     }
 
@@ -448,20 +449,22 @@ class Empleados extends CI_Controller{
         $top5 = $this->Empleados_model->getTop5();
         $top5_porAnios = array();
         $i=0;
-       /* foreach ($top5 as $emp){
+        foreach ($top5 as $emp){
             echo "cedula: ".$emp->cedula."<br>";
             echo "nombre: ".$emp->nombre."<br>";
             echo "total: ".$emp->total."<br>";
             echo "<br><br>";
-        }*/
+        }
         foreach($top5 as $emp)
-            $cedulas[$i++] = $emp->cedula;
+                $cedulas[$i++] = $emp->cedula;
+
+
 
         $top5_porAnios= $this->Empleados_model->getTop5porAnios($cedulas);
 
-       /* foreach ( $top5_porAnios as $top5a){
+       foreach ( $top5_porAnios as $top5a){
             echo $top5a->cedula." ".$top5a->total." ".$top5a->anio."<br>";
-        }*/
+        }
         $anioActual =  date("Y");
         $arrayAux = array();
         $arrayFinal = array();
@@ -483,10 +486,10 @@ class Empleados extends CI_Controller{
             }
            $arrayAux[$i] = $arrayFinal;
            for ($anio_actual =date("Y") ; $anio_actual >= date("Y")-3 ; $anio_actual-- ){
-                $arrayFinal["$top5a->anio"] ="";
+                $arrayFinal["$anio_actual"] ="";
            }
-        }
-      /*  foreach($arrayAux as $array){
+       }
+      foreach($arrayAux as $array){
             echo "<br>";
             echo "cedula: ".$array["cedula"]."<br>";
             echo "nombre: ".$array["nombre"]."<br>";
@@ -496,7 +499,7 @@ class Empleados extends CI_Controller{
             echo "2012 ".$array["2012"]."<br>";
             echo "2011 ".$array["2011"]."<br>";
              echo "<br>";
-        }*/
+        }
         $ventasAnios = $this->Empleados_model->getVentasPorAnio();
 
        /* $ventasA =array();
@@ -509,7 +512,7 @@ class Empleados extends CI_Controller{
 
         $data['top5'] = $arrayAux;
         $data['anios'] = $ventasAnios;
-         $html=$this->load->view('pdf/top5_view_pdf.php',$data, true);
+        $html=$this->load->view('pdf/top5_view_pdf.php',$data, true);
 
 
         //ESCRIBIMOS AL PDF
@@ -518,6 +521,56 @@ class Empleados extends CI_Controller{
         //SALIDA DE NUESTRO PDF
         $this->mpdf->Output();
 
+    }
+    public function cargarGestionFichas(){
+        echo "fichas";
+        $this->load->view('layouts/header');
+        $this->load->view('layouts/adminSidebar');
+        $this->load->view('admin/gestionFichasEmpleados_view');
+        $this->load->view('layouts/footer');
+
+    }
+
+    public function fichasInd(){
+        $idEmpleado = $this->input->post('id');
+
+        $info_emp = $this->Empleados_model->getEmpleadoByIdDep($idEmpleado);
+        $info_dpto =  $this->Departamentos_model->getNombreDpto($info_emp->cod_dpto);
+        $info_cargo = $this->Cargos_model->getCargosByCod($info_emp->cod_cargo);
+        $info_dep =$this->Dependientes_model->getDependientes($idEmpleado);
+
+        echo "nombre: ".$info_emp->nombre."<br>";
+        echo "dir: ".$info_emp->dir."<br>";
+        echo "cedula: ".$info_emp->cedula."<br>";
+        echo "id: ".$info_emp->id."<br>";
+        echo "cod_cargo: ".$info_emp->cod_cargo."<br>";
+        echo "cod_dpto: ".$info_emp->cod_dpto."<br>";
+        echo "departamento: ".$info_dpto."<br>";
+        foreach ($info_cargo as $inf_c){
+        echo "cargo: ".$inf_c->nombre."<br>";
+        echo "sueldo: ".$inf_c->sueldo."<br>";}
+        foreach ($info_dep as $dep)
+        echo "dep_nombre: ".$dep->nombre."<br>";
+
+        $data['info_emp'] = $info_emp;
+        $data['departamento'] = $info_dpto;
+        $data['info_cargo'] = $info_cargo;
+        $data['dependientes'] = $info_dep;
+
+        $this->mpdf->mPDF('utf-8','A4');
+        $html=$this->load->view('pdf/ficha_empInd_pdf.php',$data, true);
+
+
+        //ESCRIBIMOS AL PDF
+        $this->mpdf->WriteHTML($html,2);
+
+        //SALIDA DE NUESTRO PDF
+        $this->mpdf->Output();
+
+    }
+
+    public function fichasTodos(){
+        echo "todos";
     }
     public function eliminarEmpleado(){
         $this->Empleados_model->deleteEmpleado($this->input->post('id'));
