@@ -53,6 +53,7 @@ $route['facturar/factura_pdf/(:num)'] = "facturar/factura_pdf/$1";
 $route['facturar/licencia_pdf/(:num)'] = "facturar/licencia_pdf/$1";
 $route['facturar/estado_pdf/(:num)'] = "facturar/estado_pdf/$1";
 $route['vehiculos/calcomania_pdf/(:num)'] = "vehiculos/calcomania_pdf/$1";
+$route['clientes/facturasCliente/(:any)'] = "clientes/facturasCliente/$1";
 //$route['stock'] = "stock/traerVehiculo";
 $route['404_override'] = '';
 

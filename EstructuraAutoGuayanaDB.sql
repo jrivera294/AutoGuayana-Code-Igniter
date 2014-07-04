@@ -242,3 +242,16 @@ SELECT DISTINCT e.id,e.cedula,e.nombre,e.apellido1,e.dir,tf.nro_factura,f.fecha_
 FROM  empleado as e, totalfactura_view as tf , factura as f, vehiculo as v
 WHERE tf.nro_factura = f.nro_factura AND f.id_empleado = e.id AND f.id_vehiculo = v.id
 GROUP BY e.id,e.cedula,tf.nro_factura,f.fecha_emision,f.id_vehiculo,v.modelo,f.precio_venta_ve;
+
+-- Creación de grupos de usuarios
+CREATE ROLE superusuario SUPERUSER;
+CREATE ROLE gerente INSERT SELECT;
+CREATE ROLE administrador SELECT;
+CREATE ROLE vendedor SELECT;
+
+GRANT INSERT ON TABLE vehiculo,detalle,factura TO GROUP administrador;
+GRANT INSERT ON TABLE vehiculo,detalle,factura,cliente TO GROUP vendedor;
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO GROUP administrador;
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO GROUP gerente;
+GRANT INSERT ON ALL TABLES IN SCHEMA public TO GROUP gerente;
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO GROUP vendedor;

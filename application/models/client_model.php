@@ -48,13 +48,17 @@
             $query = $this->db->query("DELETE FROM correos_cliente WHERE  id_cliente = ? AND correo = ?",$info);
             return $query;
         }
-
-        function addClient($client,$tlf,$correos){
+       
+       
+    function addClient($client,$tlf,$correos){
             foreach ($client as $cell=>$value){
                 if($value==''){
                     $client[$cell]=null;
                 }
             }
+            
+             $this->db->trans_start();
+            
             $query = $this->db->query("INSERT INTO cliente VALUES (?,?,?,?,?,?,?,?,?)",$client);
 
             //$query = $this->db->query("SELECT cedula FROM cliente WHERE cedula=?", $client['cedula']);//busco id
@@ -70,6 +74,10 @@
                 $info = array($client['cedula'],$correos[$i]);
                 $queryC = $this->db->query("INSERT INTO correos_cliente VALUES (?,?)",$info);
             }
+            
+            $this->db->trans_complete();
+            
+            
             return $query;
         }    
    }

@@ -17,7 +17,12 @@
        function getArticulosById($nro_factura){
             $articulos = $this->db->query("SELECT * FROM detalle WHERE nro_factura=?", array($nro_factura));
             return $articulos->result();
-       }     
+       }
+       
+      function getFacturas($ci_cliente){
+           $query = $this->db->query("SELECT nro_factura,fecha_emision,id_vehiculo,tipo_garantia FROM factura WHERE ci_cliente=?",array($ci_cliente));
+          return $query->result();
+       }
        
        function getFacturaTotal($nro_factura){
            $articulos = $this->db->query("SELECT * FROM totalfactura_view WHERE nro_factura=?", array($nro_factura));
@@ -43,10 +48,6 @@
             } 
             
             $this->db->trans_complete();
-            
-            if ($this->db->trans_status() === FALSE){
-                // generate an error... or use the log_message() function to log your error
-            }
             
             return $id_factura;
         }

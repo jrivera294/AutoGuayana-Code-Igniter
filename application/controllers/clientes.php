@@ -5,6 +5,8 @@ class Clientes extends CI_Controller{
     public function __construct(){
         parent::__construct();
         $this->load->model('Client_model');
+        $this->load->model('Factura_model');
+        $this->load->model('Vehiculos_model');
     }
 
     public function index()
@@ -21,6 +23,25 @@ class Clientes extends CI_Controller{
         $this->load->view('layouts/header');
         $this->load->view('clientes/registrocliente_view');
         $this->load->view('layouts/footer');           
+    }
+    
+    public function facturasCliente($ci_cliente=0){
+        $facturas = $this->Factura_model->getFacturas($ci_cliente);
+        foreach($facturas as $loop){
+            $loop->vehiculo = $this->Vehiculos_model->getVehiculoBySerial($loop->id_vehiculo)[0];
+            if($loop->tipo_garantia==="Extendida"){
+                $loop->total=$this->Factura_model->getFacturaTotal($loop->nro_factura)[0]->total+$loop->vehiculo->monto_garantia_ext;
+            }else{
+                $loop->total=$this->Factura_model->getFacturaTotal($loop->nro_factura)[0]->total;
+            }
+        }
+        
+        $data['facturas']=$facturas;
+        $data['cliente']=$this->Client_model->getClientByCedula($ci_cliente)[0];
+        //echo json_encode($data['facturas']);
+        $this->load->view('layouts/header',$data);
+        $this->load->view('clientes/facturas_clientes_view',$data);
+        $this->load->view('layouts/footer');        
     }
     
     public function save(){
