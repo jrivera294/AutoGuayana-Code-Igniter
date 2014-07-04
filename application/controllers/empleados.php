@@ -571,6 +571,32 @@ class Empleados extends CI_Controller{
 
     public function fichasTodos(){
         echo "todos";
+        $i = 0;
+        $arreglo_empleados = array();
+        $info_emp = $this->Empleados_model->getEmpleados($idEmpleado);
+        foreach($info_emp as $emp){
+            $arreglo_aux['empleado'] = $emp;
+            $arreglo_aux['departamento'] = $info_dpto =  $this->Departamentos_model->getNombreDpto($emp->cod_dpto);
+            $info_cargo = $info_cargo = $this->Cargos_model->getCargosByCod($emp->cod_cargo);
+            foreach ($info_cargo as $cargo){
+                $arreglo_aux['cargo'] = $cargo->nombre;
+                $arreglo_aux['sueldo'] = $cargo->sueldo;
+            }
+            $arreglo_aux['dependientes'] = $info_dep =$this->Dependientes_model->getDependientes($emp->id);
+            $arreglo_empleados[$i++] = $arreglo_aux;
+        }
+
+        $data["arreglo_empleados"] = $arreglo_empleados;
+        $this->mpdf->mPDF('utf-8','A4');
+        $html=$this->load->view('pdf/ficha_empTodos_pdf.php',$data, true);
+
+
+        //ESCRIBIMOS AL PDF
+        $this->mpdf->WriteHTML($html,2);
+
+        //SALIDA DE NUESTRO PDF
+        $this->mpdf->Output();
+
     }
     public function eliminarEmpleado(){
         $this->Empleados_model->deleteEmpleado($this->input->post('id'));
