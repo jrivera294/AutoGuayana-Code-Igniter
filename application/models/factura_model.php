@@ -63,7 +63,17 @@
            return $queryFactura->result();
        }
        
-
+        public function getPreguntas(){
+            $query = $this->db->query("SELECT nro_preg,pregunta FROM preguntas");
+            return $query->result();
+        }
+       
+       public function addRespuestas($respuestas){
+           foreach($respuestas as $loop){
+               $query = $this->db->query("INSERT INTO respuestas nro_factura,nro_preg,respuesta VALUES (?,?,?)",array($loop->nro_factura,$loop->nro_preg,$loop->respuesta));
+           }
+           
+       }
        
    }
 ?>

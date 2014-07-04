@@ -7,6 +7,7 @@ class Clientes extends CI_Controller{
         $this->load->model('Client_model');
         $this->load->model('Factura_model');
         $this->load->model('Vehiculos_model');
+        $this->load->model('Factura_model');
     }
 
     public function index()
@@ -213,5 +214,44 @@ class Clientes extends CI_Controller{
         $this->load->view('clientes/gestionContactos_view');
         $this->load->view('layouts/footer');
     }
+    
+    public function encuesta($nro_factura){
+        $data['nro_factura']=$nro_factura;
+        $data['preguntas'] = $this->Factura_model->getPreguntas();
+        
+        $this->load->view('layouts/header');
+        $this->load->view('clientes/encuesta_view',$data);
+        $this->load->view('layouts/footer');       
+    }
+    
+    public function addEncuesta(){
+        
+        $respuestas[0]= array(
+            'nro_factura'=>$this->input->post('nro_factura'),
+            'nro_preg'=>1,
+            'respuesta'=>$this->input->post('1')
+        );
+        $respuestas[1]= array(
+            'nro_factura'=>$this->input->post('nro_factura'),
+            'nro_preg'=>2,
+            'respuesta'=>$this->input->post('2')
+        );
+        $respuestas[2]= array(
+            'nro_factura'=>$this->input->post('nro_factura'),
+            'nro_preg'=>3,
+            'respuesta'=>$this->input->post('3')
+         );
+        
+        $this->Factura_model->addRespuestas($respuestas);
+        
+        
+        $data['message_type']=1;
+        $data['message']="Encuesta añadida satisfactoriamente";
+
+        $this->load->view('layouts/header',$data);
+        $this->load->view('clientes/encuesta_view');
+        $this->load->view('layouts/footer');
+    }
+    
 }
 ?>

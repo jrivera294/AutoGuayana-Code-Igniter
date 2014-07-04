@@ -249,9 +249,9 @@ GROUP BY e.id,e.cedula,tf.nro_factura,f.fecha_emision,f.id_vehiculo,v.modelo,f.p
 
 -- Creación de grupos de usuarios
 CREATE ROLE superusuario SUPERUSER;
-CREATE ROLE gerente INSERT SELECT;
-CREATE ROLE administrador SELECT;
-CREATE ROLE vendedor SELECT;
+CREATE ROLE gerente;
+CREATE ROLE administrador;
+CREATE ROLE vendedor;
 
 GRANT INSERT ON TABLE vehiculo,detalle,factura TO GROUP administrador;
 GRANT INSERT ON TABLE vehiculo,detalle,factura,cliente TO GROUP vendedor;

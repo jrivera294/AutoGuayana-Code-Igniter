@@ -19,6 +19,7 @@
                   <th>Vehiculo</th>
                   <th>Total(incl. articulos)</th>
                   <th>Ver factura</th>
+                  <th>Ver encuesta</th>
                 </tr>
               </thead>
               <tbody>
@@ -32,6 +33,7 @@
                   <td>Serial: <?=$loop->vehiculo->id?><br>Modelo: <?=$loop->vehiculo->modelo?></td>
                   <td><?=$loop->total?></td>
                   <td><a href="<?= base_url("index.php/facturar/factura_pdf/$loop->nro_factura");?>" class="btn btn-success btn-block btn-sm">Ver</a></td>
+                  <td><a href="<?= base_url("index.php/clientes/encuesta/$loop->nro_factura");?>" class="btn btn-success btn-block btn-sm">Ver</a></td>
                 </tr>
                 <?php
                         }
