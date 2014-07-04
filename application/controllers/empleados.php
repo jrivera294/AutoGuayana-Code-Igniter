@@ -449,14 +449,20 @@ class Empleados extends CI_Controller{
         $top5 = $this->Empleados_model->getTop5();
         $top5_porAnios = array();
         $i=0;
-        foreach ($top5 as $emp){
+       /* foreach ($top5 as $emp){
             echo "cedula: ".$emp->cedula."<br>";
             echo "nombre: ".$emp->nombre."<br>";
             echo "total: ".$emp->total."<br>";
             echo "<br><br>";
-        }
-        foreach($top5 as $emp)
+        }*/
+
+        foreach($top5 as $emp){
                 $cedulas[$i++] = $emp->cedula;
+        }
+        for (; $i < 5 ; $i++){
+            $cedulas[$i]=null;
+        }
+
 
 
 
@@ -468,13 +474,14 @@ class Empleados extends CI_Controller{
         $anioActual =  date("Y");
         $arrayAux = array();
         $arrayFinal = array();
+        $cedulas = array_unique($cedulas);
        for ($i = 0 ; $i < 5 ; $i++){
             foreach ($top5_porAnios as $top5a){
                 if ($cedulas[$i] == $top5a->cedula)
                     $arrayFinal["$top5a->anio"] = $top5a->total;
             }
 
-                foreach ($top5 as $emp){
+            foreach ($top5 as $emp){
                     if ($emp->cedula== $cedulas[$i]){
                         $arrayFinal["cedula"] = $emp->cedula;
                         $arrayFinal["nombre"] = $emp->nombre;
@@ -483,13 +490,21 @@ class Empleados extends CI_Controller{
                         $arrayFinal["total"] = $emp->total;
 
                     }
+
             }
-           $arrayAux[$i] = $arrayFinal;
+           for ($j = 0 ; $j < count($arrayAux) ; $j++){
+               if ($arrayAux[$j]["cedula"] == $arrayFinal["cedula"])
+                   $flag=1;
+           }
+           if ($flag == 0)
+               $arrayAux[$i] = $arrayFinal;
            for ($anio_actual =date("Y") ; $anio_actual >= date("Y")-3 ; $anio_actual-- ){
                 $arrayFinal["$anio_actual"] ="";
            }
+           $flag=0;
        }
       foreach($arrayAux as $array){
+
             echo "<br>";
             echo "cedula: ".$array["cedula"]."<br>";
             echo "nombre: ".$array["nombre"]."<br>";
@@ -510,6 +525,7 @@ class Empleados extends CI_Controller{
         }*/
 
 
+        //$data['top5'] = array_unique($arrayAux);
         $data['top5'] = $arrayAux;
         $data['anios'] = $ventasAnios;
         $html=$this->load->view('pdf/top5_view_pdf.php',$data, true);

@@ -136,7 +136,7 @@ ORDER  BY  total DESC  LIMIT 5;");
              FROM empleado as e ,factura as f,totalfactura_view as tf
              WHERE ( e.id = f.id_empleado AND
                    (extract( year from current_date) - (3) <= extract( year from f.fecha_emision)) AND
-                   (e.cedula IN (?,?,?) ))
+                   (e.cedula IN (?,?,?,?,?) ))
                    AND tf.nro_factura=f.nro_factura
             GROUP BY e.cedula,f.fecha_emision",$cedulas);
             return $query->result();

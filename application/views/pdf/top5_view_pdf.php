@@ -28,17 +28,19 @@
         ?>
     <body>
         <?php
-          foreach($top5 as $array){
-            echo "<br>";
-            echo "cedula: ".$array["cedula"]."<br>";
-            echo "nombre: ".$array["nombre"]."<br>";
-            echo "total".$array["total"]."<br>";
-            echo "2014 ".$array["2014"]."<br>";
-            echo "2013 ".$array["2013"]."<br>";
-            echo "2012 ".$array["2012"]."<br>";
-            echo "2011 ".$array["2011"]."<br>";
-             echo "<br>";
-        }
+        /*  foreach($top5 as $array){
+
+                echo "<br>";
+                echo "cedula: ".$array["cedula"]."<br>";
+                echo "nombre: ".$array["nombre"]."<br>";
+                echo "total".$array["total"]."<br>";
+                echo "2014 ".$array["2014"]."<br>";
+                echo "2013 ".$array["2013"]."<br>";
+                echo "2012 ".$array["2012"]."<br>";
+                echo "2011 ".$array["2011"]."<br>";
+                 echo "<br>";
+
+        }*/
 
         /*
        $ventasA =array();

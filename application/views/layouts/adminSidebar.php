@@ -41,7 +41,7 @@
                      <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                     <li ><a href="#">Ventas</a></li>
+                     <li ><a href="<?= base_url("index.php/ventas");?>">Ventas</a></li>
                      <li ><a href="<?= base_url("index.php/empleados/top5");?>">Top 5 vendedores</a></li>
                      <li ><a href="<?= base_url("index.php/empleados/desempenio");?>">Desempeño general</a></li>
                 </ul>
