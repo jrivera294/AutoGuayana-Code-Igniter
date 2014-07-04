@@ -59,6 +59,15 @@
             $query = $this->db->query("SELECT opcion FROM opciones_vehiculo WHERE id_vehiculo = ?",$serial_vehiculo);
             return $query->result();
         }
+       function updateVehiculo($vehiculo){
+
+           //if ($vehiculo["fecha_entrega"]!="")
+            $query = $this->db->query("UPDATE vehiculo
+                    SET precio=?,modelo=?,fecha_fab=?,placa=?,lugar_fab=?,nro_cil=?,nro_puertas=?,peso=?,
+                    capacidad=?,fecha_entrega=?,kilometraje=?,monto_garantia_ext=?
+                    WHERE id=?",$vehiculo);
+
+       }
 
    }
 ?>

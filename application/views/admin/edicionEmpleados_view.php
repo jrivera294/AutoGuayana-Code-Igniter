@@ -171,7 +171,7 @@
                      <input type="submit" value="Actualizar" class="btn btn-primary btn-block btn-lg" tabindex="7">
                  </div>
                  <div class="col-xs-12 col-md-4">
-                     <a href="<?= base_url("index.php/empleados/cargarContactosEmpleado");?>" class="btn btn-success btn-block btn-lg">Editar Contacto</a>
+
                  </div>
                  <div class="col-xs-12 col-md-4">
                      <a href="<?= base_url();?>index.php/empleados/cargarGestionEmpleados"  class="btn btn-warning btn-block btn-lg">Cancelar</a>

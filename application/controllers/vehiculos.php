@@ -65,8 +65,10 @@ class Vehiculos extends CI_Controller{
                  //$result_opcion = $this->Vehiculos_model->addOpcionVehiculo($_POST['opcion'.$i],$vehiculo['serial']);
                 $opciones[$i] = $this->input->post('opcion'.$i);
         }
+        for ($i = 0 ; $i < count($opciones) ; $i++)
+            echo "op".$i." ".$opciones[$i]."<br>";
 
-        $result = $this->Vehiculos_model->addVehiculo($vehiculo,$colores,opciones);
+        $result = $this->Vehiculos_model->addVehiculo($vehiculo,$colores,$opciones);
 
 
         //preparar info del vehiculo y desplegar index agaiinnn
@@ -87,6 +89,27 @@ class Vehiculos extends CI_Controller{
         $this->load->view('layouts/footer');
     }
 
+    public function guardarVehiculo(){
+
+        $vehiculo = array(
+            'precio' => $this->input->post('precio'),
+            'modelo' => $this->input->post('modelo'),
+            'fecha_fab' => $this->input->post('fecha_fab'),
+            'placa' => $this->input->post('placa'),
+            'lugar_fab' => $this->input->post('lugar_fab'),
+            'nro_cil' => $this->input->post('nro_cil'),
+            'nro_puertas' => $this->input->post('nro_puertas'),
+            'peso' => $this->input->post('peso'),
+            'capacidad' => $this->input->post('capacidad'),
+            'fecha_entrega' => $this->input->post('fecha_entrega')==""?null:$this->input->post('fecha_entrega'),
+            'kilometraje' => $this->input->post('kms'),
+            'monto_garantia_ext' => $this->input->post('monto_garantia'),
+            'id' => $this->input->post('serial'),
+        );
+        $this->Vehiculos_model->updateVehiculo($vehiculo);
+
+        $this->cargarGestionVehiculos();
+    }
     public function cargarGestionVehiculos(){
         $query = $this->Vehiculos_model->getVehiculos();
         $colores = array();
