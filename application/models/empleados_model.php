@@ -119,7 +119,7 @@
 
        public function getTop5(){
             $query = $this->db->query(
-    "SELECT  e.cedula, e.nombre,e.apellido1,e.apellido2,SUM (CAST((tf.total) as double precision) )as total
+    "SELECT  e.cedula, e.nombre,e.apellido1,e.apellido2,SUM (CAST((tf.total +f.comision) as double precision) )as total
 FROM empleado as e, factura as f,totalfactura_view as tf
 WHERE (e.id = f.id_empleado  AND tf.nro_factura=f.nro_factura AND
 ( extract( year from current_date) - (3) <= extract( year from f.fecha_emision)) )
@@ -132,7 +132,7 @@ ORDER  BY  total DESC  LIMIT 5;");
            for ($i = 0 ; $i < 5 ; $i++)
 
             $query = $this->db->query(
-            "SELECT e.cedula, SUM (tf.total + f.comision)as total, extract( year from f.fecha_emision) as anio
+            "SELECT e.cedula, SUM (tf.total +f.comision)as total, extract( year from f.fecha_emision) as anio
              FROM empleado as e ,factura as f,totalfactura_view as tf
              WHERE ( e.id = f.id_empleado AND
                    (extract( year from current_date) - (3) <= extract( year from f.fecha_emision)) AND
@@ -144,7 +144,7 @@ ORDER  BY  total DESC  LIMIT 5;");
 
        public function getVentasPorAnio(){
        $query = $this->db->query (
-           "SELECT SUM(cast(tf.total as double precision)) as total,extract( year from f.fecha_emision) as anio
+           "SELECT SUM(cast((tf.total+f.comision) as double precision)) as total,extract( year from f.fecha_emision) as anio
            FROM factura as f,totalfactura_view as tf
            WHERE  ( extract( year from current_date) - (3) <= extract( year from f.fecha_emision))
            GROUP BY anio ORDER BY anio ASC");
