@@ -594,8 +594,22 @@ function deleteRow(td){
                               </tfoot>
                             </table>
                           </div>
-                          <div class="col-xs-6 col-md-6"> </div>                   
-<div class="col-xs-12 col-md-6"><input type="submit" value="Facturar" class="btn btn-success btn-block btn-lg" tabindex="12"></div>
+                          <div class="col-xs-6 col-md-6"> </div> 
+            <div class="col-xs-12 col-md-12">
+                <div class="col-xs-6 col-md-6">
+                        <h4>Id del empleado</h4>
+                        <div class="form-group">
+                        <input type="text" name="id_empleado" id="id_empleado" value="1" class="form-control input-sm" placeholder="" tabindex="1">
+                        </div>  
+                        </div>                                            
+                <div class="col-xs-6 col-md-6">
+                <br><br>
+                <input type="submit" value="Facturar" class="btn btn-success btn-block btn-lg" tabindex="12">
+
+                </div>
+            </div>         
+               
+</div>
                                                     
 <input type="hidden" name="nro_articulos" id="nro_articulos" class="form-control">
 <input type="hidden" name="total_post" id="total_post" class="form-control">

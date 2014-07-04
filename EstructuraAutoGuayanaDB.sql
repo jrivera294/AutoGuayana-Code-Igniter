@@ -190,10 +190,14 @@ CREATE TABLE detalle(
 );
 CREATE TABLE preguntas(
 	nro_preg integer NOT NULL,
-	pregunta varchar(40) NOT NULL,
+	pregunta varchar(200) NOT NULL,
 
 	PRIMARY KEY(nro_preg)
 );
+
+INSERT INTO preguntas (nro_preg,pregunta) VALUES (1,'Satisfacción con el servicio prestado');
+INSERT INTO preguntas (nro_preg,pregunta) VALUES (2,'Satisfacción con el vehiculo adquirido');
+INSERT INTO preguntas (nro_preg,pregunta) VALUES (3,'Satisfacción con los artículos adquiridos');
 
 CREATE TABLE respuestas (
 	nro_factura serial NOT NULL REFERENCES factura(nro_factura) ON UPDATE CASCADE ON DELETE RESTRICT,

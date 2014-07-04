@@ -36,7 +36,7 @@ class Facturar extends CI_Controller{
             'precio_venta_ve' => $precio_venta_ve,
             'rif_aseguradora' => $this->input->post('rif_aseguradora'),
             'ci_cliente' => $this->input->post('cedula_cliente'),
-            //'id_empleado' => $this->input->post('ingresos'),
+            'id_empleado' => $this->input->post('id_empleado'),
             'id_empleado' => 1,
             'rif_banco' => $this->input->post('rif_banco'),
             'comision' => $comision,
