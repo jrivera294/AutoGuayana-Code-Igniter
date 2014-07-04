@@ -50,18 +50,23 @@ class Vehiculos extends CI_Controller{
             'kms' => $this->input->post('kms'),
             'monto_garantia' => $this->input->post('monto_garantia')
         );
+        $opciones = array();
+         $colores = array();
 
-        $result = $this->Vehiculos_model->addVehiculo($vehiculo);
         for ($i=0 ; $i < count($_POST) - 10 ; $i++ ){
             if (!empty($_POST['color'.$i]))
                 //echo "color".$i.": ".$_POST['color'.$i];
-                $result_color = $this->Vehiculos_model->addColorVehiculo($_POST['color'.$i],$vehiculo['serial']);
+               // $result_color = $this->Vehiculos_model->addColorVehiculo($_POST['color'.$i],$vehiculo['serial']);
+                $colores[$i] = $this->input->post('color'.$i);
         }
         for ($i=0 ; $i < count($_POST) - 10 ; $i++ ){
             if (!empty($_POST['opcion'.$i]))
                // echo "opcion".$i.": ".$_POST['opcion'.$i];
-                 $result_opcion = $this->Vehiculos_model->addOpcionVehiculo($_POST['opcion'.$i],$vehiculo['serial']);
+                 //$result_opcion = $this->Vehiculos_model->addOpcionVehiculo($_POST['opcion'.$i],$vehiculo['serial']);
+                $opciones[$i] = $this->input->post('opcion'.$i);
         }
+
+        $result = $this->Vehiculos_model->addVehiculo($vehiculo,$colores,opciones);
 
 
         //preparar info del vehiculo y desplegar index agaiinnn

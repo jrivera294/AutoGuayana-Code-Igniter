@@ -36,11 +36,12 @@
         function addEmpleado($empleado,$tlf,$correos){
 
          //   $this->db->trans_start();//INICIA LA TRANSACCION
+            $this->db->trans_start();
             $queryE = $this->db->query("INSERT INTO empleado
             (password,cedula,nombre,apellido1,apellido2,sexo,dir,fecha_nac,fecha_contr,cod_cargo,cod_dpto)
             VALUES (?,?,?,?,?,?,?,?,CURRENT_DATE,?,?)",$empleado); //inserto empleado
 
-            $this->db->trans_start();
+
            /* $query = $this->db->query("SELECT id FROM empleado WHERE cedula=?", $empleado['cedula']);//busco id
             foreach($query->result() as $emp)
                 $idEmpleado = $emp->id;*/
