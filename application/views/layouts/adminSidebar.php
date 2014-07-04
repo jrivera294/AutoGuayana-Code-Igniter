@@ -31,8 +31,8 @@
                      <li ><a href="<?= base_url("index.php/empleados/cargarGestionFichas");?>">Gestionar fichas</a></li>
                     <li><a href="<?= base_url("index.php/departamentos");?>">Departamentos</a></li>
                     <li><a href="<?= base_url("index.php/cargos");?>">Cargos</a></li>
-                    <li><a href="<?= base_url("index.php/Bancos");?>">Bancos</a></li>
-                    <li><a href="<?= base_url("index.php/Aseguradoras");?>">Aseguradoras</a></li>
+                    <li><a href="<?= base_url("index.php/banco");?>">Bancos</a></li>
+                    <li><a href="<?= base_url("index.php/seguro");?>">Aseguradoras</a></li>
                 </ul>
             </li>
               <li class="dropdown-submenu">
