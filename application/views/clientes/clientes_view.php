@@ -79,7 +79,7 @@
                   ?></td>
                   <td>31/05/2014</td>
                   <td>
-                      <button type="button" class="btn btn-xs btn-primary">Ver</button>
+                     <a href="<?= base_url("index.php/clientes/facturasCliente/$loop->cedula");?>" class="btn btn-xs btn-primary">Ver</a>
                   </td>
                 </tr>
                 <?php
