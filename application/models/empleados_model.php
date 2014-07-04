@@ -9,6 +9,11 @@
             return $query->result();
         }
 
+       public function getEmpleadoByIdDep($id){
+            $query = $this->db->query("SELECT * FROM empleado WHERE id=?", $id);
+            foreach ($query->result() as $emp)
+                return $emp;
+       }
         public function getIdEmpleado($cedula){
             $query = $this->db->query("SELECT id FROM empleado WHERE cedula=?", $cedula);
             return $query->result();
@@ -31,13 +36,17 @@
         function addEmpleado($empleado,$tlf,$correos){
 
          //   $this->db->trans_start();//INICIA LA TRANSACCION
+            $this->db->trans_start();
             $queryE = $this->db->query("INSERT INTO empleado
             (password,cedula,nombre,apellido1,apellido2,sexo,dir,fecha_nac,fecha_contr,cod_cargo,cod_dpto)
             VALUES (?,?,?,?,?,?,?,?,CURRENT_DATE,?,?)",$empleado); //inserto empleado
 
-            $query = $this->db->query("SELECT id FROM empleado WHERE cedula=?", $empleado['cedula']);//busco id
+
+           /* $query = $this->db->query("SELECT id FROM empleado WHERE cedula=?", $empleado['cedula']);//busco id
             foreach($query->result() as $emp)
-                $idEmpleado = $emp->id;
+                $idEmpleado = $emp->id;*/
+
+             $idEmpleado = $this->db->query("SELECT currval(pg_get_serial_sequence('empleado', 'id'))",array())->result()[0]->currval;
 
             for ($i = 0 ; $i < count($tlf) ; $i++){//inserto tlf
                 $info = array($idEmpleado,$tlf[$i]);
@@ -48,6 +57,7 @@
                 $info = array($idEmpleado,$correos[$i]);
                 $queryC = $this->db->query("INSERT INTO correos_empleados VALUES (?,?)",$info);
             }
+            $this->db->trans_complete();
             return $queryE;
 
             //$this->db->trans_complete();//TERMINA LA TRANSACCION
@@ -109,30 +119,33 @@
 
        public function getTop5(){
             $query = $this->db->query(
-    "SELECT DISTINCT e.cedula, e.nombre,e.apellido1,e.apellido2,SUM (f.precio_venta_ve + f.comision)as total
-     FROM empleado as e, factura as f
-     WHERE (e.id = f.id_empleado AND
-     (extract( year from current_date) - (3) <= extract( year from f.fecha_emision)))
-     GROUP BY e.cedula,e.nombre,apellido1,apellido2 ORDER  BY  total DESC  LIMIT 5;");
+    "SELECT  e.cedula, e.nombre,e.apellido1,e.apellido2,SUM (CAST((tf.total) as double precision) )as total
+FROM empleado as e, factura as f,totalfactura_view as tf
+WHERE (e.id = f.id_empleado  AND tf.nro_factura=f.nro_factura AND
+( extract( year from current_date) - (3) <= extract( year from f.fecha_emision)) )
+GROUP BY e.cedula,e.nombre,apellido1,apellido2
+ORDER  BY  total DESC  LIMIT 5;");
            return $query->result();
        }
 
        public function getTop5porAnios($cedulas){
+           for ($i = 0 ; $i < 5 ; $i++)
+
             $query = $this->db->query(
-            "SELECT e.cedula, SUM (f.precio_venta_ve + f.comision)as total, extract( year from f.fecha_emision) as anio
-             FROM empleado as e ,factura as f
+            "SELECT e.cedula, SUM (tf.total + f.comision)as total, extract( year from f.fecha_emision) as anio
+             FROM empleado as e ,factura as f,totalfactura_view as tf
              WHERE ( e.id = f.id_empleado AND
                    (extract( year from current_date) - (3) <= extract( year from f.fecha_emision)) AND
-                   (e.cedula = 1 OR e.cedula = 1007 OR e.cedula = 1004 OR e.cedula = 1001 OR e.cedula = 1003 ))
-             GROUP BY e.cedula,f.fecha_emision",$cedulas);
-
+                   (e.cedula IN (?,?,?) ))
+                   AND tf.nro_factura=f.nro_factura
+            GROUP BY e.cedula,f.fecha_emision",$cedulas);
             return $query->result();
        }
 
        public function getVentasPorAnio(){
        $query = $this->db->query (
-           "SELECT SUM(cast(f.precio_venta_ve as double precision)) as total,extract( year from f.fecha_emision) as anio
-           FROM factura as f
+           "SELECT SUM(cast(tf.total as double precision)) as total,extract( year from f.fecha_emision) as anio
+           FROM factura as f,totalfactura_view as tf
            WHERE  ( extract( year from current_date) - (3) <= extract( year from f.fecha_emision))
            GROUP BY anio ORDER BY anio ASC");
 

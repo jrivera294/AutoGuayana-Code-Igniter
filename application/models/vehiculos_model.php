@@ -8,14 +8,24 @@
 
        //VEHICULOSS OPTIONS
 
-        function addVehiculo($vehiculo){
+        function addVehiculo($vehiculo,$colores,$opciones){
             //not ready for implementation
             foreach ($vehiculo as $cell=>$value){
                 if($value==''){
                     $vehiculo[$cell]=null;
                 }
             }
+            $this->db->trans_start();
             $query = $this->db->query("INSERT INTO vehiculo VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",$vehiculo);
+            for ($i= 0 ; $i < count($colores) ; $i++){
+                $info = array($vehiculo['serial'],$colores[$i]);
+                $query = $this->db->query("INSERT INTO color_vehiculo VALUES (?,?)",$info);
+            }
+            for ($i= 0 ; $i < count($opciones) ; $i++){
+                $info = array($vehiculo['serial'],$opciones[$i]);
+                $query = $this->db->query("INSERT INTO opciones_vehiculo VALUES (?,?)",$info);
+            }
+            $this->db->trans_complete();
             return $query;
         }
 
