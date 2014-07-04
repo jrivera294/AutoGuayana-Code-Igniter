@@ -52,6 +52,18 @@
             return $id_factura;
         }
        
+       function getFacturaByFecha($fecha_ini,$fecha_fin){
+           $queryFactura = $this->db->query("
+           SELECT factura.nro_factura,factura.fecha_emision,vehiculo.id AS id_vehiculo,vehiculo.modelo,vehiculo.fecha_entrega,vehiculo.kilometraje,vehiculo.monto_garantia_ext,empleado.nombre,empleado.apellido1,empleado.apellido2,empleado.id AS id_empleado,empleado.cedula
+           FROM factura,vehiculo,empleado
+           WHERE (factura.fecha_emision>=? AND fecha_emision<=? AND
+           factura.id_vehiculo=vehiculo.id AND
+           factura.id_empleado=empleado.id);
+           ",array($fecha_ini,$fecha_fin));
+           return $queryFactura->result();
+       }
+       
+
        
    }
 ?>
